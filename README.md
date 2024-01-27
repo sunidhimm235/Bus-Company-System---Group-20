@@ -2,6 +2,20 @@
 
 Repository contains the code for bus company system website, like Greyhound or Megabus, using the MERN stack (MongoDB, Express, React, Node.js). Features includes user account creation, login system, and a bus reservation system.
 
+## Project Description
+
+Web application for a bus service company, similar to Greyhound or Megabus. This application will simulate real-life scenarios of bus travel and management.
+
+### Key Features
+
+- **Multiple Buses and Cities**: The application will handle multiple buses departing from various cities.
+- **Ticketing System**: Passengers can obtain tickets for travel from one location to another, such as from location A to location B. The bus will stop at specific locations (E, D, C, B, A) at designated times.
+- **Bus Capacities**: Each bus has a maximum capacity of 40 seats. The application will need to manage these capacities effectively.
+- **Seat Reservation**: A reservation system will allow a company worker to reserve a specific seat on a bus for a passenger traveling to a certain destination.
+- **Web Application Features**: If the project is a web application:
+  - **Login System**: There will be a login system for the company's workers.
+  - **Passenger Account Creation**: Passengers can create accounts and make reservations through the system.
+
 ## Project Structure
 
 ### Backend (Node.js/Express)
