@@ -26,15 +26,13 @@ const userSchema = new Schema({
   }
 });
 
-// Apply the autoIncrement plugin to userSchema.
 userSchema.plugin(autoIncrement, {
-  model: 'User', // The model name
-  field: 'userId', // The field to autoincrement
-  startAt: 1, // The number the count should start at
-  incrementBy: 1 // The number by which to increment the count each time
+  model: 'User', 
+  field: 'userId', 
+  startAt: 1, 
+  incrementBy: 1 
 });
 
-// Pre-save hook to hash the password before saving
 userSchema.pre('save', async function(next) {
   if (this.isModified('password')) {
     const bcrypt = require('bcryptjs');
@@ -43,7 +41,6 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
-// Method to compare passwords
 userSchema.methods.comparePassword = function(candidatePassword) {
   const bcrypt = require('bcryptjs');
   return bcrypt.compare(candidatePassword, this.password);
