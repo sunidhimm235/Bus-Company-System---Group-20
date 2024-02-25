@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
-
-const connection = mongoose.createConnection(process.env.DATABASE_URI);
+const Schema = mongoose.Schema;
 
 const seatsNumber = function(num) {
     return num.length === 40;
 }
 
-const busSchema = new mongoose.Schema({
+const busSchema = new Schema({
     busNumber: {type: Number,
         required: true,
         unique: true
@@ -14,7 +13,22 @@ const busSchema = new mongoose.Schema({
     availability: {type: Boolean,
         required: true,
         default: true
-    }
+    },
+    seats: {type: [[Number]] ,
+        required: true,
+        validate: [seatsNumber, 'Number of seats must be 40']
+    },
+    routes: [{startPoint: {type: String,
+            required: true},
+        startTime: {type: Date,
+            required: true},
+        endPoint: {type: String,
+            required: true},
+        endTime: {type: Date,
+            required: true}
+    }]
 })
 
-module.exports = mongoose.model('Bus', busSchema);
+const Bus = mongoose.model('Bus', busSchema);
+
+module.exports = Bus;
