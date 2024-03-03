@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Link } from 'react-router-dom';
 
 // Imported Icons
 import {SiConsul} from 'react-icons/si'
@@ -48,8 +49,10 @@ const Navbar = () =>
                     <li className='flex'><BsPhoneVibrate className='icon'/> +234 123 456 7890</li>
                 </div>
                 <div className='atb flex'>
-                    <span> Sign In</span>
-                    <span> Sign Up</span>
+                    {/* <span> Sign In</span>
+                    <span> Sign Up</span> */}
+                    <Link to="/sign-in"><span>Sign In</span></Link>
+                    <Link to="/sign-up"><span>Sign Up</span></Link>
                 </div>
             </div>
 
