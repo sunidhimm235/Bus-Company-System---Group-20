@@ -33,6 +33,11 @@ import Subscribe from './Components/Subscribe/Subcribe';
 import SignInPage from './Components/SignInPage/SignInPage'; // Adjust path as necessary
 import SignUpPage from './Components/SignUpPage/SignUpPage'; // Adjust path as necessary
 import Admin from './Components/Admin/Admin';
+import BusSchedule from './Components/BusSchedule/BusSchedule';
+import TravelInformation from './Components/TravelInformation/TravelInformation';
+import DestinationPage from './Components/DestinationsPage/DestinationPage';
+import FAQPage from './Components/FAQPage/FAQPage';
+import ContactPage from './Components/ContactPage/ContactPage';
 import './index.css';
 
 const App = () => {
@@ -53,6 +58,16 @@ const App = () => {
           <Route path="/sign-in" element={<SignInPage />} />
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/bus-schedule" element={
+              <>
+                <Navbar />
+                <BusSchedule />
+              </>
+          } />
+          <Route path='/travel-information' element={<TravelInformation />} />
+          <Route path='/destination' element={<DestinationPage />} />
+          <Route path='/faq' element={<FAQPage />} />
+          <Route path='/contact' element={<ContactPage />} />
           {/* Add more routes here if you have other pages */}
         </Routes>
         {/* Components that should be available in all routes can stay outside Routes */}

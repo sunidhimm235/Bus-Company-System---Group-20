@@ -12,7 +12,7 @@ const Home = () =>
 			</div> 
 			<div className="homeImages flex">
 				<div className="HomePhoto">
-					<img src={citylights} className="photo1" alt="Image" />
+					<img src={citylights} className="photo1" alt="bus-scenary" />
 				</div>
 			</div>
 		</div>
