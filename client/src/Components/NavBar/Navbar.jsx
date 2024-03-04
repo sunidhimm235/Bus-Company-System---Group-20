@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 // Imported Icons
 import {SiConsul} from 'react-icons/si'
 import {BsPhoneVibrate} from 'react-icons/bs'
-import {AiOutlineGlobal} from 'react-icons/ai'
 import {CgMenuGridO} from 'react-icons/cg'
 
 // Imported Images
@@ -39,7 +38,6 @@ const Navbar = () =>
     }
     window.addEventListener('scroll', addBg)
 
-
     return (
         <div className='navBar flex'>
             <div className="navBarOne flex">
@@ -58,25 +56,21 @@ const Navbar = () =>
 
             <div className={transparent}>
                 <div className="logoDiv">
-                    <img src={Logo} className='Logo' />
+                    <img src={Logo} alt="logo" className='Logo' />
                 </div>
 
                 <div className={active}>
                     <ul className="menu flex">
-                        <li onClick={removeNavBar} className="listItem">Home</li>
-                        <li onClick={removeNavBar} className="listItem">About</li>
-                        <li onClick={removeNavBar} className="listItem">FAQ</li>
-                        <li onClick={removeNavBar} className="listItem">Destinations</li>
+                        <Link to="/"><li className="listItem">Home</li></Link>
+                        <Link to="/travel-information"><li className="listItem">Travel Info</li></Link>
+                        <Link to="/faq"><li className="listItem">FAQ</li></Link>
+                        <Link to="/destination"><li className="listItem">Destinations</li></Link>
                     </ul>
                     
-                    <button onClick={removeNavBar} className='btn btnOne flex'>
-                        Contact
-                    </button>
+                    <Link to="/contact"><button className='btn btnOne flex'>Contact</button></Link>
                 </div>
 
-                <button className='btnTwo btn'>
-                    Contact
-                </button>
+                <Link to="/contact"><button className='btnTwo btn'>Contact</button></Link>
 
                 <div onClick = {
                     active === 'navBarMenu' ? showNavBar : removeNavBar

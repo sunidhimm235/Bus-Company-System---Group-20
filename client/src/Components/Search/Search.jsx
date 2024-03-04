@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 
 // Impported icons
 import {HiOutlineLocationMarker} from 'react-icons/hi'
@@ -8,9 +9,20 @@ import {RxCalendar} from 'react-icons/rx'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 
+// This part should be completed by Sunidhi & Lucas
+
+// Things to do on this component are:
+// - Create a pop up for the search bar with the destinations
+// - Create a pop up for the date picker
+// - The pop up should be able to close when clicked outside of it
+// - The pop up search should be able to filter the destinations when typing
+// - Upon clicking on the search button, it should take you to the bus schedule page
+// - ..continued^^ It should be able to pass the data inputted to the bus schedule page
+
 const Search = () => {
 
-    useEffect(()=>{
+    useEffect(()=>
+    {
         Aos.init({duration: 2000})
     },
     [])
@@ -42,7 +54,7 @@ const Search = () => {
                         className={`singleBtn ${activeButton === 'Fast Class' ? 'active' : ''}`} 
                         onClick={() => handleButtonClick('Fast Class')}
                     >
-                        <span>Fast Class</span>
+                        <span>First Class</span>
                     </div>
                 </div>
 
@@ -53,7 +65,7 @@ const Search = () => {
                             </div>
                             <div className="texts">
                                 <h4>Depart</h4>
-                                <input type="text" placeholder='Where do you leave from?'/>
+                                <input type="text" placeholder='Leave from?'/>
                             </div>
                         </div>
 
@@ -63,7 +75,7 @@ const Search = () => {
                             </div>
                             <div className="texts">
                                 <h4>Arrive</h4>
-                                <input type="text" placeholder='Where do you want to go?'/>
+                                <input type="text" placeholder='Go to?'/>
                             </div>
                         </div>
 
@@ -73,11 +85,11 @@ const Search = () => {
                             </div>
                             <div className="texts">
                                 <h4>Date</h4>
-                                <input type="text" placeholder='Add date'/>
+                                <input type="text" placeholder='MM/DD/YYYY'/>
                             </div>
                         </div>
 
-                        <button className='btn btnBlock flex'>Search Flight</button>
+                        <Link to="/bus-schedule"><button className='btn btnBlock flex'>Search</button></Link>
                 </div>
             </div>
         </div>

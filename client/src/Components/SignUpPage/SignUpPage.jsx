@@ -1,4 +1,20 @@
 import React, { useState } from 'react';
+import './SignUpPage.css';
+
+// This page should be completed by Adam
+
+// This page should have the following:
+// - A form to sign up and it should have:
+//      1. four input fields: name, email, password, and confirm password
+//      2. a submit button
+//      3. a link to the sign-in page if the user already has an account
+//      4. a link to the contact page if the user is having trouble signing up
+//      5. be able to validate the user's input
+//      6. be able to create a new user account in the database
+//      7. be able to redirect the user to the user dashboard after successful sign-up if the user is signing from the user sign up link
+//      8. or be able to direct back to the ticket booking page if the user is signing from the ticket booking page
+
+// Styling for this page should be on the SignUpPage.css file
 
 const SignUpPage = () => {
   const [name, setName] = useState('');

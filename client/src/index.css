@@ -698,7 +698,7 @@ h2
 	.search .sectionContainer .searchInputs
 	{
 		display: grid;
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(1, 1fr);
 	}
 
 	.subscribe .sectionContainer
@@ -752,7 +752,7 @@ h2
 
 	.search .sectionContainer .searchInputs
 	{
-		grid-template-columns: repeat(2, 1fr);
+		grid-template-columns: repeat(1, 1fr);
 	}
 
 	.info .infoContainer .titleDiv
@@ -826,7 +826,7 @@ h2
 		top: -8%;
 	}
 
-	.search .sectionContainer .btns
+	.search .sectionContainer .btn
 	{
 		border-radius: 3rem;
 		flex-direction: row;
@@ -834,7 +834,7 @@ h2
 
 	.search .sectionContainer .searchInputs
 	{
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(1, 1fr);
 	}
 
 	.footer .sectionContainer
@@ -928,7 +928,7 @@ h2
 
 	.search .sectionContainer .searchInputs
 	{
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 	}
 
 	.search .sectionContainer .searchInputs .singleInput .texts input
@@ -977,7 +977,7 @@ h2
 
 	.search .sectionContainer .searchInputs
 	{
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(4, 1fr);
 	}
 
 	.subscribe .sectionContainer
