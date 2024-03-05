@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState, useRef, useMemo } from 'react'
+import { Link } from 'react-router-dom'
+import './Search.css'
 
 // Impported icons
 import {HiOutlineLocationMarker} from 'react-icons/hi'
@@ -28,7 +29,70 @@ const Search = () => {
     [])
 
     const [activeButton, setActiveButton] = useState('Business Class');
+    const [showPopup, setShowPopup] = useState(false);
+    // const [showDatePopup, setShowDatePopup] = useState(false);
+    const [filter, setFilter] = useState([]);
+    const [search, setSearch] = useState('');
+    const popupRef = useRef();
 
+    const cities = useMemo(() => [
+        'New York',
+        'Orlando',
+        'Los Angeles',
+        'San Francisco',
+        'Las Vegas',
+        'Miami',
+        'Chicago',
+        'Seattle',
+        'Boston',
+        'Washington D.C.',
+        'New Orleans',
+        'Denver',
+        'San Diego',
+        'Houston',
+        'Nashville',
+        'Atlanta',
+        'Philadelphia',
+        'Portland',
+        'Austin',
+        'Dallas',
+        'Phoenix',
+        'San Antonio',
+        'Minneapolis',
+        'St. Louis',
+        'Kansas City',
+        'Cleveland',
+        'Cincinnati'
+    ], []);
+
+    useEffect(() =>
+    {
+        const results = cities.filter(city =>
+        {
+            return city.toLowerCase().includes(search.toLowerCase());
+        });
+        setFilter(results);
+    }, [search, cities]);
+
+    // Close the pop-up when clicking outside of it
+    useEffect(() =>
+    {
+        function handleClickOutside(event)
+        {
+            if (popupRef.current && !popupRef.current.contains(event.target))
+            {
+                setShowPopup(false);
+            }
+        }
+        // Bind the event listener
+        document.addEventListener("mousedown", handleClickOutside);
+        return () =>
+        {
+            // Unbind the event listener on clean up
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [popupRef]);
+    
     const handleButtonClick = (buttonName) =>
     {
         setActiveButton(buttonName);
@@ -65,7 +129,28 @@ const Search = () => {
                             </div>
                             <div className="texts">
                                 <h4>Depart</h4>
-                                <input type="text" placeholder='Leave from?'/>
+                                <input 
+                                    type="text" 
+                                    placeholder='Leave from?'
+                                    value={search}
+                                    onChange={e => setSearch(e.target.value)}
+                                    onFocus={() => setShowPopup(true)}
+                                />
+                                {showPopup && (
+                                    <div ref={popupRef} className="popup">
+                                        {filter.map((destination, index) => (
+                                            <div 
+                                                key={index} 
+                                                onClick={() => {
+                                                    setSearch(destination);
+                                                    setShowPopup(false);
+                                                }}
+                                            >
+                                                {destination}
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
                             </div>
                         </div>
 
