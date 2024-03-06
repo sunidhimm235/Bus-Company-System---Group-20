@@ -1,1 +1,29 @@
 /* Styling for the Bus Schedule will go here */
+
+.bus-schedule
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.bus-schedule .bus-schedule-header
+{
+    font-size: 1.5rem;
+    margin-top: 10rem;
+}
+
+.bus-schedule .bus-schedule-header h1
+{
+    color: var(--blackColor);
+    margin-bottom: 1rem;
+}
+
+.bus-schedule .bus-schedule-header p
+{
+    color: var(--greyText);
+    margin-bottom: 1rem;
+}
+
+
