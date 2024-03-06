@@ -1,4 +1,5 @@
 import React from 'react'
+import { useLocation } from 'react-router-dom';
 import './BusSchedule.css'
 
 // This page should be completed by Sunidhi & Lucas
@@ -15,16 +16,24 @@ import './BusSchedule.css'
 //     5. the bus name, number, and driver
 //     6. the features of the bus and the amenities depending on the class
 
-// Styling for this page should be on the BusSchedule.css file
+const BusSchedule = () =>
+{
+	const location = useLocation();
 
-function BusSchedule() {
-  return (
-    <div>
-        <div>
-            <h1>Bus Schedule</h1>
-        </div>
-    </div>
-  )
+	// Access the passed state from the search component
+    const { from, to, date } = location.state || {};
+
+	return (
+		<div className='bus-schedule'>
+			<div className='bus-schedule-header'>
+				<h1>Bus Schedule</h1>
+				<p>Showing bus schedule from {from} to {to} on {date ? date.toLocaleDateString() : ''}</p>
+			</div>
+			<div className='bus-schedule-content'>
+				{/* Add your bus schedule content here */}
+			</div>
+		</div>
+	)
 }
 
 export default BusSchedule

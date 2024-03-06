@@ -331,7 +331,8 @@ h2
 .search .sectionContainer
 {
 	width: 100%;
-	padding: 1.5rem;
+	/* height: 300px; */
+	padding: 2rem;
 	border: 2px solid var(--greyBg);
 	border-radius: 16px;
 	row-gap: 2rem;

@@ -26,7 +26,7 @@ const Footer = () =>
 
 				<div data-aos="fade-up" data-aos-duration="2500" className="gridOne grid">
 					<div className="logoDiv">
-						<img src={Logo} className='Logo'/>
+						<img src={Logo} className='Logo' alt=""/>
 					</div>
 					<p>Hope you have a great experience with us.</p>
 					<div className="socialIcons flex">
