@@ -20,7 +20,7 @@ const SignUpPage = () => {
     }
 
     try {
-      await axios.post('/api/auth/register', { name, email, password });
+      await axios.post('http://localhost:4000/auth/register', { name, email, password });
       navigate('/user');
     } catch (error) {
       setErrorMessage(error.response.data.message || 'Error signing up');
