@@ -1,0 +1,144 @@
+.bus-sidebar
+{
+    flex: 0 0 20%; /* Adjust the width of the sidebar to 20% of the container */
+    background-color: #f4f4f4; /* Light grey background */
+    padding: 20px;
+    border-right: 2px solid #e0e0e0; /* A light border to the right */
+}
+  
+  .filter-section h2 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  .filter-section label {
+    display: block;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  
+  .filter-section input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .bus-list {
+    flex: 1; /* Takes the remaining width */
+    padding: 20px;
+    overflow-y: auto; /* Allows for scrolling */
+    background-color: #fff; /* White background */
+  }
+  
+  .bus-item {
+    background-color: #f9f9f9; /* Slightly off-white for the cards */
+    border: 1px solid #e0e0e0; /* Light border for the cards */
+    border-radius: 4px; /* Rounded corners */
+    padding: 20px;
+    margin-bottom: 20px; /* Space between cards */
+  }
+
+  .bus-item:hover {
+    background-color: #f0f0f0; /* Lighten the background on hover */
+  }
+
+  .bus-item .bus-route
+  {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+  
+  .bus-item h3 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem; /* Small margin for the title */
+  }
+  
+  .bus-item p {
+    font-size: 0.9rem;
+    margin: 5px 0;
+  }
+  
+  .bus-item button {
+    background-color: var(--PrimaryColor);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    display: block; /* Makes the button take the full width */
+  }
+  
+  .bus-item button:hover {
+    background-color: #0056b3; /* Darken button color on hover */
+  }
+  
+  /* Additional styles for responsiveness and overall padding */
+  @media (max-width: 768px) {
+    .bus-schedule-container {
+      flex-direction: column;
+    }
+  
+    .bus-sidebar {
+      flex: 0 0 auto;
+      width: 100%; /* Full width on small screens */
+    }
+
+    .bus-item .bus-route
+    {
+        gap: 20px;
+    }
+  }
+  
+  /* Styling for header */
+  .bus-schedule-header {
+    padding: 20px;
+    background-color: #e9ecef; /* Light grey background */
+    border-bottom: 2px solid #e0e0e0;
+    width: 100%;
+  }
+  
+  .bus-schedule-header h1 {
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .bus-schedule-header p {
+    color: #666;
+    font-size: 1rem;
+  }
+  
+
+  <aside className='bus-sidebar'>
+					<div className='filter-section'>
+						<h2>Filter by Bus</h2>
+						{uniqueBusNames.map(busName => (
+							<label key={busName}>
+								<input
+									type="checkbox"
+									checked={selectedBusNames.has(busName)}
+									onChange={() => toggleBusNameFilter(busName)}
+								/>
+								{busName}
+							</label>
+						))}
+					</div>
+				</aside>
+				<section className='bus-list'>
+					{displayedBuses.map((bus, index) => (
+						<div key={index} className="bus-item">
+							<h3>{bus.busName} - {bus.busNumber}</h3>
+							<div className='bus-route'>
+								<p>Departure Time: {bus.departureTime}</p>
+								<p>Arrival Time: {bus.arrivalTime}</p>
+								<p>Duration: {bus.duration}</p>
+								<p>Seats Available: {bus.seatAvailable}</p>
+								<button onClick={() => {/* Handle view details action */}}>View Details</button>
+							</div>
+						</div>
+					))}
+				</section>
