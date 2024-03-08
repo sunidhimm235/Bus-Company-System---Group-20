@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import './BusSchedule.css';
 import BusDetailsModal from './BusScheduleModal.jsx';
+import axios from 'axios'
 
 // This page should be completed by Sunidhi & Lucas
 
@@ -27,6 +28,25 @@ const BusSchedule = () =>
 	const [selectedBusNames, setSelectedBusNames] = useState(new Set());
 	const [selectedDay, setSelectedDay] = useState(new Date(date));
 	const [selectedBusForDetails, setSelectedBusForDetails] = useState(null);
+
+	const [busRoutes, setBusRoutes] = useState([])
+	const encodedDate = encodeURIComponent(date.toISOString().split('T')[0]);
+
+	const fetchData = async (from, to, date) => {
+		try {
+			const response = await axios.get(`http://localhost:4000/buses/${from}/${to}/${date}`);
+			setBusRoutes(response.data);
+		}
+		catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	};
+
+	useEffect(() => {
+		if (from && to && encodedDate) {
+			fetchData(from, to, encodedDate);
+		}
+	}, [from, to, encodedDate]);
 
 	// Bus schedule data
 	const busSchedule = [

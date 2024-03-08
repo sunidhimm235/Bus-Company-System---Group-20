@@ -14,8 +14,9 @@ const busSchema = new Schema({
         required: true,
         default: true
     },
-    seats: {type: [[Number]] ,
+    seats: {type: [[Boolean]] ,
         required: true,
+        default:  false,
         validate: [seatsNumber, 'Number of seats must be 40']
     },
     routes: [{startPoint: {type: String,

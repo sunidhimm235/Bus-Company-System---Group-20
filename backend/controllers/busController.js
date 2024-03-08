@@ -46,3 +46,19 @@ exports.deleteBus = async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 };
+
+exports.getRoute = async (req, res) => {
+    try {
+        const {from, to, date} = req.params;
+
+        const routesFound = await Bus.find({
+            'routes.startPoint' : from,
+            'routes.endPoint' : to,
+            'routes.startTime' : new Date(date),
+        });
+        res.json(routesFound);
+    }
+    catch (error) {
+        res.status(400).json({message: error.message});
+    }
+} 
