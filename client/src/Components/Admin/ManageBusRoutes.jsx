@@ -1,5 +1,260 @@
+// import React, { useState, useRef, useEffect } from 'react';
+// import { FaPlus, FaEdit, FaTrash, FaBus, FaUserFriends, FaSave } from 'react-icons/fa';
+
+// const DropdownMenu = ({ onEdit, onDelete }) => {
+//   return (
+//     <div className="dropdown-menu">
+//       <div className="dropdown-item" onClick={onEdit}>Edit</div>
+//       <div className="dropdown-item" onClick={onDelete}>Delete</div>
+//     </div>
+//   );
+// };
+
+// const ActionButton = ({ routeId, onEdit, onDelete }) => {
+//   const [showDropdown, setShowDropdown] = useState(false);
+//   const dropdownRef = useRef(null);
+
+//   useEffect(() => {
+//     function handleClickOutside(event) {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+//         setShowDropdown(false);
+//       }
+//     }
+
+//     document.addEventListener('mousedown', handleClickOutside);
+//     return () => document.removeEventListener('mousedown', handleClickOutside);
+//   }, [dropdownRef]);
+
+//   return (
+//     <div ref={dropdownRef}>
+//       <button className="action-button" onClick={() => setShowDropdown(!showDropdown)}>
+//         Actions ▼
+//       </button>
+//       {showDropdown && <DropdownMenu onEdit={() => onEdit(routeId)} onDelete={() => onDelete(routeId)} />}
+//     </div>
+//   );
+// };
+
+// // Mock data for routes
+// const mockRoutes = [
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+//   // Add more mock route data as needed
+// ];
+
+// const containerStyle = {
+//   maxWidth: '800px',
+//   margin: '0 auto',
+//   backgroundColor: '#fff',
+//   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+//   borderRadius: '8px',
+//   overflow: 'hidden',
+// };
+
+// const tabStyle = {
+//   display: 'flex',
+//   justifyContent: 'space-evenly',
+//   listStyle: 'none',
+//   padding: '10px',
+//   backgroundColor: '#f2f2f2',
+//   margin: 0,
+// };
+
+// const tabButtonStyle = {
+//   flex: 1,
+//   padding: '10px',
+//   cursor: 'pointer',
+//   textAlign: 'center',
+//   backgroundColor: '#e7e7e7',
+//   border: 'none',
+//   outline: 'none',
+//   transition: 'background-color 0.3s',
+// };
+
+// const activeTabStyle = {
+//   backgroundColor: '#ddd',
+// };
+
+// const contentStyle = {
+//   padding: '20px',
+// };
+
+// const tableStyle = {
+//   width: '100%',
+//   borderCollapse: 'collapse',
+// };
+
+// const thTdStyle = {
+//   padding: '8px',
+//   border: '1px solid #ddd',
+//   textAlign: 'left',
+// };
+
+// // For create/Edit
+// const initialRouteFormState = { name: '', startPoint: '', endPoint: '', distance: '', travelTime: '' };
+
+// const formStyle = {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     padding: '20px',
+// };
+  
+// const labelStyle = {
+//     marginBottom: '5px',
+//     fontWeight: 'bold',
+//     textAlign: 'left',
+//     width: '100%', // Adjust as needed
+// };
+  
+// const inputStyle = {
+//     width: '100%', // Adjust as needed
+//     padding: '10px',
+//     marginBottom: '10px',
+//     borderRadius: '5px',
+//     border: '1px solid #ccc',
+// };
+  
+// const buttonStyle = {
+//     padding: '10px 20px',
+//     backgroundColor: '#4CAF50',
+//     color: 'white',
+//     border: 'none',
+//     borderRadius: '5px',
+//     cursor: 'pointer',
+//     marginTop: '20px',
+//     display: 'inline-flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+// };
+
+// const ManageBusRoutes = () => {
+//   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create', 'stats'
+//   // For create/Edit //////////////////
+//   const [routeForm, setRouteForm] = useState(initialRouteFormState);
+
+//   const handleChange = (e) => {
+//     const { name, value } = e.target;
+//     setRouteForm(prevState => ({ ...prevState, [name]: value }));
+//   };
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+//     console.log('Form submission', routeForm);
+//     // Here you would handle the form submission to either create or update a route
+//     // After submission, reset form and switch tab or display success message
+//     setRouteForm(initialRouteFormState);
+//     setCurrentTab('list'); // Optional: redirect to list after submission
+//   };
+//   ///////////////////////////////////
+
+//   const getTabButtonStyle = (tab) => ({
+//     ...tabButtonStyle,
+//     ...(currentTab === tab ? activeTabStyle : {}),
+//   });
+
+//   // Function to switch tabs
+//   const switchTab = (tab) => {
+//     setCurrentTab(tab);
+//   };
+
+//   // Actions button ////////////////
+//   const handleEdit = (routeId) => {
+//     console.log(`Editing route ${routeId}`);
+//     // Implement your edit logic here
+//   };
+
+//   const handleDelete = (routeId) => {
+//     console.log(`Deleting route ${routeId}`);
+//     // Implement your delete logic here
+//   };
+//   ////////////////////////////////////
+
+//   return (
+//     <div style={containerStyle}>
+//       <ul style={tabStyle}>
+//         <li style={getTabButtonStyle('list')} onClick={() => switchTab('list')}>Route Listing</li>
+//         <li style={getTabButtonStyle('create')} onClick={() => switchTab('create')}>Create Route</li>
+//         <li style={getTabButtonStyle('stats')} onClick={() => switchTab('stats')}>Passenger Statistics</li>
+//       </ul>
+
+//       <div style={contentStyle}>
+//         {currentTab === 'list' && (
+//           <table style={tableStyle}>
+//             <thead>
+//               <tr>
+//                 <th style={thTdStyle}>Bus Name</th>
+//                 <th style={thTdStyle}>Start Point</th>
+//                 <th style={thTdStyle}>End Point</th>
+//                 <th style={thTdStyle}>Distance</th>
+//                 <th style={thTdStyle}>Duration</th>
+//                 <th style={thTdStyle}>Actions</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {mockRoutes.map((route) => (
+//                 <tr key={route.id}>
+//                   <td style={thTdStyle}>{route.name}</td>
+//                   <td style={thTdStyle}>{route.startPoint}</td>
+//                   <td style={thTdStyle}>{route.endPoint}</td>
+//                   <td style={thTdStyle}>{route.distance}</td>
+//                   <td style={thTdStyle}>{route.travelTime}</td>
+//                   <td style={thTdStyle}>
+//                     <ActionButton
+//                       routeId={route.id}
+//                       onEdit={handleEdit}
+//                       onDelete={handleDelete}
+//                     />
+//                   </td>
+//                 </tr>
+//               ))}
+//             </tbody>
+//           </table>
+//         )}
+
+//         {/* Include your forms and statistics content with appropriate styles */}
+//         {/* Create/Edit Route Form */}
+//         {currentTab === 'create' && (
+//             <div style={contentStyle}>
+//                 <h2>Create Route</h2>
+//                 <form onSubmit={handleSubmit} style={formStyle}>
+//                     {/* Route name */}
+//                         <label style={labelStyle}>Bus Name</label>
+//                         <input
+//                         style={inputStyle}
+//                         type="text"
+//                         name="name"
+//                         value={routeForm.name}
+//                         onChange={handleChange}
+//                         placeholder="Enter Bus Name"
+//                     />
+//                     {/* Start point */}
+//                     {/* Similar input fields for startPoint, endPoint, distance, and travelTime */}
+//                     <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
+//                 </form>
+//             </div>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ManageBusRoutes;
 import React, { useState, useRef, useEffect } from 'react';
-import { FaPlus, FaEdit, FaTrash, FaBus, FaUserFriends, FaSave } from 'react-icons/fa';
+import { FaPlus, FaEdit, FaTrash, FaBus, FaUserFriends, FaSave, FaCaretDown } from 'react-icons/fa';
+import './ManageBusRoutes.css'
+import axios from 'axios'
 
 const DropdownMenu = ({ onEdit, onDelete }) => {
   return (
@@ -28,7 +283,7 @@ const ActionButton = ({ routeId, onEdit, onDelete }) => {
   return (
     <div ref={dropdownRef}>
       <button className="action-button" onClick={() => setShowDropdown(!showDropdown)}>
-        Actions ▼
+        Actions<FaCaretDown/>
       </button>
       {showDropdown && <DropdownMenu onEdit={() => onEdit(routeId)} onDelete={() => onDelete(routeId)} />}
     </div>
@@ -37,23 +292,54 @@ const ActionButton = ({ routeId, onEdit, onDelete }) => {
 
 // Mock data for routes
 const mockRoutes = [
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-  { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
+  {
+    id: 1,
+    busName: 'B101',
+    startPoint: 'City A',
+    endPoint: 'City B',
+    seats: 40,
+    economyFeatures: 'Standard legroom, Free WiFi',
+    premiumFeatures: 'Extended legroom, Complimentary snacks',
+    businessFeatures: 'Reclining seats, Personal entertainment, Complimentary meals',
+    economyPrice: '$25',
+    premiumPrice: '$50',
+    businessPrice: '$100',
+    duration: '2 hours'
+  },
+  {
+    id: 2,
+    busName: 'B102',
+    startPoint: 'City C',
+    endPoint: 'City D',
+    seats: 36,
+    economyFeatures: 'Standard legroom, On-board entertainment',
+    premiumFeatures: 'Extra legroom, Free drinks',
+    businessFeatures: 'Fully reclining seats, Exclusive service',
+    economyPrice: '$30',
+    premiumPrice: '$60',
+    businessPrice: '$120',
+    duration: '3 hours'
+  },
+  {
+    id: 3,
+    busName: 'B103',
+    startPoint: 'City E',
+    endPoint: 'City F',
+    seats: 48,
+    economyFeatures: 'Comfortable seating, USB ports',
+    premiumFeatures: 'Enhanced comfort, Priority boarding',
+    businessFeatures: 'Luxury seating, Gourmet meals, Priority service',
+    economyPrice: '$20',
+    premiumPrice: '$45',
+    businessPrice: '$90',
+    duration: '1.5 hours'
+  },
   // Add more mock route data as needed
 ];
 
+
 const containerStyle = {
-  maxWidth: '800px',
+  // maxWidth: '800px',
   margin: '0 auto',
   backgroundColor: '#fff',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
@@ -66,7 +352,7 @@ const tabStyle = {
   justifyContent: 'space-evenly',
   listStyle: 'none',
   padding: '10px',
-  backgroundColor: '#f2f2f2',
+  backgroundColor: '#E5E1DA',
   margin: 0,
 };
 
@@ -75,14 +361,14 @@ const tabButtonStyle = {
   padding: '10px',
   cursor: 'pointer',
   textAlign: 'center',
-  backgroundColor: '#e7e7e7',
+  backgroundColor: '#f2f2f2',
   border: 'none',
   outline: 'none',
   transition: 'background-color 0.3s',
 };
 
 const activeTabStyle = {
-  backgroundColor: '#ddd',
+  backgroundColor: '#92C7CF',
 };
 
 const contentStyle = {
@@ -101,7 +387,20 @@ const thTdStyle = {
 };
 
 // For create/Edit
-const initialRouteFormState = { name: '', startPoint: '', endPoint: '', distance: '', travelTime: '' };
+const initialRouteFormState = {
+  id: null,
+  busName: '',
+  startPoint: '',
+  endPoint: '',
+  seats: '',
+  economyFeatures: '',
+  premiumFeatures: '',
+  businessFeatures: '',
+  economyPrice: '',
+  premiumPrice: '',
+  businessPrice: '',
+  duration: ''
+};
 
 const formStyle = {
     display: 'flex',
@@ -140,6 +439,24 @@ const buttonStyle = {
 };
 
 const ManageBusRoutes = () => {
+  // Get all bus routes
+  const [busRoutes, setBusRoutes] = useState([])
+
+  const fetchData = async () => {
+		try {
+			const response = await axios.get(`http://localhost:4000/buses/`);
+			setBusRoutes(response.data);
+		}
+		catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	};
+
+  useEffect(() => {fetchData();}, []);
+
+  console.log(busRoutes);
+  /////////////////////////////////////
+
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create', 'stats'
   // For create/Edit //////////////////
   const [routeForm, setRouteForm] = useState(initialRouteFormState);
@@ -197,7 +514,13 @@ const ManageBusRoutes = () => {
                 <th style={thTdStyle}>Bus Name</th>
                 <th style={thTdStyle}>Start Point</th>
                 <th style={thTdStyle}>End Point</th>
-                <th style={thTdStyle}>Distance</th>
+                <th style={thTdStyle}>Seats</th>
+                <th style={thTdStyle}>Economy Features</th>
+                <th style={thTdStyle}>Premium Features</th>
+                <th style={thTdStyle}>Business Features</th>
+                <th style={thTdStyle}>Economy Price</th>
+                <th style={thTdStyle}>Premium Price</th>
+                <th style={thTdStyle}>Business Price</th>
                 <th style={thTdStyle}>Duration</th>
                 <th style={thTdStyle}>Actions</th>
               </tr>
@@ -205,11 +528,17 @@ const ManageBusRoutes = () => {
             <tbody>
               {mockRoutes.map((route) => (
                 <tr key={route.id}>
-                  <td style={thTdStyle}>{route.name}</td>
+                  <td style={thTdStyle}>{route.busName}</td>
                   <td style={thTdStyle}>{route.startPoint}</td>
                   <td style={thTdStyle}>{route.endPoint}</td>
-                  <td style={thTdStyle}>{route.distance}</td>
-                  <td style={thTdStyle}>{route.travelTime}</td>
+                  <td style={thTdStyle}>{route.seats}</td>
+                  <td style={thTdStyle}>{route.economyFeatures}</td>
+                  <td style={thTdStyle}>{route.premiumFeatures}</td>
+                  <td style={thTdStyle}>{route.businessFeatures}</td>
+                  <td style={thTdStyle}>{route.economyPrice}</td>
+                  <td style={thTdStyle}>{route.premiumPrice}</td>
+                  <td style={thTdStyle}>{route.businessPrice}</td>
+                  <td style={thTdStyle}>{route.duration}</td>
                   <td style={thTdStyle}>
                     <ActionButton
                       routeId={route.id}

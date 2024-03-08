@@ -81,8 +81,7 @@
 //   export default AdminSidebar;
 
 import React, { useState, useEffect } from 'react';
-// Import your icons and logo here
-import { ReactComponent as YourLogo } from '../../assets/WhiteLogo.svg';
+import { ReactComponent as YourLogo } from '../../assets/BlueLogo.svg';
 import { MdDashboard, MdMap, MdSchedule, MdAccountCircle, MdBookOnline, MdBarChart, MdExitToApp } from 'react-icons/md';
 import { MdChevronLeft, MdChevronRight } from 'react-icons/md';
 
@@ -96,12 +95,12 @@ const SidebarItem = ({ icon, label, isExpanded, onSelect }) => {
       alignItems: 'center',
       marginBottom: '10px',
       cursor: 'pointer',
-      backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+      backgroundColor: isHovered ? '#92C7CF' : 'transparent',
       padding: '10px',
       paddingLeft: isHovered ? '15px' : '10px',
       borderRadius: '5px',
       transition: 'background-color 0.3s ease',
-      color: 'white',
+      color: 'black',//'hsl(240, 1%, 48%)',
     };
 
     const iconStyle = {
@@ -151,7 +150,7 @@ const AdminSidebar = ({ onSelect, isExpanded, setIsExpanded }) => {
       justifyContent: 'space-between',
       height: '100vh',
       width: isExpanded ? '250px' : '80px',
-      background: '#001A37',
+      background: '#E5E1DA',
       padding: isExpanded ? '20px' : '20px 10px',
       transition: 'width 0.3s ease',
       position: 'fixed', // Keep the sidebar fixed on the screen
@@ -165,7 +164,7 @@ const AdminSidebar = ({ onSelect, isExpanded, setIsExpanded }) => {
         <div style={{ marginBottom: '20px', textAlign: 'center' }}>
             <YourLogo style={{ width: isExpanded ? '150px' : '50px', height: 'auto' }} />
         </div>
-        <div onClick={toggleSidebar} style={{ color: 'white', cursor: 'pointer', textAlign: 'right', marginBottom: '20px' }}>
+        <div onClick={toggleSidebar} style={{ color: 'hsl(240, 1%, 48%)', cursor: 'pointer', textAlign: 'right', marginBottom: '20px' }}>
             {isExpanded ? <MdChevronLeft size={24} /> : <MdChevronRight size={24} />}
         </div>
         <SidebarItem icon={<MdDashboard  size={30} />} label="Dashboard" isExpanded={isExpanded} onSelect={onSelect} />

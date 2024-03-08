@@ -31,6 +31,7 @@ const Admin = () => {
         {selectedItem === 'Manage Bus Routes' && (
           <div>
             <h1>Manage Bus Routes</h1>
+            <div style={{padding: '10px'}}></div>
             <ManageBusRoutes />
             {/* Content for managing bus routes */}
           </div>
