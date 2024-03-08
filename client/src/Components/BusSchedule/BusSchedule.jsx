@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom';
-import './BusSchedule.css'
+import './BusSchedule.css';
+import BusDetailsModal from './BusScheduleModal.jsx';
 
 // This page should be completed by Sunidhi & Lucas
 
@@ -23,15 +24,198 @@ const BusSchedule = () =>
 	// Access the passed state from the search component
     const { from, to, date } = location.state || {};
 
+	const [selectedBusNames, setSelectedBusNames] = useState(new Set());
+	const [selectedDay, setSelectedDay] = useState(new Date(date));
+	const [selectedBusForDetails, setSelectedBusForDetails] = useState(null);
+
+	// Bus schedule data
+	const busSchedule = [
+		{
+			busName: 'Gorgi Bus',
+			busNumber: 'G123',
+			from: 'New York',
+			to: 'Los Angeles',
+			day: 'Monday',
+			departureTime: '8:00 AM',
+			arrivalTime: '12:00 PM',
+			duration: '4 hours',
+			seatAvailable: 32,
+			economyPrice: 100,
+			premiumPrice: 150,
+			businessPrice: 200,
+			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
+		},
+		{
+			busName: 'Gorgi Bus',
+			busNumber: 'G555',
+			from: 'New York',
+			to: 'Los Angeles',
+			day: 'Monday',
+			departureTime: '12:00 PM',
+			arrivalTime: '4:00 PM',
+			duration: '4 hours',
+			seatAvailable: 22,
+			economyPrice: 100,
+			premiumPrice: 150,
+			businessPrice: 200,
+			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
+		},
+		{
+			busName: 'Gorgi Bus',
+			busNumber: 'G266',
+			from: 'New York',
+			to: 'Los Angeles',
+			day: 'Monday',
+			departureTime: '4:00 PM',
+			arrivalTime: '7:00 PM',
+			duration: '3 hours',
+			seatAvailable: 40,
+			economyPrice: 100,
+			premiumPrice: 150,
+			businessPrice: 200,
+			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
+		},
+		{
+			busName: 'Micki Bus',
+			busNumber: 'M456',
+			from: 'New York',
+			to: 'Los Angeles',
+			day: 'Tuesday',
+			departureTime: '9:00 AM',
+			arrivalTime: '9:00 PM',
+			duration: '12 hours',
+			seatAvailable: 40,
+			economyPrice: 90,
+			premiumPrice: 140,
+			businessPrice: 190,
+			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
+		},
+		{
+			busName: 'Bolt bus',
+			busNumber: 'B789',
+			from: 'New York',
+			to: 'Los Angeles',
+			day: 'Wednesday',
+			departureTime: '10:00 AM',
+			arrivalTime: '10:00 PM',
+			duration: '12 hours',
+			seatAvailable: 40,
+			economyPrice: 110,
+			premiumPrice: 160,
+			businessPrice: 210,
+			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
+		}
+	]
+
+	// Set the selected day
+	const setDay = (day) => {
+		setSelectedDay(day);
+	}
+
+	// Filter all the bus names from the bus schedule data and remove duplicates
+	const busNames = busSchedule.map(bus => bus.busName);
+	const uniqueBusNames = [...new Set(busNames)];
+
+	// Toggle the bus name filter
+	const toggleBusNameFilter = (busName) =>
+	{
+		const newSelectedBusNames = new Set(selectedBusNames);
+		if (newSelectedBusNames.has(busName)) {
+			newSelectedBusNames.delete(busName);
+		} else {
+			newSelectedBusNames.add(busName);
+		}
+		setSelectedBusNames(newSelectedBusNames);
+	}
+
+	let displayedBuses = busSchedule.filter(bus =>
+        (selectedBusNames.size === 0 || selectedBusNames.has(bus.busName)) && bus.day === selectedDay.toLocaleDateString('en-US', { weekday: 'long' })
+    );
+
+	// Finds the next 7 days from the date inputted
+	const next7Days = Array.from({ length: 7 }, (_, i) => {
+		const nextDay = new Date(date);
+		nextDay.setDate(date.getDate() + i);
+		return nextDay;
+	});
+
+	// Call this function when the "See Details" button is clicked
+	const showBusDetails = (bus) => {
+		setSelectedBusForDetails(bus);
+	};
+
+	// Call this function to close the modal
+	const hideBusDetails = () => {
+		setSelectedBusForDetails(null);
+	};
+
 	return (
 		<div className='bus-schedule'>
-			<div className='bus-schedule-header'>
-				<h1>Bus Schedule</h1>
-				<p>Showing bus schedule from {from} to {to} on {date ? date.toLocaleDateString() : ''}</p>
-			</div>
 			<div className='bus-schedule-content'>
-				{/* Add your bus schedule content here */}
+				<div className='bus-schedule-header'>
+					<h1>Bus Schedule</h1>
+					<p>Showing bus schedule from {from} to {to} on {date ? date.toLocaleDateString() : ''}</p>
+				</div>
+
+				<div className='bus-schedule-list'>
+					<div className='bus-schedule-filter'>
+						<h1>Filter by bus:</h1>
+						<div className='bus-schedule-filter-list'>
+							{uniqueBusNames.map((busName, index) => (
+								<div key={index} className='bus-schedule-filter-item'>
+									<input 
+										type='checkbox' 
+										id={busName} 
+										checked={selectedBusNames.has(busName)}
+										onChange={() => toggleBusNameFilter(busName)}
+									/>
+									<label htmlFor={busName}>{busName}</label>
+								</div>
+							))}
+						</div>
+					</div>
+					<div className='bus-schedule-table'>
+
+						<div className='bus-schedule-days'>
+							{/* Displays the next 7 days */}
+							{next7Days.map((day, index) => (
+								<button 
+									key={index}
+									onClick={() => {
+										setDay(day);
+									}}
+
+									className={day.toLocaleDateString() === selectedDay.toLocaleDateString() ? 'active' : ''}
+								>{day.toLocaleDateString('en-US', { weekday: 'long' })}</button>
+							))}
+						</div>
+
+						<div className='bus-schedule-table-ticket'>
+							{displayedBuses.map((bus, index) => (
+								<div key={index} className='bus-schedule-ticket'>
+									<div className='bus-schedule-ticket-header'>
+										<h2>{bus.busName}</h2>
+										<h4>({bus.from} to {bus.to})</h4>
+									</div>
+									<div className='bus-schedule-ticket-info'>
+										<p>Bus Number: {bus.busNumber}</p>
+										<p>Duration: {bus.duration}</p>
+										<p>Departure Time: {bus.departureTime}</p>
+										<p>Arrival Time: {bus.arrivalTime}</p>
+										<p>Seats Available: {bus.seatAvailable}</p>
+										<p>Starting Price: <strong style={{color:'var(--HoverColor)'}}>${bus.economyPrice}</strong></p>
+									</div>
+									<div className='bus-schedule-ticket-details'>
+										<button onClick={() => showBusDetails(bus)}>See Details</button>
+									</div>
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
 			</div>
+
+			<BusDetailsModal bus={selectedBusForDetails} onClose={hideBusDetails} />
 		</div>
 	)
 }
