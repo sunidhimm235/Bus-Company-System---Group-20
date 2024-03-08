@@ -1,0 +1,19 @@
+.cardContainer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Start with 4 columns */
+    gap: 20px; /* Adds space between cards */
+    margin-bottom: 20px; /* Space at the bottom of the grid */
+  }
+  
+  @media (max-width: 1500px) {
+    .cardContainer {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns for medium screens */
+    }
+  }
+  
+  /* Media query for iPad-size screens */
+  @media (max-width: 768px) {
+      .cardContainer {
+        grid-template-columns: repeat(1, 1fr); /* 1 column for small screens */
+      }
+  }
