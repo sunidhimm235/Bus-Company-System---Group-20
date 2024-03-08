@@ -1,84 +1,39 @@
-// import React, { useState } from 'react';
-// import { FaPlus, FaEdit, FaTrash, FaBus, FaUserFriends } from 'react-icons/fa';
-
-// // Mock data for routes
-// const mockRoutes = [
-//   { id: 1, name: 'Route 1', startPoint: 'City A', endPoint: 'City B', distance: '100km', travelTime: '2 hours' },
-//   // Add more mock route data as needed
-// ];
-
-// const ManageBusRoutes = () => {
-//   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create', 'stats'
-  
-//   // Function to switch tabs
-//   const switchTab = (tab) => {
-//     setCurrentTab(tab);
-//   };
-
-//   return (
-//     <div>
-//       <div className="tabs">
-//         <button onClick={() => switchTab('list')}>Route Listing</button>
-//         <button onClick={() => switchTab('create')}>Create/Edit Route</button>
-//         <button onClick={() => switchTab('stats')}>Passenger Statistics</button>
-//       </div>
-
-//       {currentTab === 'list' && (
-//         <div>
-//           <h2>Route Listing</h2>
-//           <table>
-//             <thead>
-//               <tr>
-//                 <th>Route Name</th>
-//                 <th>Start Point</th>
-//                 <th>End Point</th>
-//                 <th>Distance</th>
-//                 <th>Travel Time</th>
-//                 <th>Actions</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               {mockRoutes.map((route) => (
-//                 <tr key={route.id}>
-//                   <td>{route.name}</td>
-//                   <td>{route.startPoint}</td>
-//                   <td>{route.endPoint}</td>
-//                   <td>{route.distance}</td>
-//                   <td>{route.travelTime}</td>
-//                   <td>
-//                     <button><FaEdit /> Edit</button>
-//                     <button><FaTrash /> Delete</button>
-//                   </td>
-//                 </tr>
-//               ))}
-//             </tbody>
-//           </table>
-//         </div>
-//       )}
-
-//       {currentTab === 'create' && (
-//         <div>
-//           <h2>Create/Edit Route</h2>
-//           {/* Form for creating/editing a route */}
-//           {/* Include fields for name, start point, end point, waypoints, etc. */}
-//           {/* For simplicity, this example does not include the full form */}
-//         </div>
-//       )}
-
-//       {currentTab === 'stats' && (
-//         <div>
-//           <h2>Passenger Statistics</h2>
-//           {/* Display passenger statistics here */}
-//           {/* This could include graphs, charts, or tables showing route usage, peak times, etc. */}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ManageBusRoutes;
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { FaPlus, FaEdit, FaTrash, FaBus, FaUserFriends, FaSave } from 'react-icons/fa';
+
+const DropdownMenu = ({ onEdit, onDelete }) => {
+  return (
+    <div className="dropdown-menu">
+      <div className="dropdown-item" onClick={onEdit}>Edit</div>
+      <div className="dropdown-item" onClick={onDelete}>Delete</div>
+    </div>
+  );
+};
+
+const ActionButton = ({ routeId, onEdit, onDelete }) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [dropdownRef]);
+
+  return (
+    <div ref={dropdownRef}>
+      <button className="action-button" onClick={() => setShowDropdown(!showDropdown)}>
+        Actions ▼
+      </button>
+      {showDropdown && <DropdownMenu onEdit={() => onEdit(routeId)} onDelete={() => onDelete(routeId)} />}
+    </div>
+  );
+};
 
 // Mock data for routes
 const mockRoutes = [
@@ -183,8 +138,6 @@ const buttonStyle = {
     alignItems: 'center',
     justifyContent: 'center',
 };
-  
-
 
 const ManageBusRoutes = () => {
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create', 'stats'
@@ -216,11 +169,23 @@ const ManageBusRoutes = () => {
     setCurrentTab(tab);
   };
 
+  // Actions button ////////////////
+  const handleEdit = (routeId) => {
+    console.log(`Editing route ${routeId}`);
+    // Implement your edit logic here
+  };
+
+  const handleDelete = (routeId) => {
+    console.log(`Deleting route ${routeId}`);
+    // Implement your delete logic here
+  };
+  ////////////////////////////////////
+
   return (
     <div style={containerStyle}>
       <ul style={tabStyle}>
         <li style={getTabButtonStyle('list')} onClick={() => switchTab('list')}>Route Listing</li>
-        <li style={getTabButtonStyle('create')} onClick={() => switchTab('create')}>Create/Edit Route</li>
+        <li style={getTabButtonStyle('create')} onClick={() => switchTab('create')}>Create Route</li>
         <li style={getTabButtonStyle('stats')} onClick={() => switchTab('stats')}>Passenger Statistics</li>
       </ul>
 
@@ -229,11 +194,11 @@ const ManageBusRoutes = () => {
           <table style={tableStyle}>
             <thead>
               <tr>
-                <th style={thTdStyle}>Route Name</th>
+                <th style={thTdStyle}>Bus Name</th>
                 <th style={thTdStyle}>Start Point</th>
                 <th style={thTdStyle}>End Point</th>
                 <th style={thTdStyle}>Distance</th>
-                <th style={thTdStyle}>Travel Time</th>
+                <th style={thTdStyle}>Duration</th>
                 <th style={thTdStyle}>Actions</th>
               </tr>
             </thead>
@@ -246,8 +211,11 @@ const ManageBusRoutes = () => {
                   <td style={thTdStyle}>{route.distance}</td>
                   <td style={thTdStyle}>{route.travelTime}</td>
                   <td style={thTdStyle}>
-                    <button><FaEdit /> Edit</button>
-                    <button><FaTrash /> Delete</button>
+                    <ActionButton
+                      routeId={route.id}
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                    />
                   </td>
                 </tr>
               ))}
@@ -259,17 +227,17 @@ const ManageBusRoutes = () => {
         {/* Create/Edit Route Form */}
         {currentTab === 'create' && (
             <div style={contentStyle}>
-                <h2>Create/Edit Route</h2>
+                <h2>Create Route</h2>
                 <form onSubmit={handleSubmit} style={formStyle}>
                     {/* Route name */}
-                        <label style={labelStyle}>Route Name</label>
+                        <label style={labelStyle}>Bus Name</label>
                         <input
                         style={inputStyle}
                         type="text"
                         name="name"
                         value={routeForm.name}
                         onChange={handleChange}
-                        placeholder="Enter Route Name"
+                        placeholder="Enter Bus Name"
                     />
                     {/* Start point */}
                     {/* Similar input fields for startPoint, endPoint, distance, and travelTime */}
