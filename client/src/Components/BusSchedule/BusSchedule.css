@@ -1,29 +1,295 @@
-/* Styling for the Bus Schedule will go here */
-
 .bus-schedule
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
+    margin: 0 auto;
+}
+
+.bus-schedule .bus-schedule-content
+{
+    margin-top: 10rem;
+    width: 100%;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-header
+{
+    width: 100%;
+    padding: 1.3rem;
+    /* background-color: var(--SecondaryColor); */
+    color: var(--blackColor);
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-header p
+{
+    color: var(--blackColor);
+    padding-top: 10px;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-filter
+{
+    width: 30%;
+    height: 70vh;
+    background-color: var(--SecondaryColor);
+    margin-top: 1rem;
+    border-right: 2px solid var(--blackColor);
+    border-top: 2px solid var(--blackColor);
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-filter h1
+{
+    padding-left: .5rem;
+    padding-top: 1rem;
+    padding-bottom: .5rem;
+    font-size: 1.5rem;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-filter .bus-schedule-filter-list .bus-schedule-filter-item
+{
+    padding: .7rem;
+    cursor: pointer;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-filter .bus-schedule-filter-list .bus-schedule-filter-item:hover
+{
+    background-color: var(--PrimaryColor);
+    color: var(--blackColor);
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-filter .bus-schedule-filter-list .bus-schedule-filter-item input
+{
+    margin-right: 10px;
+}
+
+/* Check box design */
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-filter .bus-schedule-filter-list .bus-schedule-filter-item input[type="checkbox"]
+{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table
+{
+    width: 100%;
+    height: 70vh;
+    margin-top: 1rem;
+    padding: 1.3rem;
+    overflow-y: auto;
+    border-top: 2px solid var(--blackColor);
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-days
+{
+    display: flex; /* Aligns buttons in a row */
+    flex-direction: row; /* Aligns buttons in a column */
+    flex-wrap: wrap; /* Wraps buttons to the next line if they don't fit */
+    justify-content: center; /* Centers buttons */
+    align-items: center; /* Centers buttons */
+    column-gap: .5rem; /* Spacing between buttons */
+    row-gap: .5rem; /* Spacing between buttons */
+    padding: 10px;
+    list-style: none; /* Removes default list styling */
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-days button
+{
+    background-color: var(--whiteColor);
+    border: 2px solid var(--SecondaryColor);
+    width: 140px;
+    border-radius: 4px; 
+    padding: 10px 20px;
+    cursor: pointer; 
+    outline: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-days button:hover,
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-days button:focus
+{
+    background-color: var(--SecondaryColor);
+    color: var(--blackColor);
+    border-color: var(--PrimaryColor); 
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-days button.active {
+    background-color: var(--PrimaryColor);
+    color: var(--blackColor);
+    border: none;
+}
+
+/* .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket
+{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    row-gap: 2rem;
+    background-color: var(--PrimaryColor);
+    margin-bottom: .5rem;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-header
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    column-gap: 2rem;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-info
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 1rem;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-button
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+} */
+
+/* General Card Styles */
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
     justify-content: center;
 }
 
-.bus-schedule .bus-schedule-header
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket
 {
-    font-size: 1.5rem;
-    margin-top: 10rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: var(--SecondaryColor);
+    width: 100%;
+    overflow: hidden;
 }
 
-.bus-schedule .bus-schedule-header h1
+/* Header Styles */
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-header
 {
+    padding: 16px;
+    background-color: #f9f9f9; 
+    border-bottom: 1px solid #eee; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-header h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333; 
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-header h4 {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+/* Ticket Info Styles */
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-info
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 16px;
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-info p
+{
+    margin: 8px 0;
+    font-size: 14px;
     color: var(--blackColor);
-    margin-bottom: 1rem;
 }
 
-.bus-schedule .bus-schedule-header p
+/* Details Button Styles */
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-details
 {
-    color: var(--greyText);
-    margin-bottom: 1rem;
+    padding: 16px;
+    background-color: #f9f9f9;
+    text-align: right;
 }
 
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-details button
+{
+    padding: 10px 20px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--PrimaryColor);
+    color: var(--blackColor);
+    cursor: pointer;
+    transition: background-color 0.2s; 
+}
+
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-details button:hover
+{
+    background-color: var(--HoverColor);
+    color: var(--whiteColor);
+}
+
+/* Responsive Design */
+@media (max-width: 768px)
+{
+    .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket
+    {
+        justify-content: flex-start; 
+    }
+
+    .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket
+    {
+        width: 100%;
+        max-width: none;
+    }
+
+    .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-header
+    {
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
+
+    .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-header h2
+    {
+        margin-bottom: 8px; 
+    }
+
+    .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-info
+    {
+        grid-template-columns: 1fr;
+    }
+
+    .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-info p
+    {
+        margin: 8px 0;
+    }
+
+    .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket .bus-schedule-ticket-details button
+    {
+        width: 100%;
+    }
+}
 
