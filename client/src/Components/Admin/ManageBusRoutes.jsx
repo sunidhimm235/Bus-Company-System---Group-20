@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaPlus, FaEdit, FaTrash, FaBus, FaUserFriends, FaSave } from 'react-icons/fa';
+import axios from 'axios'
 
 const DropdownMenu = ({ onEdit, onDelete }) => {
   return (
@@ -140,6 +141,22 @@ const buttonStyle = {
 };
 
 const ManageBusRoutes = () => {
+  const [busRoutes, setBusRoutes] = useState([])
+
+  const fetchData = async () => {
+		try {
+			const response = await axios.get(`http://localhost:4000/buses/`);
+			setBusRoutes(response.data);
+		}
+		catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	};
+
+  useEffect(() => {fetchData();}, []);
+
+  console.log(busRoutes);
+
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create', 'stats'
   // For create/Edit //////////////////
   const [routeForm, setRouteForm] = useState(initialRouteFormState);
