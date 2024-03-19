@@ -49,12 +49,12 @@ const Admin = () => {
             {/* Content for managing bus routes */}
           </div>
         )}
-        {selectedItem === 'Bookings' && (
+        {/* {selectedItem === 'Bookings' && (
           <div>
             <h1>Bookings</h1>
-            {/* Content for managing bus routes */}
+            
           </div>
-        )}
+        )} */}
         {selectedItem === 'Reports' && (
           <div>
             <h1>Reports</h1>
