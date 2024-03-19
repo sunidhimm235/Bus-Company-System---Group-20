@@ -7,5 +7,6 @@ router.get('/', busController.getAllBuses);
 router.get('/:id', busController.getBusById);
 router.put('/:id', busController.updateBus); 
 router.delete('/:id', busController.deleteBus);
+router.get('/:from/:to/:date', busController.getRoute);
 
 module.exports = router;

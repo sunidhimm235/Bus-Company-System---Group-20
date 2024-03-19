@@ -127,8 +127,8 @@ const SidebarItem = ({ icon, label, isExpanded, onSelect }) => {
     );
 };
 
-const AdminSidebar = ({ onSelect }) => {
-  const [isExpanded, setIsExpanded] = useState(true);
+const AdminSidebar = ({ onSelect, isExpanded, setIsExpanded }) => {
+  // const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
     const handleResize = () => {
@@ -138,7 +138,7 @@ const AdminSidebar = ({ onSelect }) => {
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [setIsExpanded]);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -154,6 +154,11 @@ const AdminSidebar = ({ onSelect }) => {
       background: '#001A37',
       padding: isExpanded ? '20px' : '20px 10px',
       transition: 'width 0.3s ease',
+      position: 'fixed', // Keep the sidebar fixed on the screen
+      top: 0, // Align to the top of the viewport
+      left: 0, // Align to the left of the viewport
+      overflowX: 'hidden', // Prevent horizontal overflow
+      overflowY: 'auto' // Allow vertical scrolling inside the sidebar if needed
     }}>
       {/* Top section for logo, toggle, and sidebar items */}
       <div>

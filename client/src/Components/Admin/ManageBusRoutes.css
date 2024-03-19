@@ -1,0 +1,36 @@
+/* ManageBusRoutes.css */
+.action-button {
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    outline: none;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    z-index: 100;
+  }
+
+  .dropdown-menu.show {
+  display: block; /* Shown when a state is true */
+}
+  
+  .dropdown-item {
+    background-color: #4d0c0c;
+    padding: 5px 10px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f2f2f2;
+  }
+  
