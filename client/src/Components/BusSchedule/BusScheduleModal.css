@@ -1,6 +1,7 @@
 /* BusSchedule.css */
 
-.modal-backdrop {
+.modal-backdrop
+{
     position: fixed;
     top: 0;
     left: 0;
@@ -11,9 +12,10 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
-  }
-  
-  .modal {
+}
+
+.modal
+{
     background: #ffffff;
     width: 80%; /* Or any width you prefer */
     max-width: 960px; /* Maximum width */
@@ -22,9 +24,10 @@
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  .modal-close-button {
+}
+
+.modal-close-button
+{
     position: absolute;
     top: 10px;
     right: 10px;
@@ -32,44 +35,155 @@
     border: none;
     font-size: 1.5rem;
     cursor: pointer;
-  }
-  
-  .modal-header, .modal-body, .modal-footer {
+}
+
+.modal-header, .modal-body, .modal-footer
+{
     padding: 10px;
-  }
-  
-  .modal-header {
+}
+
+.modal-header
+{
     border-bottom: 1px solid #eaeaea;
-  }
-  
-  .modal-body {
-    /* If you want a specific style for the body, add here */
-  }
-  
-  .modal-class-card {
+}
+
+.modal-body
+{
+    padding: 16px;
+}
+
+.modal-scroll
+{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+    gap: 20px;
+}
+
+.card
+{
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.card:hover
+{
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card h2
+{
+    margin: 0;
+    font-size: 18px;
+}
+
+.card p
+{
+    margin: 0;
+    font-size: 11px;
+    color: #666;
+}
+
+.card ul
+{
+    padding: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    list-style: none;
+}
+
+.card li
+{
+    margin: 5px;
+    font-size: 11px;
+    color: #666;
+}
+
+.card button
+{
+    background-color: var(--whiteColor);
+    border: 2px solid var(--SecondaryColor);
+    width: 100%;
+    border-radius: 4px; 
+    padding: 10px 20px;
+    cursor: pointer; 
+    outline: none;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+}
+
+.card button:hover
+{
+    background-color: var(--PrimaryColor);
+    color: var(--blackColor);
+    border-color: var(--SecondaryColor);
+}
+
+.modal-class-card
+{
     background: #f4f4f4; /* Light gray background */
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 4px;
-  }
-  
-  .modal-footer {
+}
+
+.modal-footer
+{
     text-align: right;
     border-top: 1px solid #eaeaea;
-  }
-  
-  /* When the modal is active, prevent body scrolling */
-  body.modal-active {
+}
+
+.modal-footer button
+{
+    background-color: var(--PrimaryColor);
+    color: var(--whiteColor);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.modal-footer button:hover
+{
+    background-color: var(--SecondaryColor);
+    color: var(--blackColor);
+}
+
+/* When the modal is active, prevent body scrolling */
+body.modal-active {
     overflow: hidden;
-  }
-  
-  /* Responsive Design - for smaller screens, the modal could take up full width */
-  @media (max-width: 768px) {
+}
+
+/* Responsive Design - for smaller screens, the modal could take up full width */
+@media (max-width: 768px)
+{
     .modal {
-      width: 95%;
-      max-height: 90vh;
+        width: 95%;
+        max-height: 90vh;
     }
-  }
-  
-  /* Add other responsive styles as needed */
-  
+}
+
+@media (max-width: 680px)
+{
+    .modal {
+        width: 90%;
+        max-height: 80vh;
+    }
+
+    .modal-scroll
+    {
+        flex-direction: column;
+    }
+}
+
+/* Add other responsive styles as needed */

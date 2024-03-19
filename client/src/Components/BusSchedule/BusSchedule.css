@@ -178,6 +178,17 @@
     justify-content: center;
 }
 
+.bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .no-buses
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    padding: 20px;
+    font-size: 18px;
+    color: #666;
+}
+
+
 .bus-schedule .bus-schedule-content .bus-schedule-list .bus-schedule-table .bus-schedule-table-ticket .bus-schedule-ticket
 {
     border: 1px solid #ccc;
