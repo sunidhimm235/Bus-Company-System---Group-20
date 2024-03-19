@@ -1,49 +1,75 @@
-.modal-backdrop
-{
+/* BusSchedule.css */
+
+.modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000; /* high z-index to ensure it's on top */
-}
-  
-.modal
-{
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
-    z-index: 1001;
-}
-  
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+    z-index: 1000;
   }
   
-  .modal-header button {
+  .modal {
+    background: #ffffff;
+    width: 80%; /* Or any width you prefer */
+    max-width: 960px; /* Maximum width */
+    max-height: 80vh; /* Maximum height */
+    overflow-y: auto; /* Allow scrolling within the modal */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: none;
     border: none;
-    font-size: 30px;
+    font-size: 1.5rem;
     cursor: pointer;
   }
   
+  .modal-header, .modal-body, .modal-footer {
+    padding: 10px;
+  }
+  
+  .modal-header {
+    border-bottom: 1px solid #eaeaea;
+  }
+  
   .modal-body {
-    /* Add styling as needed */
+    /* If you want a specific style for the body, add here */
+  }
+  
+  .modal-class-card {
+    background: #f4f4f4; /* Light gray background */
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
   }
   
   .modal-footer {
-    /* Add styling as needed */
+    text-align: right;
+    border-top: 1px solid #eaeaea;
   }
   
-  .modal-footer button {
-    /* Style the close button */
+  /* When the modal is active, prevent body scrolling */
+  body.modal-active {
+    overflow: hidden;
   }
+  
+  /* Responsive Design - for smaller screens, the modal could take up full width */
+  @media (max-width: 768px) {
+    .modal {
+      width: 95%;
+      max-height: 90vh;
+    }
+  }
+  
+  /* Add other responsive styles as needed */
+  

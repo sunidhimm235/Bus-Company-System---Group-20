@@ -6,10 +6,10 @@ import BusDetailsModal from './BusScheduleModal.jsx';
 // This page should be completed by Sunidhi & Lucas
 
 // This page should have the following:
-// - Should be able to generate the bus schedule based on the user's input
-// - Should be able to see the bus schedule (time, from place, to place, price) for the next 7 days
-// - Should be able to filter the bus schedule by destination, time, seat available and price
-// - Upon clicking on one of the bus schedule, it should pop up with more details such as:
+// - Should be able to generate the bus schedule based on the user's input (done)
+// - Should be able to see the bus schedule (time, from place, to place, price) for the next 7 days (done)
+// - Should be able to filter the bus schedule by destination, time, seat available and price (remaining)
+// - Upon clicking on one of the bus schedule, it should pop up with more details such as: (working on it)
 //     1. how many seats are available
 //     2. the price of the ticket depending on the class
 //     3. the time of departure and arrival
