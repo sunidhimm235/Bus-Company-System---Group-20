@@ -318,6 +318,23 @@ const rows = [
 ];
 
 function StickyHeadTable() {
+  // Get all bus routes
+  const [busRoutes, setBusRoutes] = useState([])
+
+  const fetchData = async () => {
+		try {
+			const response = await axios.get(`http://localhost:4000/buses/`);
+			setBusRoutes(response.data);
+		}
+		catch (error) {
+			console.error('Error fetching data:', error);
+		}
+	};
+
+  useEffect(() => {fetchData();}, []);
+  console.log(busRoutes);
+  //////////////////////////////////////////////
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -358,7 +375,7 @@ function StickyHeadTable() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+            {busRoutes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 {columns.map((column) => {
                   const value = row[column.id];
@@ -546,24 +563,6 @@ const buttonStyle = {
 };
 
 const ManageBusRoutes = () => {
-  // Get all bus routes
-  const [busRoutes, setBusRoutes] = useState([])
-
-  const fetchData = async () => {
-		try {
-			const response = await axios.get(`http://localhost:4000/buses/`);
-			setBusRoutes(response.data);
-		}
-		catch (error) {
-			console.error('Error fetching data:', error);
-		}
-	};
-
-  useEffect(() => {fetchData();}, []);
-
-  console.log(busRoutes);
-  /////////////////////////////////////
-
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create', 'stats'
   // For create/Edit //////////////////
   const [routeForm, setRouteForm] = useState(initialRouteFormState);
