@@ -1,15 +1,10 @@
 // BusDetailsModal.js
 import React from 'react';
 import './BusScheduleModal.css';
+import { FaWifi, FaUtensils, FaCouch, FaGlassMartiniAlt, FaSuitcase } from 'react-icons/fa';
 
 const BusDetailsModal = ({ bus, onClose }) => {
     if (!bus) return null;
-
-    const features = {
-        economy: ['Wifi', 'Snack'],
-        premium: ['Wifi', 'Snack', 'Extra legroom'],
-        business: ['Wifi', 'Snack', 'Extra legroom', 'Complimentary drinks']
-    };
 
     return (
         <div className="modal-backdrop">
@@ -22,29 +17,42 @@ const BusDetailsModal = ({ bus, onClose }) => {
                     <div className="modal-scroll">
                         <div className="card">
                             <h4>Economy Class</h4>
-                            <p>Price: ${bus.economyPrice}</p>
-                            <p>Seats Available: {bus.seatAvailable}</p>
-                            <p>Duration: {bus.duration}</p>
+                            <p>Price: <strong>${bus.economyPrice}</strong></p>
+                            <p>Seats Available: 20</p>
                             <ul>
-                                {features.economy.map((feature, index) => <li key={index}>{feature}</li>)}
+                                <li>Features:</li>
+                                <li><FaSuitcase /> One bag allowed</li>
+                                <li><FaWifi /> Wifi</li>
+                                <li><FaUtensils /> Snack</li>
                             </ul>
                             <button>Book Now</button>
                         </div>
                         <div className="card">
                             <h4>Premium Class</h4>
-                            <p>Price: ${bus.premiumPrice}</p>
+                            <p>Price: <strong>${bus.premiumPrice}</strong></p>
+                            <p>Seats Available: 10</p>
                             <ul>
-                                {features.premium.map((feature, index) => <li key={index}>{feature}</li>)}
+                                <li>Features:</li>
+                                <li><FaSuitcase /> Two bags allowed</li>
+                                <li><FaWifi /> Wifi</li>
+                                <li><FaUtensils /> Snack</li>
+                                <li><FaCouch /> Extra legroom</li>
                             </ul>
                             <button>Book Now</button>
                         </div>
                         <div className="card">
                             <h4>Business Class</h4>
-                            <p>Price: ${bus.businessPrice}</p>
+                            <p>Price: <strong>${bus.businessPrice}</strong></p>
+                            <p>Seats Available: 10</p>
                             <ul>
-                                {features.business.map((feature, index) => <li key={index}>{feature}</li>)}
+                                <li>Features:</li>
+                                <li><FaSuitcase /> Three bags allowed</li>
+                                <li><FaWifi /> Wifi</li>
+                                <li><FaUtensils /> Snack</li>
+                                <li><FaCouch /> Extra legroom</li>
+                                <li><FaGlassMartiniAlt /> Complimentary drinks</li>
                             </ul>
-                            <button>Book Now</button>
+                            <button className=''>Book Now</button>
                         </div>
                     </div>
                 </div>

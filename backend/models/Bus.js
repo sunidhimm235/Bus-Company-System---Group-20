@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const seatsNumber = function(num) {
-    return num.length === 40;
+const validateTotalSeats = function (seats) {
+    const totalSeats = seats.economy.length + seats.premium.length + seats.business.length;
+    return totalSeats === 40;
 }
 
 const busSchema = new Schema({
@@ -10,22 +11,49 @@ const busSchema = new Schema({
         required: true,
         unique: true
     },
-    availability: {type: Boolean,
+    busName: {type: String,
+        required: true
+    },
+    busDay: {type: String,
+        required: true
+    },
+    activeStatus: {type: Boolean,
         required: true,
         default: true
     },
-    seats: {type: [[Boolean]] ,
-        required: true,
-        default:  false,
-        validate: [seatsNumber, 'Number of seats must be 40']
+    seats: [{
+        economy: {type: [[Boolean]] ,
+            required: true,
+            default:  false,
+        },
+        premium: {type: [[Boolean]] ,
+            required: true,
+            default:  false,
+        },
+        business: {type: [[Boolean]] ,
+            required: true,
+            default:  false,
+        },
+        validate: [validateTotalSeats, 'Total seats should be 40']
+    }],
+    duration: {type: String,
+        required: true
     },
     routes: [{startPoint: {type: String,
             required: true},
-        startTime: {type: Date,
+        startTime: {type: String,
             required: true},
         endPoint: {type: String,
             required: true},
-        endTime: {type: Date,
+        endTime: {type: String,
+            required: true}
+    }],
+    price: [{
+        economy: {type: Number,
+            required: true},
+        premium: {type: Number,
+            required: true},
+        business: {type: Number,
             required: true}
     }]
 })

@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import './BusSchedule.css';
 import BusDetailsModal from './BusScheduleModal.jsx';
 import axios from 'axios'
+import { FaSadTear } from 'react-icons/fa';
 
 // This page should be completed by Sunidhi & Lucas
 
@@ -48,84 +49,84 @@ const BusSchedule = () =>
 		}
 	}, [from, to, encodedDate]);
 
+	// print the busRoutes data
+	console.log(busRoutes);
+
 	// Bus schedule data
-	const busSchedule = [
-		{
-			busName: 'Gorgi Bus',
-			busNumber: 'G123',
-			from: 'New York',
-			to: 'Los Angeles',
-			day: 'Monday',
-			departureTime: '8:00 AM',
-			arrivalTime: '12:00 PM',
-			duration: '4 hours',
-			seatAvailable: 32,
-			economyPrice: 100,
-			premiumPrice: 150,
-			businessPrice: 200,
-			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
-		},
-		{
-			busName: 'Gorgi Bus',
-			busNumber: 'G555',
-			from: 'New York',
-			to: 'Los Angeles',
-			day: 'Monday',
-			departureTime: '12:00 PM',
-			arrivalTime: '4:00 PM',
-			duration: '4 hours',
-			seatAvailable: 22,
-			economyPrice: 100,
-			premiumPrice: 150,
-			businessPrice: 200,
-			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
-		},
-		{
-			busName: 'Gorgi Bus',
-			busNumber: 'G266',
-			from: 'New York',
-			to: 'Los Angeles',
-			day: 'Monday',
-			departureTime: '4:00 PM',
-			arrivalTime: '7:00 PM',
-			duration: '3 hours',
-			seatAvailable: 40,
-			economyPrice: 100,
-			premiumPrice: 150,
-			businessPrice: 200,
-			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
-		},
-		{
-			busName: 'Micki Bus',
-			busNumber: 'M456',
-			from: 'New York',
-			to: 'Los Angeles',
-			day: 'Tuesday',
-			departureTime: '9:00 AM',
-			arrivalTime: '9:00 PM',
-			duration: '12 hours',
-			seatAvailable: 40,
-			economyPrice: 90,
-			premiumPrice: 140,
-			businessPrice: 190,
-			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
-		},
-		{
-			busName: 'Bolt bus',
-			busNumber: 'B789',
-			from: 'New York',
-			to: 'Los Angeles',
-			day: 'Wednesday',
-			departureTime: '10:00 AM',
-			arrivalTime: '10:00 PM',
-			duration: '12 hours',
-			seatAvailable: 40,
-			economyPrice: 110,
-			premiumPrice: 160,
-			businessPrice: 210,
-			features: ['Wifi', 'Power Outlet', 'Reclining Seats', 'TV', 'Restroom']
-		}
-	]
+	const busSchedule = busRoutes;
+
+	// const busSchedule = [
+	// 	{
+	// 		busName: 'Gorgi Bus',
+	// 		busNumber: 'G123',
+	// 		from: 'New York',
+	// 		to: 'Los Angeles',
+	// 		day: 'Monday',
+	// 		departureTime: '8:00 AM',
+	// 		arrivalTime: '12:00 PM',
+	// 		duration: '4 hours',
+	// 		seatAvailable: 32,
+	// 		economyPrice: 100,
+	// 		premiumPrice: 150,
+	// 		businessPrice: 200,
+	// 	},
+	// 	{
+	// 		busName: 'Gorgi Bus',
+	// 		busNumber: 'G555',
+	// 		from: 'New York',
+	// 		to: 'Los Angeles',
+	// 		day: 'Monday',
+	// 		departureTime: '12:00 PM',
+	// 		arrivalTime: '4:00 PM',
+	// 		duration: '4 hours',
+	// 		seatAvailable: 22,
+	// 		economyPrice: 100,
+	// 		premiumPrice: 150,
+	// 		businessPrice: 200,
+	// 	},
+	// 	{
+	// 		busName: 'Gorgi Bus',
+	// 		busNumber: 'G266',
+	// 		from: 'New York',
+	// 		to: 'Los Angeles',
+	// 		day: 'Monday',
+	// 		departureTime: '4:00 PM',
+	// 		arrivalTime: '7:00 PM',
+	// 		duration: '3 hours',
+	// 		seatAvailable: 40,
+	// 		economyPrice: 100,
+	// 		premiumPrice: 150,
+	// 		businessPrice: 200,
+	// 	},
+	// 	{
+	// 		busName: 'Micki Bus',
+	// 		busNumber: 'M456',
+	// 		from: 'New York',
+	// 		to: 'Los Angeles',
+	// 		day: 'Tuesday',
+	// 		departureTime: '9:00 AM',
+	// 		arrivalTime: '9:00 PM',
+	// 		duration: '12 hours',
+	// 		seatAvailable: 40,
+	// 		economyPrice: 90,
+	// 		premiumPrice: 140,
+	// 		businessPrice: 190,
+	// 	},
+	// 	{
+	// 		busName: 'Bolt bus',
+	// 		busNumber: 'B789',
+	// 		from: 'New York',
+	// 		to: 'Los Angeles',
+	// 		day: 'Wednesday',
+	// 		departureTime: '10:00 AM',
+	// 		arrivalTime: '10:00 PM',
+	// 		duration: '12 hours',
+	// 		seatAvailable: 40,
+	// 		economyPrice: 110,
+	// 		premiumPrice: 160,
+	// 		businessPrice: 210,
+	// 	}
+	// ]
 
 	// Set the selected day
 	const setDay = (day) => {
@@ -178,6 +179,7 @@ const BusSchedule = () =>
 				</div>
 
 				<div className='bus-schedule-list'>
+					
 					<div className='bus-schedule-filter'>
 						<h1>Filter by bus:</h1>
 						<div className='bus-schedule-filter-list'>
@@ -194,8 +196,8 @@ const BusSchedule = () =>
 							))}
 						</div>
 					</div>
-					<div className='bus-schedule-table'>
 
+					<div className='bus-schedule-table'>
 						<div className='bus-schedule-days'>
 							{/* Displays the next 7 days */}
 							{next7Days.map((day, index) => (
@@ -211,27 +213,30 @@ const BusSchedule = () =>
 						</div>
 
 						<div className='bus-schedule-table-ticket'>
-							{displayedBuses.map((bus, index) => (
-								<div key={index} className='bus-schedule-ticket'>
-									<div className='bus-schedule-ticket-header'>
-										<h2>{bus.busName}</h2>
-										<h4>({bus.from} to {bus.to})</h4>
+							{displayedBuses.length === 0 ? <h2 className='no-buses'>Sorry <FaSadTear />, No buses available on this day</h2> :
+								displayedBuses.map((bus, index) => (
+									<div key={index} className='bus-schedule-ticket'>
+										<div className='bus-schedule-ticket-header'>
+											<h2>{bus.busName}</h2>
+											<h4>({bus.from} to {bus.to})</h4>
+										</div>
+										<div className='bus-schedule-ticket-info'>
+											<p>Bus Number: {bus.busNumber}</p>
+											<p>Duration: {bus.duration}</p>
+											<p>Departure Time: {bus.departureTime}</p>
+											<p>Arrival Time: {bus.arrivalTime}</p>
+											<p>Seats Available: {bus.seatAvailable}</p>
+											<p>Starting Price: <strong style={{color:'var(--HoverColor)'}}>${bus.economyPrice}</strong></p>
+										</div>
+										<div className='bus-schedule-ticket-details'>
+											<button onClick={() => showBusDetails(bus)}>See Details</button>
+										</div>
 									</div>
-									<div className='bus-schedule-ticket-info'>
-										<p>Bus Number: {bus.busNumber}</p>
-										<p>Duration: {bus.duration}</p>
-										<p>Departure Time: {bus.departureTime}</p>
-										<p>Arrival Time: {bus.arrivalTime}</p>
-										<p>Seats Available: {bus.seatAvailable}</p>
-										<p>Starting Price: <strong style={{color:'var(--HoverColor)'}}>${bus.economyPrice}</strong></p>
-									</div>
-									<div className='bus-schedule-ticket-details'>
-										<button onClick={() => showBusDetails(bus)}>See Details</button>
-									</div>
-								</div>
-							))}
+								))
+							}
 						</div>
 					</div>
+
 				</div>
 			</div>
 

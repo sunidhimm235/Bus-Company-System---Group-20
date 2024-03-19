@@ -1,0 +1,23 @@
+{
+    "busNumber": 123,
+    "busName" : "XYZ",
+    "busDay" : "Monday",
+    "activeStatus" : true,
+    "seats" : [{
+        "economy" : [false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false],
+        "premium" : [false, false, false, false, false, false, false, false, false, false],
+        "business" : [false, false, false, false, false, false, false, false, false, false]
+    }],
+    "duration" : "2 hours",
+    "routes" : [{
+        "startPoint" : "New York",
+        "startTime" : "10:00 AM",
+        "endPoint" : "Orlando",
+        "endTime" : "12:00 PM"
+    }],
+    "price" : [{
+        "economy" : 120,
+        "premium" : 150,
+        "business" : 200
+    }]
+}
