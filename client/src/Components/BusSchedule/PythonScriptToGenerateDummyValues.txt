@@ -1,0 +1,69 @@
+from random import choice, randint
+from datetime import datetime, timedelta
+import json
+
+def generate_times_and_duration():
+    departure_hour = randint(0, 23)
+    departure_minute = randint(0, 59)
+    departure_time = datetime(year=2023, month=1, day=1, hour=departure_hour, minute=departure_minute)
+
+    # Adding a random duration between 1 to 8 hours
+    duration_hours = randint(1, 8)
+    duration = timedelta(hours=duration_hours, minutes=randint(0, 59))
+    arrival_time = departure_time + duration
+
+    # Formatting times back to strings
+    departure_str = departure_time.strftime("%I:%M %p")
+    arrival_str = arrival_time.strftime("%I:%M %p")
+    duration_str = f"{duration_hours} hours {duration.seconds // 60 % 60} minutes"
+
+    return departure_str, arrival_str, duration_str
+
+# Cities available for the bus routes
+cities = [
+    'New York', 'Orlando', 'Los Angeles', 'San Francisco', 'Las Vegas',
+    'Miami', 'Chicago', 'Seattle', 'Boston', 'Washington D.C.', 'New Orleans',
+    'Denver', 'San Diego', 'Houston', 'Nashville', 'Atlanta', 'Philadelphia',
+    'Portland', 'Austin', 'Dallas', 'Phoenix', 'San Antonio', 'Minneapolis',
+    'St. Louis', 'Kansas City', 'Cleveland', 'Cincinnati'
+]
+
+bus_names = [
+    'Gorgi', 'Voyager', 'InterCity', 'MetroLine', 'UrbanWay', 'CrossTown', 'SkyTraveler',
+    'CityRover', 'Highway Cruiser', 'Continental', 'Starliner', 'CityScape', 'RouteMaster',
+    'Urbanite', 'PrimeLine', 'FastTrack', 'InterUrban', 'CityExpress', 'CapitolRunner'
+]
+
+# Function to generate a random seat availability list
+def generate_seats(seat_prefix, count):
+    return [{"number": f"{seat_prefix}{i + 1}", "isAvailable": choice([True])} for i in range(count)]
+
+# Function to generate random bus data
+def generate_bus_data():
+    bus_name = choice(bus_names)
+    # from_city = choice(cities)
+    # to_city = choice([city for city in cities if city != from_city])
+    departureTime, arrivalTime, duration = generate_times_and_duration()
+    bus_data = {
+        "busName": f"{bus_name} Bus",
+        "busNumber":f"{bus_name[0]}{randint(100, 999)}",
+        "from": "New York",
+        "to": "Orlando",
+        "day": choice(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]),
+        # "day" : "Wednesday",
+        "departureTime": departureTime,
+        "arrivalTime": arrivalTime,
+        "duration": duration,
+        "economyPrice": round(randint(50, 100) + randint(0, 99) / 100, 2),
+        "premiumPrice": round(randint(100, 150) + randint(0, 99) / 100, 2),
+        "businessPrice": round(randint(150, 200) + randint(0, 99) / 100, 2),
+        "economySeats": generate_seats("E", 20),
+        "premiumSeats": generate_seats("P", 12),
+        "businessSeats": generate_seats("B", 8),
+        "activeStatus": choice([True])
+    }
+    return bus_data
+
+# Generate random bus data and print as JSON
+random_bus_data = generate_bus_data()
+print(json.dumps(random_bus_data, indent=4))
