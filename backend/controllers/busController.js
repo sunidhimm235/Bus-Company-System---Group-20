@@ -47,18 +47,47 @@ exports.deleteBus = async (req, res) => {
     }
 };
 
+exports.deleteAllBuses = async (req, res) => {
+    try {
+        await Bus.deleteMany();
+        res.json({ message: 'All buses deleted successfully' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+// Fetches buses based on the route
 exports.getRoute = async (req, res) => {
     try {
-        const {from, to, date} = req.params;
-
-        const routesFound = await Bus.find({
-            'routes.startPoint' : from,
-            'routes.endPoint' : to,
-            'routes.startTime' : new Date(date),
-        });
-        res.json(routesFound);
+        const { from, to } = req.params;
+        const buses = await Bus.find({ from, to });
+        res.json(buses);
     }
     catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(400).json({ message: error.message });
     }
 } 
+
+// Helps to book a seat
+exports.bookSeat = async (req, res) => {
+    try {
+        // Gets the seat ID from the request body
+        const { seatId } = req.body;
+
+        // Finds the bus by ID
+        const bus = await Bus.findById(req.params.id);
+        if (!bus) return res.status(404).json({ message: 'Bus not found' });
+
+        // Finds the seat and update its availability
+        const seat = bus.economySeats.id(seatId) || bus.premiumSeats.id(seatId) || bus.businessSeats.id(seatId);
+        if (seat) {
+            seat.isAvailable = false;
+            await bus.save();
+            res.status(200).json({ message: 'Seat booked successfully' });
+        } else {
+            res.status(404).json({ message: 'Seat not found' });
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};

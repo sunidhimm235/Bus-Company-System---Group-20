@@ -1,92 +1,97 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const validateTotalSeats = function (seats) {
-    let totalSeats = 0;
-    seats.forEach(seatGroup => {
-        seatGroup.seats.forEach(row => {
-            totalSeats += row.length;
-        });
-    });
-    return totalSeats === 40;
-};
-
 const seatSchema = new Schema({
-    type: {
-        type: String,
-        required: true,
-        enum: ['economy', 'premium', 'business']
+    number: {
+      type: String,
+      required: true
     },
-    seats: {
-        type: [[Boolean]],
-        required: true
-    }
-});
-
-const routeSchema = new Schema({
-    startPoint: {
-        type: String,
-        required: true
-    },
-    startTime: {
-        type: String,
-        required: true
-    },
-    endPoint: {
-        type: String,
-        required: true
-    },
-    endTime: {
-        type: String,
-        required: true
-    }
-});
-
-const priceSchema = new Schema({
-    economy: {
-        type: Number,
-        required: true
-    },
-    premium: {
-        type: Number,
-        required: true
-    },
-    business: {
-        type: Number,
-        required: true
+    isAvailable: {
+      type: Boolean,
+      required: true,
+      default: true
     }
 });
 
 const busSchema = new Schema({
-    busNumber: {
-        type: Number,
+    busName:
+    {
+        type: String,
+        required: true
+    },
+    busNumber:
+    {
+        type: String,
         required: true,
         unique: true
     },
-    busName: {
+    from:
+    {
         type: String,
         required: true
     },
-    busDay: {
+    to:
+    {
         type: String,
         required: true
     },
-    activeStatus: {
+    day:
+    {
+        type: String,
+        required: true
+    },
+    departureTime:
+    {
+        type: String,
+        required: true
+    },
+    arrivalTime:
+    {
+        type: String,
+        required: true
+    },
+    duration:
+    {
+        type: String,
+        required: true
+    },
+    economyPrice:
+    {
+        type: Number,
+        required: true
+    },
+    premiumPrice:
+    {
+        type: Number,
+        required: true
+    },
+    businessPrice:
+    {
+        type: Number,
+        required: true
+    },
+    economySeats: [seatSchema],
+    premiumSeats: [seatSchema],
+    businessSeats: [seatSchema],
+    activeStatus:
+    {
         type: Boolean,
-        required: true,
         default: true
-    },
-    seats: {
-        type: [seatSchema],
-        validate: [validateTotalSeats, 'Total seats should be 40']
-    },
-    duration: {
-        type: String,
-        required: true
-    },
-    routes: [routeSchema],
-    price: priceSchema
+    }
 });
+
+// Validation for seats count
+busSchema.path('economySeats').validate(function (value) {
+    return value.length === 20;
+}, '20 seats required in Economy Class');
+
+busSchema.path('premiumSeats').validate(function (value) {
+    return value.length === 12;
+}, '12 seats required in Premium Class');
+
+busSchema.path('businessSeats').validate(function (value) {
+    return value.length === 8;
+}, '8 seats required in Business Class');
 
 const Bus = mongoose.model('Bus', busSchema);
 
