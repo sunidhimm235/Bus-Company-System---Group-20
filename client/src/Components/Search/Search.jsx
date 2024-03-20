@@ -24,13 +24,14 @@ import 'aos/dist/aos.css'
 
 const Search = () => {
 
+    // AOS init
     useEffect(()=>
     {
         Aos.init({duration: 2000})
     },
     [])
 
-    // const [activeButton, setActiveButton] = useState('Business Class');
+    // State variables
     const [showFromPopup, setShowFromPopup] = useState(false);
     const [fromSearch, setFromSearch] = useState('');
     const [fromFilter, setFromFilter] = useState([]);
@@ -43,6 +44,7 @@ const Search = () => {
     const datePopupRef = useRef();
     const navigate = useNavigate();
 
+    // List of cities
     const cities = useMemo(() => [
         'New York',
         'Orlando',
@@ -73,6 +75,7 @@ const Search = () => {
         'Cincinnati'
     ], []);
 
+    // Filters the cities based on the search input
     useEffect(() =>
     {
         const results = cities.filter(city =>
@@ -82,6 +85,7 @@ const Search = () => {
         setFromFilter(results);
     }, [fromSearch, cities]);
 
+    // Filters the cities based on the search input
     useEffect(() =>
     {
         const results = cities.filter(city =>
@@ -91,6 +95,7 @@ const Search = () => {
         setToFilter(results);
     }, [toSearch, cities]);
 
+    // Close the pop-up when clicking outside of it for date
     useEffect(() =>
     {
         function handleClickOutside(event)
@@ -106,7 +111,7 @@ const Search = () => {
         };
     }, []);
 
-    // Close the pop-up when clicking outside of it for from
+    // Closes the pop-up when clicking outside of it for from
     useEffect(() =>
     {
         function handleClickOutside(event)
@@ -126,14 +131,10 @@ const Search = () => {
         };
     }, [popupRef]);
 
+    // Handles the search button click event
     const handleSearchClick = () => {
         navigate('/bus-schedule', { state: { from: fromSearch, to: toSearch, date: startDate } });
     };
-    
-    // const handleButtonClick = (buttonName) =>
-    // {
-    //     setActiveButton(buttonName);
-    // };
 
     return (
         <div className='search container section'>
