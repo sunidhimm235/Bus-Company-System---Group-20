@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './SignUpPage.css'; // Make sure this CSS has similar styling to SignInPage.css for consistency
+import './SignUpPage.css'; 
 
 const SignUpPage = () => {
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,25 +20,26 @@ const SignUpPage = () => {
     }
 
     try {
-      await axios.post('http://localhost:4000/auth/register', { name, email, password });
-      navigate('/user');
-    } catch (error) {
+      await axios.post('http://localhost:4000/auth/register', { username, email, password });
+      navigate('/login');
+    } 
+    catch (error) {
       setErrorMessage(error.response.data.message || 'Error signing up');
     }
   };
 
   return (
-    <div className="signin-container" style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
+    <div className="signup-container" style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
       <h2>Sign Up</h2>
       {errorMessage && <div className="error-message" style={{ color: 'red', marginBottom: '10px' }}>{errorMessage}</div>}
       <form onSubmit={handleSubmit}>
         <div style={{ margin: '10px 0' }}>
-          <label htmlFor="name" style={{ display: 'block', marginBottom: '5px' }}>Name</label>
+          <label htmlFor="username" style={{ display: 'block', marginBottom: '5px' }}>Username</label>
           <input
             type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
             style={{ width: '100%', padding: '8px' }}
           />

@@ -4,21 +4,20 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+const secretKey = 'mysecretkey12345 '; 
+
 // Register new user
 router.post('/register', async (req, res) => {
   try {
     const { username, email, password, role } = req.body;
 
-    // check for existing user by email
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: 'Email already in use' });
     }
 
-    // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // create new user
     const newUser = new User({ username, email, password: hashedPassword, role });
     await newUser.save();
 
@@ -30,17 +29,22 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
-    
-    const isValid = user && await bcrypt.compare(req.body.password, user.password);
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
+    if (!user) {
+      return res.status(400).send('Invalid credentials. Please try again.');
+    }
+
+    const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
       return res.status(400).send('Invalid credentials. Please try again.');
     }
 
-    res.send('Login success.');
+    const token = jwt.sign({ id: user._id, role: user.role }, secretKey, { expiresIn: '1h' });
+
+    res.json({ message: 'Login success.', token });
   } 
-  
   catch (error) {
     res.status(500).send("Error logging in.");
   }
