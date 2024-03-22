@@ -439,40 +439,6 @@ function StickyHeadTable() {
   );
 }
 
-// const DropdownMenu = ({ onEdit, onDelete }) => {
-//   return (
-//     <div className="dropdown-menu">
-//       <div className="dropdown-item" onClick={onEdit}>Edit</div>
-//       <div className="dropdown-item" onClick={onDelete}>Delete</div>
-//     </div>
-//   );
-// };
-
-// const ActionButton = ({ routeId, onEdit, onDelete }) => {
-//   const [showDropdown, setShowDropdown] = useState(false);
-//   const dropdownRef = useRef(null);
-
-//   useEffect(() => {
-//     function handleClickOutside(event) {
-//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-//         setShowDropdown(false);
-//       }
-//     }
-
-//     document.addEventListener('mousedown', handleClickOutside);
-//     return () => document.removeEventListener('mousedown', handleClickOutside);
-//   }, [dropdownRef]);
-
-//   return (
-//     <div ref={dropdownRef}>
-//       <button className="action-button" onClick={() => setShowDropdown(!showDropdown)}>
-//         Actions<FaCaretDown/>
-//       </button>
-//       {showDropdown && <DropdownMenu onEdit={() => onEdit(routeId)} onDelete={() => onDelete(routeId)} />}
-//     </div>
-//   );
-// };
-
 const containerStyle = {
   margin: '0 auto',
   backgroundColor: '#fff',
@@ -527,43 +493,72 @@ const initialRouteFormState = {
 };
 
 const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '20px',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '15px', // Add space between form elements
+  padding: '20px',
+  maxWidth: '500px', // Limit the form width for better aesthetics on larger screens
+  margin: '0 auto', // Center the form horizontally
 };
-  
+
 const labelStyle = {
-    marginBottom: '5px',
-    fontWeight: 'bold',
-    textAlign: 'left',
-    width: '100%', // Adjust as needed
+  alignSelf: 'flex-start', // Align labels to the start of the form
+  fontSize: '14px', // Modern, smaller font-size
+  fontWeight: '600', // Slightly bolder for better readability
+  color: '#333', // Dark grey for labels for higher contrast
 };
-  
+
 const inputStyle = {
-    width: '100%', // Adjust as needed
-    padding: '10px',
-    marginBottom: '10px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
+  width: '100%', // Full width inputs
+  padding: '12px 15px', // Padding for better text visibility
+  marginBottom: '10px',
+  borderRadius: '8px', // Rounded corners for modern look
+  border: '1px solid #ccc', // Light border
+  boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)', // Subtle inner shadow for depth
+  fontSize: '16px', // Larger font size for readability
 };
-  
+
 const buttonStyle = {
-    padding: '10px 20px',
-    backgroundColor: '#4CAF50',
-    color: 'white',
-    border: 'none',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    marginTop: '20px',
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  padding: '10px 20px',
+  backgroundColor: '#007bff', // Bootstrap primary color
+  color: 'white',
+  border: 'none',
+  borderRadius: '8px',
+  cursor: 'pointer',
+  fontSize: '16px', // Larger font size for readability
+  fontWeight: '600', // Slightly bolder text
+  letterSpacing: '1px', // Spaced out text
+  transition: 'background-color 0.3s ease', // Smooth background color transition
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '10px', // Space between icon and text
+};
+
+const formContainerStyle = {
+  display: 'flex',
+  flexWrap: 'wrap', // Allow the cards to wrap to the next line on smaller screens
+  gap: '30px', // Space between cards
+  justifyContent: 'left', // Center cards in the container
+  padding: '0px',
+};
+
+const cardStyle = {
+  display: 'flex',
+  flexDirection: 'column', // Stack elements vertically inside the card
+  alignItems: 'center', // Center items for better aesthetics
+  padding: '20px',
+  borderRadius: '8px', // Rounded corners for the card
+  boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Subtle shadow for depth
+  backgroundColor: '#E5E1DA', // Card background color
+  width: '32%', // Responsive width with gap consideration
+  minWidth: '325px', // Max width for larger screens
 };
 
 const ManageBusRoutes = () => {
-  const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create', 'stats'
+  const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create'
   // For create/Edit //////////////////
   const [routeForm, setRouteForm] = useState(initialRouteFormState);
 
@@ -617,9 +612,9 @@ const ManageBusRoutes = () => {
         {currentTab === 'create' && (
           <div style={contentStyle}>
             <h2>Create Route</h2>
-            <form onSubmit={handleSubmit} style={formStyle}>
+            {/* <form onSubmit={handleSubmit} style={formStyle}>
               <label style={labelStyle}>Bus ID</label>
-              <input style={inputStyle} type="number" name="busID" value={routeForm.busID} onChange={handleChange} placeholder="Enter Bus ID" />
+              <input style={inputStyle} type="text" name="busID" value={routeForm.busID} onChange={handleChange} placeholder="Enter Bus ID" />
               <label style={labelStyle}>Bus Name</label>
               <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
               <label style={labelStyle}>Start Point</label>
@@ -645,6 +640,52 @@ const ManageBusRoutes = () => {
               <label style={labelStyle}>Duration</label>
               <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
               <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
+            </form> */}
+            <form onSubmit={handleSubmit}>
+              <div style={formContainerStyle}>
+                {/* Repeat this structure for each form field */}
+                <div style={cardStyle}>
+                  <label style={labelStyle}>Bus ID</label>
+                  <input style={inputStyle} type="text" name="busID" value={routeForm.busID} onChange={handleChange} placeholder="Enter Bus ID" />
+                  <label style={labelStyle}>Bus Name</label>
+                  <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
+                  <label style={labelStyle}>Start Point</label>
+                  <input style={inputStyle} type="text" name="startPoint" value={routeForm.startPoint} onChange={handleChange} placeholder="Start Point" />
+                  <label style={labelStyle}>End Point</label>
+                  <input style={inputStyle} type="text" name="endPoint" value={routeForm.endPoint} onChange={handleChange} placeholder="End Point" />
+                </div>
+
+                {/* Continue with other fields following the same pattern */}
+                <div style={cardStyle}>
+                  <label style={labelStyle}>Total Seats</label>
+                  <input style={inputStyle} type="number" name="capacity" value={routeForm.capacity} onChange={handleChange} placeholder="Total Seats" />
+                  <label style={labelStyle}>Available Seats</label>
+                  <input style={inputStyle} type="number" name="openSeats" value={routeForm.openSeats} onChange={handleChange} placeholder="Available Seats" />
+                  <label style={labelStyle}>Booked Seats</label>
+                  <input style={inputStyle} type="number" name="filledSeats" value={routeForm.filledSeats} onChange={handleChange} placeholder="Booked Seats" />
+                  <label style={labelStyle}>Economy Price</label>
+                  <input style={inputStyle} type="text" name="economyPrice" value={routeForm.economyPrice} onChange={handleChange} placeholder="Economy Price" />
+                  <label style={labelStyle}>Premium Price</label>
+                  <input style={inputStyle} type="text" name="premiumPrice" value={routeForm.premiumPrice} onChange={handleChange} placeholder="Premium Price" />
+                  <label style={labelStyle}>Business Price</label>
+                  <input style={inputStyle} type="text" name="businessPrice" value={routeForm.businessPrice} onChange={handleChange} placeholder="Business Price" />
+                </div>
+
+                <div style={cardStyle}>
+                  <label style={labelStyle}>Depart Time</label>
+                  <input style={inputStyle} type="text" name="departTime" value={routeForm.departTime} onChange={handleChange} placeholder="Depart Time" />
+                  <label style={labelStyle}>Arrival Time</label>
+                  <input style={inputStyle} type="text" name="arrivalTime" value={routeForm.arrivalTime} onChange={handleChange} placeholder="Arrival Time" />
+                  <label style={labelStyle}>Duration</label>
+                  <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
+                </div>
+
+                
+                {/* For the submit button, consider placing it outside the flex container or inside its own card for alignment */}
+                <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
+                  <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
+                </div>
+              </div>
             </form>
           </div>
         )}
