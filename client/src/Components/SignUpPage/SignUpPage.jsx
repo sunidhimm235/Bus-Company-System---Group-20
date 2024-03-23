@@ -21,7 +21,7 @@ const SignUpPage = () => {
 
     try {
       await axios.post('http://localhost:4000/auth/register', { username, email, password });
-      navigate('/login');
+      navigate('/sign-in');
     } 
     catch (error) {
       setErrorMessage(error.response.data.message || 'Error signing up');
