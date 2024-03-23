@@ -2,11 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const seatSchema = new Schema({
-    number: {
+    number:
+    {
       type: String,
       required: true
     },
-    isAvailable: {
+    isAvailable:
+    {
       type: Boolean,
       required: true,
       default: true

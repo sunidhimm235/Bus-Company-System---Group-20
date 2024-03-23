@@ -5,14 +5,11 @@ import './DestinationPage.css'
 
 // This page should have the following:
 // List of destinations
-// Upon clicking on a destination, it should show the following:
+// Upon clicking on a destination, it should show the following: (interchangeable based on the style)
 // - Picture of the destination
 // - Description of the destination
-// I have json file for the destinations, I will give it to you
 // It should be divided into alphabetical order
 // Should have a search bar
-// Should have a filter for the destinations
-// Should have place where you can select a alphabet and it will show the destinations starting with that alphabet
 
 function DestinationPage() {
   return (
