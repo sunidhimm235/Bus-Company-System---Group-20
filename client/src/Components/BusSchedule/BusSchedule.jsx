@@ -10,13 +10,13 @@ import { FaSadTear } from 'react-icons/fa';
 // This page should have the following:
 // - Should be able to generate the bus schedule based on the user's input (done)
 // - Should be able to see the bus schedule (time, from place, to place, price) for the next 7 days (done)
-// - Should be able to filter the bus schedule by destination, time, seat available and price (remaining)
-// - Upon clicking on one of the bus schedule, it should pop up with more details such as: (working on it)
+// - Should be able to filter the bus schedule by destination, time, seat available and price (done)
+// - Upon clicking on one of the bus schedule, it should pop up with more details such as: (done)
 //     1. how many seats are available
 //     2. the price of the ticket depending on the class
 //     3. the time of departure and arrival
 //     4. the duration of the trip
-//     5. the bus name, number, and driver
+//     5. the bus name and number
 //     6. the features of the bus and the amenities depending on the class
 
 const BusSchedule = () =>
@@ -26,118 +26,43 @@ const BusSchedule = () =>
 	// Access the passed state from the search component
     const { from, to, date } = location.state || {};
 
+	// State variables
 	const [selectedBusNames, setSelectedBusNames] = useState(new Set());
 	const [selectedDay, setSelectedDay] = useState(new Date(date));
 	const [selectedBusForDetails, setSelectedBusForDetails] = useState(null);
-
 	const [busRoutes, setBusRoutes] = useState([])
-	const encodedDate = encodeURIComponent(date.toISOString().split('T')[0]);
 
-	const fetchData = async (from, to, date) => {
-		try {
-			const response = await axios.get(`http://localhost:4000/buses/${from}/${to}/${date}`);
-			setBusRoutes(response.data);
-		}
-		catch (error) {
-			console.error('Error fetching data:', error);
-		}
+	// Sets the selected day
+	const setDay = (day) => {
+		setSelectedDay(day);
 	};
 
-	useEffect(() => {
-		if (from && to && encodedDate) {
-			fetchData(from, to, encodedDate);
+	// Fetches bus routes data
+	const fetchData = async (from, to) => {
+		try {
+			const response = await axios.get(`http://localhost:4000/buses/${from}/${to}`);
+			setBusRoutes(response.data);
+		} catch (error) {
+			console.error('Error fetching bus routes:', error);
 		}
-	}, [from, to, encodedDate]);
+	}
 
-	// print the busRoutes data
+	// Fetch bus routes data when the component mounts
+	useEffect(() => {
+		fetchData(from, to);
+	}, [from, to]);
+
+	// Prints the busRoutes data for debugging
 	console.log(busRoutes);
 
 	// Bus schedule data
 	const busSchedule = busRoutes;
 
-	// const busSchedule = [
-	// 	{
-	// 		busName: 'Gorgi Bus',
-	// 		busNumber: 'G123',
-	// 		from: 'New York',
-	// 		to: 'Los Angeles',
-	// 		day: 'Monday',
-	// 		departureTime: '8:00 AM',
-	// 		arrivalTime: '12:00 PM',
-	// 		duration: '4 hours',
-	// 		seatAvailable: 32,
-	// 		economyPrice: 100,
-	// 		premiumPrice: 150,
-	// 		businessPrice: 200,
-	// 	},
-	// 	{
-	// 		busName: 'Gorgi Bus',
-	// 		busNumber: 'G555',
-	// 		from: 'New York',
-	// 		to: 'Los Angeles',
-	// 		day: 'Monday',
-	// 		departureTime: '12:00 PM',
-	// 		arrivalTime: '4:00 PM',
-	// 		duration: '4 hours',
-	// 		seatAvailable: 22,
-	// 		economyPrice: 100,
-	// 		premiumPrice: 150,
-	// 		businessPrice: 200,
-	// 	},
-	// 	{
-	// 		busName: 'Gorgi Bus',
-	// 		busNumber: 'G266',
-	// 		from: 'New York',
-	// 		to: 'Los Angeles',
-	// 		day: 'Monday',
-	// 		departureTime: '4:00 PM',
-	// 		arrivalTime: '7:00 PM',
-	// 		duration: '3 hours',
-	// 		seatAvailable: 40,
-	// 		economyPrice: 100,
-	// 		premiumPrice: 150,
-	// 		businessPrice: 200,
-	// 	},
-	// 	{
-	// 		busName: 'Micki Bus',
-	// 		busNumber: 'M456',
-	// 		from: 'New York',
-	// 		to: 'Los Angeles',
-	// 		day: 'Tuesday',
-	// 		departureTime: '9:00 AM',
-	// 		arrivalTime: '9:00 PM',
-	// 		duration: '12 hours',
-	// 		seatAvailable: 40,
-	// 		economyPrice: 90,
-	// 		premiumPrice: 140,
-	// 		businessPrice: 190,
-	// 	},
-	// 	{
-	// 		busName: 'Bolt bus',
-	// 		busNumber: 'B789',
-	// 		from: 'New York',
-	// 		to: 'Los Angeles',
-	// 		day: 'Wednesday',
-	// 		departureTime: '10:00 AM',
-	// 		arrivalTime: '10:00 PM',
-	// 		duration: '12 hours',
-	// 		seatAvailable: 40,
-	// 		economyPrice: 110,
-	// 		premiumPrice: 160,
-	// 		businessPrice: 210,
-	// 	}
-	// ]
-
-	// Set the selected day
-	const setDay = (day) => {
-		setSelectedDay(day);
-	}
-
-	// Filter all the bus names from the bus schedule data and remove duplicates
+	// Filters all the bus names from the bus schedule data and remove duplicates
 	const busNames = busSchedule.map(bus => bus.busName);
 	const uniqueBusNames = [...new Set(busNames)];
 
-	// Toggle the bus name filter
+	// Toggles the bus name filter
 	const toggleBusNameFilter = (busName) =>
 	{
 		const newSelectedBusNames = new Set(selectedBusNames);
@@ -149,6 +74,7 @@ const BusSchedule = () =>
 		setSelectedBusNames(newSelectedBusNames);
 	}
 
+	// Filters the bus schedule based on the selected bus names and day
 	let displayedBuses = busSchedule.filter(bus =>
         (selectedBusNames.size === 0 || selectedBusNames.has(bus.busName)) && bus.day === selectedDay.toLocaleDateString('en-US', { weekday: 'long' })
     );
@@ -160,12 +86,12 @@ const BusSchedule = () =>
 		return nextDay;
 	});
 
-	// Call this function when the "See Details" button is clicked
+	// Calls this function when the "See Details" button is clicked
 	const showBusDetails = (bus) => {
 		setSelectedBusForDetails(bus);
 	};
 
-	// Call this function to close the modal
+	// Calls this function to close the modal
 	const hideBusDetails = () => {
 		setSelectedBusForDetails(null);
 	};
@@ -225,7 +151,7 @@ const BusSchedule = () =>
 											<p>Duration: {bus.duration}</p>
 											<p>Departure Time: {bus.departureTime}</p>
 											<p>Arrival Time: {bus.arrivalTime}</p>
-											<p>Seats Available: {bus.seatAvailable}</p>
+											<p>Seats Available: {bus.economySeats.filter(seat => seat.isAvailable).length + bus.premiumSeats.filter(seat => seat.isAvailable).length + bus.businessSeats.filter(seat => seat.isAvailable).length}</p>
 											<p>Starting Price: <strong style={{color:'var(--HoverColor)'}}>${bus.economyPrice}</strong></p>
 										</div>
 										<div className='bus-schedule-ticket-details'>

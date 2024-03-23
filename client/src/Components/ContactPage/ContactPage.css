@@ -1,1 +1,137 @@
-/* Styling for the Contact Page will go here */
+.contact-page-container {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-image: url("../../assets/CityMap.png"); 
+  background-size: 80% 65%;
+  background-repeat: no-repeat;
+  background-position: center;
+
+}
+
+.contact-page-holder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  position: relative;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+}
+.contact-page-cp-message {
+  background-color: white;
+  
+  width: 35%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  margin-right: 3%;
+  border-radius: 1vb;
+  background-size: cover;
+  background-position: center;
+  
+}
+.contact-page-heading {
+  width: 75%;
+  font-size: 28px;
+  align-self: center;
+  font-style: normal;
+  text-align: center;
+  font-weight: 600;
+  line-height: 1.5; /* Increased line-height */
+  letter-spacing: 1px; /* Increased letter-spacing */
+}
+.contact-info {
+  font-size: 18px;
+  align-self: center;
+  text-align: center;
+  line-height: 1.8; /* Increased line-height */
+  letter-spacing: 0.5px; /* Increased letter-spacing */
+}
+.cp-form-container {
+  background-color: white;
+  border-radius: 1vb;
+  margin-left: 3%;
+  width: 35%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-position: center;
+}
+
+.cp-name-text,
+.cp-email-text,
+.cp-phone-text,
+.cp-q-text {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 5px;
+  line-height: 1.5; /* Increased line-height */
+  letter-spacing: 0.5px; /* Increased letter-spacing */
+}
+.contactForm {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cp-name-in,
+.cp-mail-in,
+.cp-phone-in {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+.cp-q-in {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  height: 150px;
+  resize: none;
+}
+.cp-button {
+  width: 100%;
+  max-width: 200px;
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 991px) {
+  .contact-page-holder {
+    flex-direction: column;
+    padding-top: 20%;
+    margin-right: 0%;
+  }
+  .cp-form-container{
+    
+    margin-left: 0%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    width: 75%;
+  }
+  .contact-page-cp-message{
+    margin-right: 0%;
+    width: 75%;
+  }
+  .contact-page-container{
+    background-position-y: 95%;
+    background-size: 85% 85%;
+  }
+}

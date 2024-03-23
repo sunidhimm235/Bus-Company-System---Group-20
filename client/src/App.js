@@ -14,6 +14,8 @@ import TravelInformation from './Components/TravelInformation/TravelInformation'
 import DestinationPage from './Components/DestinationsPage/DestinationPage';
 import FAQPage from './Components/FAQPage/FAQPage';
 import ContactPage from './Components/ContactPage/ContactPage';
+import SeatSelection from './Components/BusSchedule/SeatSelection';
+import UserInformation from './Components/UserInformation/UserInformation';
 import './index.css';
 
 const App = () => {
@@ -39,6 +41,18 @@ const App = () => {
                 <Navbar />
                 <BusSchedule />
               </>
+          } />
+          <Route path='/seat-selection' element={
+            <>
+              <Navbar />
+              <SeatSelection />
+            </>
+          } />
+          <Route path='/user-information' element={
+            <>
+              {/* <Navbar /> */}
+              <UserInformation />
+            </>
           } />
           <Route path='/travel-information' element={<TravelInformation />} />
           <Route path='/destination' element={<DestinationPage />} />
