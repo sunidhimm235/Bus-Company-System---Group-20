@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import './SignInPage.css';
 
@@ -7,6 +7,7 @@ const SignInPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -14,21 +15,26 @@ const SignInPage = () => {
     try {
       const { data } = await axios.post('http://localhost:4000/auth/login', { email, password });
       localStorage.setItem('token', data.token);
+      localStorage.setItem('username', data.username);
 
-      switch (data.role) {
-        case 'admin':
-          navigate('/admin');
-          break;
-        case 'employee':
-          navigate('/employee');
-          break;
-        default:
-          navigate('/user'); // defaulting to user dashboard
+      const { from, bus } = location.state || {};
+      if (from) {
+        navigate(from, { state: { bus } }); 
+      } else {
+        switch (data.role) {
+          case 'admin':
+            navigate('/admin');
+            break;
+          case 'employee':
+            navigate('/employee');
+            break;
+          default:
+            navigate('/user');
+        }
       }
     } 
     catch (error) {
-      console.error('Error signing in:', error.response.data.message);
-
+      console.error('Error signing in:', error.response?.data?.message || 'An unexpected error occurred');
     }
   };
 
