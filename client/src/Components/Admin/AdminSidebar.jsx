@@ -99,8 +99,8 @@ const SidebarItem = ({ icon, label, isExpanded, onSelect }) => {
       padding: '10px',
       paddingLeft: isHovered ? '15px' : '10px',
       borderRadius: '5px',
-      transition: 'background-color 0.3s ease',
-      color: 'black',//'hsl(240, 1%, 48%)',
+      transition: 'background-color 0s ease',
+      color: isHovered ? 'white' : 'black',//'hsl(240, 1%, 48%)',
     };
 
     const iconStyle = {
@@ -109,6 +109,7 @@ const SidebarItem = ({ icon, label, isExpanded, onSelect }) => {
         height: '24px', // Maintain aspect ratio.
         display: 'flex', // Use flex to help with alignment.
         alignItems: 'center', // Center align the icon vertically.
+        transition: 'color 0s ease',
       };
   
     return (

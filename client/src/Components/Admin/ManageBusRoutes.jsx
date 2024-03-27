@@ -15,27 +15,49 @@ import Button from '@mui/material/Button';
 
 // Table
 const columns = [
-  { id: 'busID', label: 'Bus ID', minWidth: 100, align: 'center', },
   { id: 'busName', label: 'Bus Name', minWidth: 100, align: 'center', },
-  { id: 'startPoint', label: 'Start Point', minWidth: 100, align: 'center', },
-    { id: 'endPoint', label: 'End Point', minWidth: 100, align: 'center', },
+  { id: 'busNumber', label: 'Bus Number', minWidth: 100, align: 'center', },
+  { id: 'from', label: 'From', minWidth: 100, align: 'center', },
+  { id: 'to', label: 'To', minWidth: 100, align: 'center', },
+  { id: 'day', label: 'Day', minWidth: 100, align: 'center', },
+  // {
+  //   id: 'capacity',
+  //   label: 'Total Seats',
+  //   minWidth: 100,
+  //   align: 'center',
+  //   format: (value) => value.toLocaleString('en-US'),
+  // },
+  // {
+  //   id: 'openSeats',
+  //   label: 'Available Seats',
+  //   minWidth: 100,
+  //   align: 'center',
+  //   format: (value) => value.toLocaleString('en-US'),
+  // },  
+  // {
+    //   id: 'filledSeats',
+    //   label: 'Booked Seats',
+    //   minWidth: 100,
+    //   align: 'center',
+    //   format: (value) => value.toLocaleString('en-US'),
+    // },
   {
-    id: 'capacity',
-    label: 'Total Seats',
+    id: 'departureTime',
+    label: 'Depart Time',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'openSeats',
-    label: 'Available Seats',
+    id: 'arrivalTime',
+    label: 'Arrival Time',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toLocaleString('en-US'),
-  },  
+  },
   {
-    id: 'filledSeats',
-    label: 'Booked Seats',
+    id: 'duration',
+    label: 'Duration',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toLocaleString('en-US'),
@@ -62,25 +84,11 @@ const columns = [
     format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'departTime',
-    label: 'Depart Time',
+    id: 'activeStatus',
+    label: 'Status',
     minWidth: 100,
     align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'arrivalTime',
-    label: 'Arrival Time',
-    minWidth: 100,
-    align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'duration',
-    label: 'Duration',
-    minWidth: 100,
-    align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
+    //format: (value) => value.toLocaleString('en-US'),
   },
 ];
 
@@ -325,6 +333,7 @@ function StickyHeadTable() {
 		try {
 			const response = await axios.get(`http://localhost:4000/buses/`);
 			setBusRoutes(response.data);
+      console.log(response.data);
 		}
 		catch (error) {
 			console.error('Error fetching data:', error);
@@ -469,6 +478,7 @@ const tabButtonStyle = {
 
 const activeTabStyle = {
   backgroundColor: '#92C7CF',
+  color: 'white'
 };
 
 const contentStyle = {
@@ -537,25 +547,63 @@ const buttonStyle = {
   gap: '10px', // Space between icon and text
 };
 
-const formContainerStyle = {
-  display: 'flex',
-  flexWrap: 'wrap', // Allow the cards to wrap to the next line on smaller screens
-  gap: '30px', // Space between cards
-  justifyContent: 'left', // Center cards in the container
-  padding: '0px',
-};
+// const formContainerStyle = {
+//   display: 'flex',
+//   flexWrap: 'wrap', // Allow the cards to wrap to the next line on smaller screens
+//   gap: '30px', // Space between cards
+//   justifyContent: 'left', // Center cards in the container
+//   padding: '0px',
+// };
 
-const cardStyle = {
-  display: 'flex',
-  flexDirection: 'column', // Stack elements vertically inside the card
-  alignItems: 'center', // Center items for better aesthetics
-  padding: '20px',
-  borderRadius: '8px', // Rounded corners for the card
-  boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Subtle shadow for depth
-  backgroundColor: '#E5E1DA', // Card background color
-  width: '32%', // Responsive width with gap consideration
-  minWidth: '325px', // Max width for larger screens
-};
+// const cardStyle = {
+//   display: 'flex',
+//   flexDirection: 'column', // Stack elements vertically inside the card
+//   alignItems: 'center', // Center items for better aesthetics
+//   padding: '20px',
+//   borderRadius: '8px', // Rounded corners for the card
+//   boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Subtle shadow for depth
+//   backgroundColor: '#E5E1DA', // Card background color
+//   width: '32%', // Responsive width with gap consideration
+//   minWidth: '325px', // Max width for larger screens
+// };
+
+// const formContainerStyle = {
+//   display: 'grid',
+//   gridTemplateColumns: 'repeat(2, 1fr)', // Two columns layout
+//   columnGap: '20px', // Space between columns
+//   rowGap: '15px', // Space between rows
+//   alignItems: 'start', // Align items to the start of the grid cell
+//   maxWidth: '800px', // Adjust based on the actual size needed
+//   margin: '0 auto', // Center the form horizontally
+//   padding: '20px',
+// };
+
+// // Adjusted input style to remove margin-bottom
+// const inputStyle = {
+//   // ... other styles remain the same
+//   marginBottom: '0', // Remove margin-bottom
+// };
+
+// // Add a new style for grid items that span two columns
+// const gridColumnSpanStyle = {
+//   gridColumn: '1 / -1', // Span from first to last column
+// };
+
+// // Style for buttons and actions on the side or bottom
+// const actionButtonStyle = {
+//   // ... your button styles,
+//   gridColumn: '2', // Position on the second column
+//   justifySelf: 'start', // Align to the start of the grid cell
+// };
+
+// // If you have a section that should be on the side or have different alignment
+// const sideSectionStyle = {
+//   display: 'flex',
+//   flexDirection: 'column',
+//   gap: '10px',
+//   // ... add more styles as needed
+// };
+
 
 const ManageBusRoutes = () => {
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create'
@@ -608,15 +656,15 @@ const ManageBusRoutes = () => {
           </TableContainer>
         )}
         {/* Include your forms and statistics content with appropriate styles */}
-        {/* Create/Edit Route Form */}
+        {/* Create/Edit Route Form  */}
         {currentTab === 'create' && (
           <div style={contentStyle}>
             <h2>Create Route</h2>
-            {/* <form onSubmit={handleSubmit} style={formStyle}>
-              <label style={labelStyle}>Bus ID</label>
-              <input style={inputStyle} type="text" name="busID" value={routeForm.busID} onChange={handleChange} placeholder="Enter Bus ID" />
+            <form onSubmit={handleSubmit} style={formStyle}>
               <label style={labelStyle}>Bus Name</label>
               <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
+              <label style={labelStyle}>Bus Number</label>
+              <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" />
               <label style={labelStyle}>Start Point</label>
               <input style={inputStyle} type="text" name="startPoint" value={routeForm.startPoint} onChange={handleChange} placeholder="Start Point" />
               <label style={labelStyle}>End Point</label>
@@ -640,13 +688,14 @@ const ManageBusRoutes = () => {
               <label style={labelStyle}>Duration</label>
               <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
               <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
-            </form> */}
-            <form onSubmit={handleSubmit}>
+            </form>
+            {/**?ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd */}
+            {/* <form onSubmit={handleSubmit}>
               <div style={formContainerStyle}>
-                {/* Repeat this structure for each form field */}
+                {/* Repeat this structure for each form field 
                 <div style={cardStyle}>
                   <label style={labelStyle}>Bus ID</label>
-                  <input style={inputStyle} type="text" name="busID" value={routeForm.busID} onChange={handleChange} placeholder="Enter Bus ID" />
+                  <input style={inputStyle} type="text" name="busNumber" value={routeForm.busID} onChange={handleChange} placeholder="Enter Bus ID" />
                   <label style={labelStyle}>Bus Name</label>
                   <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
                   <label style={labelStyle}>Start Point</label>
@@ -655,7 +704,7 @@ const ManageBusRoutes = () => {
                   <input style={inputStyle} type="text" name="endPoint" value={routeForm.endPoint} onChange={handleChange} placeholder="End Point" />
                 </div>
 
-                {/* Continue with other fields following the same pattern */}
+                {/* Continue with other fields following the same pattern 
                 <div style={cardStyle}>
                   <label style={labelStyle}>Total Seats</label>
                   <input style={inputStyle} type="number" name="capacity" value={routeForm.capacity} onChange={handleChange} placeholder="Total Seats" />
@@ -681,12 +730,12 @@ const ManageBusRoutes = () => {
                 </div>
 
                 
-                {/* For the submit button, consider placing it outside the flex container or inside its own card for alignment */}
+                {/* For the submit button, consider placing it outside the flex container or inside its own card for alignment 
                 <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                   <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
                 </div>
               </div>
-            </form>
+            </form> */}
           </div>
         )}
       </div>
