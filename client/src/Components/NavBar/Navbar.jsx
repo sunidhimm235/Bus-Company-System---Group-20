@@ -1,63 +1,74 @@
-import React, {useState} from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { isAuthenticated } from '../../utils/auth'; // Adjust the import path as necessary
 
-// Imported Icons
-import {SiConsul} from 'react-icons/si'
-import {BsPhoneVibrate} from 'react-icons/bs'
-import {CgMenuGridO} from 'react-icons/cg'
+import { SiConsul } from 'react-icons/si';
+import { BsPhoneVibrate } from 'react-icons/bs';
+import { CgMenuGridO } from 'react-icons/cg';
+import Logo from '../../assets/logo.png';
 
-// Imported Images
-import Logo from '../../assets/logo.png'
+const Navbar = () => {
+    const [active, setActive] = useState('navBarMenu');
+    const [transparent, setTransparent] = useState('navBarTwo');
+    const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated());
+    const [username, setUsername] = useState(localStorage.getItem('username') || '');
+    const navigate = useNavigate();
 
-const Navbar = () =>
-{
-    // Toggle the navbar menu
-    const [active, setActive] = useState('navBarMenu')
-    const  showNavBar = ()=>
-    {
-        setActive('navBarMenu showNavBar')
-    }
+    const showNavBar = () => setActive('navBarMenu showNavBar');
+    const removeNavBar = () => setActive('navBarMenu');
+    const addBg = () => setTransparent(window.scrollY >= 10 ? 'navBarTwo activeHeader' : 'navBarTwo');
 
-    // Remove the navbar menu
-    const  removeNavBar = ()=>{
-        setActive('navBarMenu')
-    }
+    useEffect(() => {
+        const handleScroll = () => {
+            addBg();
+        };
+        window.addEventListener('scroll', handleScroll);
 
-    // Change the navbar color
-    const [transparent, setTransparent] = useState('navBarTwo')
-    const addBg = ()=>
-    {
-        if(window.scrollY >= 10)
-        {
-            setTransparent('navBarTwo activeHeader')
-        }
-        else
-        {
-            setTransparent('navBarTwo')
-        }
-    }
-    window.addEventListener('scroll', addBg)
+        const checkAuthStatus = () => {
+            setIsLoggedIn(isAuthenticated());
+            setUsername(localStorage.getItem('username') || '');
+        };
+        checkAuthStatus(); 
+        
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username'); 
+        setIsLoggedIn(false);
+        setUsername('');
+        navigate('/'); 
+    };
 
     return (
         <div className='navBar flex'>
             <div className="navBarOne flex">
                 <div><SiConsul className='icon'/></div>
                 <div className='none flex'>
-                    <li className='flex'> TicketRide | Your Travel Partner</li>
+                    <li className='flex'>TicketRide | Your Travel Partner</li>
                     <li className='flex'><BsPhoneVibrate className='icon'/> +234 123 456 7890</li>
                 </div>
                 <div className='atb flex'>
-                    {/* <span> Sign In</span>
-                    <span> Sign Up</span> */}
-                    <Link to="/sign-in"><span>Sign In</span></Link>
-                    <Link to="/sign-up"><span>Sign Up</span></Link>
-                    <Link to="/admin"><span>temp</span></Link>
+                    {isLoggedIn ? (
+                        <>
+                            <span>{username}</span>
+                            <span onClick={handleLogout} style={{ cursor: 'pointer' }}>Log Out</span>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/sign-in"><span>Sign In</span></Link>
+                            <Link to="/sign-up"><span>Sign Up</span></Link>
+                        </>
+                    )}
                 </div>
             </div>
 
             <div className={transparent}>
                 <div className="logoDiv">
-                    <img src={Logo} alt="logo" className='Logo' />
+                    <img src={Logo} alt="Logo" className='Logo' />
                 </div>
 
                 <div className={active}>
@@ -73,15 +84,12 @@ const Navbar = () =>
 
                 <Link to="/contact"><button className='btnTwo btn'>Contact</button></Link>
 
-                <div onClick = {
-                    active === 'navBarMenu' ? showNavBar : removeNavBar
-                } className="toggleIcon">
+                <div onClick={active === 'navBarMenu' ? showNavBar : removeNavBar} className="toggleIcon">
                     <CgMenuGridO className='icon'/>
                 </div>
             </div>
-
         </div>
-    )
-}
+    );
+};
 
-export default Navbar
+export default Navbar;
