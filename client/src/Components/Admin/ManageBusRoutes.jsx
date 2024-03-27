@@ -666,11 +666,11 @@ const ManageBusRoutes = () => {
               <label style={labelStyle}>Bus Number</label>
               <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" />
               <label style={labelStyle}>Start Point</label>
-              <input style={inputStyle} type="text" name="startPoint" value={routeForm.startPoint} onChange={handleChange} placeholder="Start Point" />
+              <input style={inputStyle} type="text" name="from" value={routeForm.from} onChange={handleChange} placeholder="Start Point" />
               <label style={labelStyle}>End Point</label>
-              <input style={inputStyle} type="text" name="endPoint" value={routeForm.endPoint} onChange={handleChange} placeholder="End Point" />
+              <input style={inputStyle} type="text" name="to" value={routeForm.to} onChange={handleChange} placeholder="End Point" />
               <label style={labelStyle}>Total Seats</label>
-              <input style={inputStyle} type="number" name="capacity" value={routeForm.capacity} onChange={handleChange} placeholder="Total Seats" />
+              <input style={inputStyle} type="text" name="day" value={routeForm.day} onChange={handleChange} placeholder="Day" />
               <label style={labelStyle}>Available Seats</label>
               <input style={inputStyle} type="number" name="openSeats" value={routeForm.openSeats} onChange={handleChange} placeholder="Available Seats" />
               <label style={labelStyle}>Booked Seats</label>
