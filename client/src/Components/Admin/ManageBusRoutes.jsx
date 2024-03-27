@@ -20,27 +20,6 @@ const columns = [
   { id: 'from', label: 'From', minWidth: 100, align: 'center', },
   { id: 'to', label: 'To', minWidth: 100, align: 'center', },
   { id: 'day', label: 'Day', minWidth: 100, align: 'center', },
-  // {
-  //   id: 'capacity',
-  //   label: 'Total Seats',
-  //   minWidth: 100,
-  //   align: 'center',
-  //   format: (value) => value.toLocaleString('en-US'),
-  // },
-  // {
-  //   id: 'openSeats',
-  //   label: 'Available Seats',
-  //   minWidth: 100,
-  //   align: 'center',
-  //   format: (value) => value.toLocaleString('en-US'),
-  // },  
-  // {
-    //   id: 'filledSeats',
-    //   label: 'Booked Seats',
-    //   minWidth: 100,
-    //   align: 'center',
-    //   format: (value) => value.toLocaleString('en-US'),
-    // },
   {
     id: 'departureTime',
     label: 'Depart Time',
@@ -325,7 +304,7 @@ const rows = [
   }
 ];
 
-function StickyHeadTable() {
+function StickyHeadTable(props) {
   // Get all bus routes
   const [busRoutes, setBusRoutes] = useState([])
 
@@ -356,10 +335,7 @@ function StickyHeadTable() {
     setPage(0);
   };
 
-  const handleEdit = (routeId) => {
-    // Handle edit logic here
-    console.log('Edit:', routeId);
-  };
+
 
   const handleDelete = (routeId) => {
     // Handle delete logic here
@@ -400,7 +376,8 @@ function StickyHeadTable() {
                     <Button
                       variant="contained"
                       size="small"
-                      onClick={() => handleEdit(row.id)}
+                      //onClick={() => handleEdit(row)} // was row.id /////////
+                      onClick={() => props.onEdit(row)} // Call the passed function with the row data
                       sx={{
                         backgroundColor: '#92C7CF', //#E5E1DA', // Custom background color
                         color: 'white',
@@ -438,7 +415,7 @@ function StickyHeadTable() {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={rows.length}
+        count={busRoutes.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -487,19 +464,18 @@ const contentStyle = {
 
 // For create route
 const initialRouteFormState = {
-  busID: '',
   busName: '',
-  startPoint: '',
-  endPoint: '',
-  capacity: '',
-  openSeats: '',
-  filledSeats: '',
-  economyPrice: '',
-  premiumPrice: '',
-  businessPrice: '',
-  departTime: '',
+  busNumber: '',
+  from: '',
+  to: '',
+  day: '',
+  departureTime: '',
   arrivalTime: '',
   duration: '',
+  economyPrice: '',
+  businessPrice: '',
+  premiumPrice: '',
+  activeStatus: '',
 };
 
 const formStyle = {
@@ -623,6 +599,26 @@ const ManageBusRoutes = () => {
     setRouteForm(initialRouteFormState);
     setCurrentTab('list'); // Optional: redirect to list after submission
   };
+
+  const handleEditRoute = (routeData) => {
+    setRouteForm({ // Assuming your route data matches your form state structure
+      busName: routeData.busName,
+      busNumber: routeData.busNumber, // Ensure you are mapping fields correctly
+      from: routeData.from,
+      to: routeData.to,
+      day: routeData.day,
+      departTime: routeData.departTime,
+      arrivalTime: routeData.arrivalTime,
+      duration: routeData.duration,
+      economyPrice: routeData.economyPrice,
+      premiumPrice: routeData.premiumPrice,
+      businessPrice: routeData.businessPrice,
+      activeStatus: routeData.activeStatus,
+      // Continue for all needed fields
+    });
+    setCurrentTab('edit'); // Switch to the edit tab
+    // console.log('Edit:', routeData);
+  };
   ///////////////////////////////////
 
   const getTabButtonStyle = (tab) => ({
@@ -632,6 +628,10 @@ const ManageBusRoutes = () => {
 
   // Function to switch tabs
   const switchTab = (tab) => {
+    if (tab === 'create') {
+      // Reset form state only when switching to the 'create' tab
+      setRouteForm(initialRouteFormState);
+    }
     setCurrentTab(tab);
   };
 
@@ -646,13 +646,13 @@ const ManageBusRoutes = () => {
       <ul style={tabStyle}>
         <li style={getTabButtonStyle('list')} onClick={() => switchTab('list')}>Route Listing</li>
         <li style={getTabButtonStyle('create')} onClick={() => switchTab('create')}>Create Route</li>
-        {/* <li style={getTabButtonStyle('stats')} onClick={() => switchTab('stats')}>Passenger Statistics</li> */}
+        <li style={getTabButtonStyle('edit')} onClick={() => switchTab('edit')}>Edit Route</li>
       </ul>
 
       <div style={contentStyle}>
         {currentTab === 'list' && (
           <TableContainer component={Paper} sx={tableContainerSx}>
-            <StickyHeadTable />
+            <StickyHeadTable onEdit={handleEditRoute} />
           </TableContainer>
         )}
         {/* Include your forms and statistics content with appropriate styles */}
@@ -665,28 +665,26 @@ const ManageBusRoutes = () => {
               <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
               <label style={labelStyle}>Bus Number</label>
               <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" />
-              <label style={labelStyle}>Start Point</label>
+              <label style={labelStyle}>From</label>
               <input style={inputStyle} type="text" name="from" value={routeForm.from} onChange={handleChange} placeholder="Start Point" />
-              <label style={labelStyle}>End Point</label>
+              <label style={labelStyle}>To</label>
               <input style={inputStyle} type="text" name="to" value={routeForm.to} onChange={handleChange} placeholder="End Point" />
-              <label style={labelStyle}>Total Seats</label>
-              <input style={inputStyle} type="text" name="day" value={routeForm.day} onChange={handleChange} placeholder="Day" />
-              <label style={labelStyle}>Available Seats</label>
-              <input style={inputStyle} type="number" name="openSeats" value={routeForm.openSeats} onChange={handleChange} placeholder="Available Seats" />
-              <label style={labelStyle}>Booked Seats</label>
-              <input style={inputStyle} type="number" name="filledSeats" value={routeForm.filledSeats} onChange={handleChange} placeholder="Booked Seats" />
+              <label style={labelStyle}>Day</label>
+              <input style={inputStyle} Day="text" name="day" value={routeForm.day} onChange={handleChange} placeholder="Day" />
+              <label style={labelStyle}>Departure Time</label>
+              <input style={inputStyle} type="text" name="departureTime" value={routeForm.departureTime} onChange={handleChange} placeholder="Departure Time" />
+              <label style={labelStyle}>Arrival Time</label>
+              <input style={inputStyle} type="text" name="arrivalTime" value={routeForm.arrivalTime} onChange={handleChange} placeholder="Arrival Time" />
+              <label style={labelStyle}>Duration</label>
+              <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
               <label style={labelStyle}>Economy Price</label>
               <input style={inputStyle} type="text" name="economyPrice" value={routeForm.economyPrice} onChange={handleChange} placeholder="Economy Price" />
               <label style={labelStyle}>Premium Price</label>
               <input style={inputStyle} type="text" name="premiumPrice" value={routeForm.premiumPrice} onChange={handleChange} placeholder="Premium Price" />
               <label style={labelStyle}>Business Price</label>
               <input style={inputStyle} type="text" name="businessPrice" value={routeForm.businessPrice} onChange={handleChange} placeholder="Business Price" />
-              <label style={labelStyle}>Depart Time</label>
-              <input style={inputStyle} type="text" name="departTime" value={routeForm.departTime} onChange={handleChange} placeholder="Depart Time" />
-              <label style={labelStyle}>Arrival Time</label>
-              <input style={inputStyle} type="text" name="arrivalTime" value={routeForm.arrivalTime} onChange={handleChange} placeholder="Arrival Time" />
-              <label style={labelStyle}>Duration</label>
-              <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
+              <label style={labelStyle}>Active Status</label>
+              <input style={inputStyle} type="text" name="activeStatus" value={routeForm.activeStatus} onChange={handleChange} placeholder="Active Status" />
               <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
             </form>
             {/**?ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd */}
@@ -736,6 +734,38 @@ const ManageBusRoutes = () => {
                 </div>
               </div>
             </form> */}
+          </div>
+        )}
+        {currentTab === 'edit' && (
+         <div style={contentStyle}>
+          <h2>Edit Route</h2>
+            <form onSubmit={handleSubmit} style={formStyle}>
+              <label style={labelStyle}>Bus Name</label>
+              <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
+              <label style={labelStyle}>Bus Number</label>
+              <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" />
+              <label style={labelStyle}>From</label>
+              <input style={inputStyle} type="text" name="from" value={routeForm.from} onChange={handleChange} placeholder="Start Point" />
+              <label style={labelStyle}>To</label>
+              <input style={inputStyle} type="text" name="to" value={routeForm.to} onChange={handleChange} placeholder="End Point" />
+              <label style={labelStyle}>Day</label>
+              <input style={inputStyle} Day="text" name="day" value={routeForm.day} onChange={handleChange} placeholder="Day" />
+              <label style={labelStyle}>Departure Time</label>
+              <input style={inputStyle} type="text" name="departureTime" value={routeForm.departureTime} onChange={handleChange} placeholder="Departure Time" />
+              <label style={labelStyle}>Arrival Time</label>
+              <input style={inputStyle} type="text" name="arrivalTime" value={routeForm.arrivalTime} onChange={handleChange} placeholder="Arrival Time" />
+              <label style={labelStyle}>Duration</label>
+              <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
+              <label style={labelStyle}>Economy Price</label>
+              <input style={inputStyle} type="text" name="economyPrice" value={routeForm.economyPrice} onChange={handleChange} placeholder="Economy Price" />
+              <label style={labelStyle}>Premium Price</label>
+              <input style={inputStyle} type="text" name="premiumPrice" value={routeForm.premiumPrice} onChange={handleChange} placeholder="Premium Price" />
+              <label style={labelStyle}>Business Price</label>
+              <input style={inputStyle} type="text" name="businessPrice" value={routeForm.businessPrice} onChange={handleChange} placeholder="Business Price" />
+              <label style={labelStyle}>Active Status</label>
+              <input style={inputStyle} type="text" name="activeStatus" value={routeForm.activeStatus} onChange={handleChange} placeholder="Active Status" />
+              <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
+            </form>
           </div>
         )}
       </div>
