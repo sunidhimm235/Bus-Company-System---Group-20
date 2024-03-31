@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'client', 'public')));
 app.use('/users', require('./backend/routes/userRoutes'));
 app.use('/auth', require('./backend/routes/auth'));
 app.use('/buses', require('./backend/routes/busRoutes'));
+app.use('/api/travel-history', require('./backend/routes/travelHistoryRoutes'))
 
 app.all('*', (req, res) => {
     res.status(404).send('404 Not Found');

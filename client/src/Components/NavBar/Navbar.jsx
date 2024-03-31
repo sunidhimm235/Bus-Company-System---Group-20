@@ -12,27 +12,23 @@ const Navbar = () => {
     const [transparent, setTransparent] = useState('navBarTwo');
     const [isLoggedIn, setIsLoggedIn] = useState(isAuthenticated());
     const [username, setUsername] = useState(localStorage.getItem('username') || '');
+    const [showDropdown, setShowDropdown] = useState(false);
     const navigate = useNavigate();
 
-    const showNavBar = () => setActive('navBarMenu showNavBar');
-    const removeNavBar = () => setActive('navBarMenu');
+    const toggleNavBar = () => setActive(prevState => prevState === 'navBarMenu' ? 'navBarMenu showNavBar' : 'navBarMenu');
     const addBg = () => setTransparent(window.scrollY >= 10 ? 'navBarTwo activeHeader' : 'navBarTwo');
 
     useEffect(() => {
-        const handleScroll = () => {
-            addBg();
-        };
+        const handleScroll = () => addBg();
         window.addEventListener('scroll', handleScroll);
 
         const checkAuthStatus = () => {
             setIsLoggedIn(isAuthenticated());
             setUsername(localStorage.getItem('username') || '');
         };
-        checkAuthStatus(); 
+        checkAuthStatus();
         
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
+        return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
     const handleLogout = () => {
@@ -40,7 +36,23 @@ const Navbar = () => {
         localStorage.removeItem('username'); 
         setIsLoggedIn(false);
         setUsername('');
-        navigate('/'); 
+        navigate('/');
+    };
+
+    const dropdownStyles = {
+        position: 'absolute',
+        backgroundColor: 'white',
+        boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+        padding: '10px',
+        borderRadius: '5px',
+        top: '100%',
+        right: 0,
+        zIndex: 1000, // Ensure dropdown is above other content
+    };
+
+    const dropdownItemStyles = {
+        padding: '8px 10px',
+        cursor: 'pointer',
     };
 
     return (
@@ -53,10 +65,18 @@ const Navbar = () => {
                 </div>
                 <div className='atb flex'>
                     {isLoggedIn ? (
-                        <>
-                            <span>{username}</span>
-                            <span onClick={handleLogout} style={{ cursor: 'pointer' }}>Log Out</span>
-                        </>
+                        <div style={{ position: 'relative' }} onMouseLeave={() => setShowDropdown(false)}>
+                            <span onClick={() => setShowDropdown(!showDropdown)} style={{ cursor: 'pointer' }}>
+                                {username}
+                            </span>
+                            {showDropdown && (
+                                <div style={dropdownStyles}>
+                                    <Link to="/travel-history"><div style={dropdownItemStyles}>Travel History</div></Link>
+                                    <Link to="/reservations"><div style={dropdownItemStyles}>Reservations</div></Link>
+                                    <div onClick={handleLogout} style={dropdownItemStyles}>Log Out</div>
+                                </div>
+                            )}
+                        </div>
                     ) : (
                         <>
                             <Link to="/sign-in"><span>Sign In</span></Link>
@@ -84,11 +104,11 @@ const Navbar = () => {
 
                 <Link to="/contact"><button className='btnTwo btn'>Contact</button></Link>
 
-                <div onClick={active === 'navBarMenu' ? showNavBar : removeNavBar} className="toggleIcon">
-                    <CgMenuGridO className='icon'/>
-                </div>
-            </div>
-        </div>
+                <div onClick={toggleNavBar} className="toggleIcon">
+    <CgMenuGridO className='icon'/>
+    </div>
+    </div>
+    </div>
     );
 };
 
