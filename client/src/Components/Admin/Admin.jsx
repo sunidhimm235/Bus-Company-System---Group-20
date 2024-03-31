@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AdminSidebar from './AdminSidebar'; // Adjust the import path as needed
 import DashboardCards from './DashboardCards';
 import ManageBusRoutes from './ManageBusRoutes';
+import ManageUserAccounts from './ManageUserAccounts';
 
 const Admin = () => {
   const [selectedItem, setSelectedItem] = useState('Dashboard'); // Default to showing Dashboard
@@ -46,6 +47,8 @@ const Admin = () => {
         {selectedItem === 'Manage User Accounts' && (
           <div>
             <h1>Manage User Accounts</h1>
+            <div style={{padding: '10px'}}></div>
+            <ManageUserAccounts />
             {/* Content for managing bus routes */}
           </div>
         )}

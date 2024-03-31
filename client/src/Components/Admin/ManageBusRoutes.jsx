@@ -1,6 +1,6 @@
 // export default ManageBusRoutes;
-import React, { useState, useRef, useEffect } from 'react';
-import { FaPlus, FaEdit, FaTrash, FaBus, FaUserFriends, FaSave, FaCaretDown } from 'react-icons/fa';
+import React, { useState, useEffect } from 'react';
+import { FaSave } from 'react-icons/fa';
 import './ManageBusRoutes.css'
 import axios from 'axios'
 import Paper from '@mui/material/Paper';
@@ -71,239 +71,6 @@ const columns = [
   },
 ];
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-const rows = [
-  {
-    busID: 1,
-    busName: 'B001',
-    startPoint: 'Los Angeles',
-    endPoint: 'San Antonio',
-    capacity: 47,
-    openSeats: 33,
-    filledSeats: 14,
-    economyPrice: '$25',
-    premiumPrice: '$80',
-    businessPrice: '$100',
-    departTime: '07:58 AM',
-    arrivalTime: '05:23 AM',
-    duration: '4 hours'
-  },
-  {
-    busID: 2,
-    busName: 'B002',
-    startPoint: 'New York',
-    endPoint: 'Columbus',
-    capacity: 48,
-    openSeats: 46,
-    filledSeats: 2,
-    economyPrice: '$25',
-    premiumPrice: '$70',
-    businessPrice: '$140',
-    departTime: '06:28 AM',
-    arrivalTime: '06:34 AM',
-    duration: '2 hours'
-  },
-  {
-    busID: 3,
-    busName: 'B003',
-    startPoint: 'San Jose',
-    endPoint: 'New York',
-    capacity: 46,
-    openSeats: 29,
-    filledSeats: 17,
-    economyPrice: '$35',
-    premiumPrice: '$60',
-    businessPrice: '$140',
-    departTime: '06:56 AM',
-    arrivalTime: '05:09 AM',
-    duration: '2 hours'
-  },
-  {
-    busID: 4,
-    busName: 'B004',
-    startPoint: 'Charlotte',
-    endPoint: 'San Antonio',
-    capacity: 30,
-    openSeats: 28,
-    filledSeats: 2,
-    economyPrice: '$40',
-    premiumPrice: '$70',
-    businessPrice: '$120',
-    departTime: '08:49 AM',
-    arrivalTime: '09:12 AM',
-    duration: '4 hours'
-  },
-  {
-    busID: 5,
-    busName: 'B005',
-    startPoint: 'San Antonio',
-    endPoint: 'Los Angeles',
-    capacity: 36,
-    openSeats: 7,
-    filledSeats: 29,
-    economyPrice: '$30',
-    premiumPrice: '$60',
-    businessPrice: '$140',
-    departTime: '06:10 AM',
-    arrivalTime: '08:02 AM',
-    duration: '4 hours'
-  },
-  {
-    busID: 6,
-    busName: 'B006',
-    startPoint: 'Houston',
-    endPoint: 'Charlotte',
-    capacity: 37,
-    openSeats: 30,
-    filledSeats: 7,
-    economyPrice: '$40',
-    premiumPrice: '$70',
-    businessPrice: '$100',
-    departTime: '08:58 AM',
-    arrivalTime: '08:15 AM',
-    duration: '3 hours'
-  },
-  {
-    busID: 7,
-    busName: 'B007',
-    startPoint: 'Dallas',
-    endPoint: 'San Antonio',
-    capacity: 32,
-    openSeats: 24,
-    filledSeats: 8,
-    economyPrice: '$25',
-    premiumPrice: '$60',
-    businessPrice: '$120',
-    departTime: '05:23 AM',
-    arrivalTime: '10:55 PM',
-    duration: '1 hour'
-  },
-  {
-    busID: 8,
-    busName: 'B008',
-    startPoint: 'Phoenix',
-    endPoint: 'San Jose',
-    capacity: 48,
-    openSeats: 18,
-    filledSeats: 30,
-    economyPrice: '$35',
-    premiumPrice: '$80',
-    businessPrice: '$100',
-    departTime: '07:12 AM',
-    arrivalTime: '08:43 AM',
-    duration: '3 hours'
-  },
-  {
-    busID: 9,
-    busName: 'B009',
-    startPoint: 'Jacksonville',
-    endPoint: 'Philadelphia',
-    capacity: 30,
-    openSeats: 3,
-    filledSeats: 27,
-    economyPrice: '$25',
-    premiumPrice: '$60',
-    businessPrice: '$120',
-    departTime: '08:28 AM',
-    arrivalTime: '07:01 AM',
-    duration: '4 hours'
-  },
-  {
-    busID: 10,
-    busName: 'B010',
-    startPoint: 'Columbus',
-    endPoint: 'Jacksonville',
-    capacity: 45,
-    openSeats: 8,
-    filledSeats: 37,
-    economyPrice: '$40',
-    premiumPrice: '$70',
-    businessPrice: '$160',
-    departTime: '06:48 AM',
-    arrivalTime: '08:18 AM',
-    duration: '5 hours'
-  },
-  {
-    busID: 11,
-    busName: 'B011',
-    startPoint: 'Columbus',
-    endPoint: 'Phoenix',
-    capacity: 45,
-    openSeats: 38,
-    filledSeats: 7,
-    economyPrice: '$30',
-    premiumPrice: '$80',
-    businessPrice: '$140',
-    departTime: '06:58 AM',
-    arrivalTime: '06:09 AM',
-    duration: '1 hour'
-  },
-  {
-    busID: 12,
-    busName: 'B012',
-    startPoint: 'Jacksonville',
-    endPoint: 'Fort Worth',
-    capacity: 45,
-    openSeats: 16,
-    filledSeats: 29,
-    economyPrice: '$30',
-    premiumPrice: '$70',
-    businessPrice: '$160',
-    departTime: '05:22 AM',
-    arrivalTime: '08:15 AM',
-    duration: '2 hours'
-  },
-  {
-    busID: 13,
-    busName: 'B013',
-    startPoint: 'Houston',
-    endPoint: 'Philadelphia',
-    capacity: 30,
-    openSeats: 2,
-    filledSeats: 28,
-    economyPrice: '$30',
-    premiumPrice: '$50',
-    businessPrice: '$100',
-    departTime: '07:05 AM',
-    arrivalTime: '10:35 AM',
-    duration: '1 hour'
-  },
-  {
-    busID: 14,
-    busName: 'B014',
-    startPoint: 'Houston',
-    endPoint: 'Columbus',
-    capacity: 34,
-    openSeats: 0,
-    filledSeats: 34,
-    economyPrice: '$40',
-    premiumPrice: '$80',
-    businessPrice: '$120',
-    departTime: '06:03 AM',
-    arrivalTime: '07:38 AM',
-    duration: '2 hours'
-  },
-  {
-    busID: 15,
-    busName: 'B015',
-    startPoint: 'San Jose',
-    endPoint: 'Austin',
-    capacity: 40,
-    openSeats: 36,
-    filledSeats: 4,
-    economyPrice: '$35',
-    premiumPrice: '$50',
-    businessPrice: '$120',
-    departTime: '07:48 AM',
-    arrivalTime: '10:46 AM',
-    duration: '3 hours'
-  }
-];
-
 function StickyHeadTable(props) {
   // Get all bus routes
   const [busRoutes, setBusRoutes] = useState([])
@@ -334,8 +101,6 @@ function StickyHeadTable(props) {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-
 
   const handleDelete = (routeId) => {
     // Handle delete logic here
@@ -523,81 +288,174 @@ const buttonStyle = {
   gap: '10px', // Space between icon and text
 };
 
-// const formContainerStyle = {
-//   display: 'flex',
-//   flexWrap: 'wrap', // Allow the cards to wrap to the next line on smaller screens
-//   gap: '30px', // Space between cards
-//   justifyContent: 'left', // Center cards in the container
-//   padding: '0px',
-// };
-
-// const cardStyle = {
-//   display: 'flex',
-//   flexDirection: 'column', // Stack elements vertically inside the card
-//   alignItems: 'center', // Center items for better aesthetics
-//   padding: '20px',
-//   borderRadius: '8px', // Rounded corners for the card
-//   boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Subtle shadow for depth
-//   backgroundColor: '#E5E1DA', // Card background color
-//   width: '32%', // Responsive width with gap consideration
-//   minWidth: '325px', // Max width for larger screens
-// };
-
-// const formContainerStyle = {
-//   display: 'grid',
-//   gridTemplateColumns: 'repeat(2, 1fr)', // Two columns layout
-//   columnGap: '20px', // Space between columns
-//   rowGap: '15px', // Space between rows
-//   alignItems: 'start', // Align items to the start of the grid cell
-//   maxWidth: '800px', // Adjust based on the actual size needed
-//   margin: '0 auto', // Center the form horizontally
-//   padding: '20px',
-// };
-
-// // Adjusted input style to remove margin-bottom
-// const inputStyle = {
-//   // ... other styles remain the same
-//   marginBottom: '0', // Remove margin-bottom
-// };
-
-// // Add a new style for grid items that span two columns
-// const gridColumnSpanStyle = {
-//   gridColumn: '1 / -1', // Span from first to last column
-// };
-
-// // Style for buttons and actions on the side or bottom
-// const actionButtonStyle = {
-//   // ... your button styles,
-//   gridColumn: '2', // Position on the second column
-//   justifySelf: 'start', // Align to the start of the grid cell
-// };
-
-// // If you have a section that should be on the side or have different alignment
-// const sideSectionStyle = {
-//   display: 'flex',
-//   flexDirection: 'column',
-//   gap: '10px',
-//   // ... add more styles as needed
-// };
-
-
 const ManageBusRoutes = () => {
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create'
   // For create/Edit //////////////////
   const [routeForm, setRouteForm] = useState(initialRouteFormState);
 
+  // // New state to track validation errors for 'Day' input
+  // const [dayError, setDayError] = useState('');
+
+  // // New state to track validation errors for time inputs
+  // const [timeErrors, setTimeErrors] = useState({ departureTime: '', arrivalTime: '', duration: '' });
+
+  // Assuming you've renamed `timeErrors` to `formErrors` for generality
+  const [formErrors, setFormErrors] = useState({
+    day: '',
+    departureTime: '',
+    arrivalTime: '',
+    duration: '',
+    economyPrice: '',
+    premiumPrice: '',
+    businessPrice: '',
+  });
+
+  // Regular expression to validate time format (e.g., 11:35 AM)
+  const timeFormatRegex = /^(1[0-2]|0?[1-9]):[0-5][0-9] [APap][mM]$/;
+
+  // Regular expression to validate duration format (e.g., 1 hours 1 minutes)
+  const durationFormatRegex = /^\d+\s+hours\s+\d+\s+minutes$/;
+
+  // Regular expression for price validation
+  const priceFormatRegex = /^\d+(\.\d{1,2})?$/;
+
+  const validateTime = (time) => {
+    return timeFormatRegex.test(time);
+  };
+
+  const validateDuration = (duration) => {
+    return durationFormatRegex.test(duration);
+  };
+
+  const validatePrice = (price) => {
+    return priceFormatRegex.test(price);
+  };
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRouteForm(prevState => ({ ...prevState, [name]: value }));
+
+    // Clear error on change for the specific field being edited
+    // if (name === 'day') {
+    //   setDayError('');
+    // } else if (name === 'departureTime' || name === 'arrivalTime' || name === 'duration') {
+    //   // Update timeErrors state to clear only the error for the field being changed
+    //   setTimeErrors(prevErrors => ({
+    //     ...prevErrors,
+    //     [name]: '', // Only clear the error for the field being changed
+    //   }));
+    // }
+    // Clear error on change for the specific field being edited
+    setFormErrors(prevErrors => ({
+      ...prevErrors,
+      [name]: '', // Only clear the error for the field being changed
+    }));
+  };
+
+  // Add a new function to validate the day
+  const validateDay = (day) => {
+    const validDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return validDays.includes(day);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Object to collect all errors
+    let errors = {
+      ...formErrors, // Start with current errors
+      day: '',
+      departureTime: '',
+      arrivalTime: '',
+      duration: '',
+      economyPrice: '',
+      premiumPrice: '',
+      businessPrice: '',
+    };
+
+    // Perform day validation on submission
+    // if (!validateDay(routeForm.day)) {
+    //   setDayError('*Invalid Input*');
+    //   return; // Prevent form submission if day is invalid
+    // }
+    
+    // Validate day
+    if (!validateDay(routeForm.day)) {
+      errors.day = '*Invalid input (e.g., Monday)*'; // Add error message for day
+    }
+
+    // Validate departure and arrival times
+    const departureTimeValid = validateTime(routeForm.departureTime);
+    const arrivalTimeValid = validateTime(routeForm.arrivalTime);
+    
+    if (!departureTimeValid) {
+      errors.departureTime = '*Invalid input (e.g., 11:35 AM)*'; // Add error message for departure time
+    }
+
+    if (!arrivalTimeValid) {
+      errors.arrivalTime = '*Invalid input (e.g., 11:35 AM)*'; // Add error message for arrival time
+    }
+
+    // Validate duration
+    const durationValid = validateDuration(routeForm.duration);
+    if (!durationValid) {
+      errors.duration = '*Invalid input (e.g., 1 hours 1 minutes)*';
+    }
+
+    // Validate prices
+    if (!validatePrice(routeForm.economyPrice)) {
+      errors.economyPrice = '*Invalid input (e.g., 96.1)*';
+    }
+    if (!validatePrice(routeForm.premiumPrice)) {
+      errors.premiumPrice = '*Invalid input (e.g., 104.25)*';
+    }
+    if (!validatePrice(routeForm.businessPrice)) {
+      errors.businessPrice = '*Invalid input (e.g., 175.8)*';
+    }
+    // if (!departureTimeValid || !arrivalTimeValid) {
+    //   // Set error messages for invalid times
+    //   setTimeErrors({
+    //     departureTime: departureTimeValid ? '' : '*invalid input (e.g., 11:35 AM)',
+    //     arrivalTime: arrivalTimeValid ? '' : '*invalid input (e.g., 11:35 AM)',
+    //   });
+    //   return; // Prevent form submission if any time is invalid
+    // }
+      
+    // Set the accumulated errors
+    // setTimeErrors({
+    //   departureTime: errors.departureTime,
+    //   arrivalTime: errors.arrivalTime,
+    //   duration: errors.duration
+    // });
+    // setDayError(errors.day);
+
+    // Check if any errors were added and return to prevent submission
+    const hasErrors = Object.values(errors).some(error => error !== '');
+    if (hasErrors) {
+      setFormErrors(errors);
+      return; // Prevent form submission if there are any errors
+    }
+
+    // Check if any errors were added and return to prevent submission
+    if (errors.day || !durationValid || !validateTime(routeForm.departureTime) || !validateTime(routeForm.arrivalTime)) {
+      return; // Prevent form submission if there are any errors
+    }
+
     console.log('Form submission', routeForm);
     // Here you would handle the form submission to either create or update a route
     // After submission, reset form and switch tab or display success message
     setRouteForm(initialRouteFormState);
+    // setTimeErrors({ departureTime: '', arrivalTime: '' }); // Clear any time errors
+    // setDayError('');
+    setFormErrors({}); // Clear all errors
     setCurrentTab('list'); // Optional: redirect to list after submission
+  };
+
+  const errorStyle = {
+    color: 'red',
+    fontSize: '12px',
+    alignSelf: 'flex-start',
+    marginTop: '-20px',
   };
 
   const handleEditRoute = (routeData) => {
@@ -607,7 +465,7 @@ const ManageBusRoutes = () => {
       from: routeData.from,
       to: routeData.to,
       day: routeData.day,
-      departTime: routeData.departTime,
+      departureTime: routeData.departureTime,
       arrivalTime: routeData.arrivalTime,
       duration: routeData.duration,
       economyPrice: routeData.economyPrice,
@@ -628,6 +486,11 @@ const ManageBusRoutes = () => {
 
   // Function to switch tabs
   const switchTab = (tab) => {
+    // Clear every error message
+    // setDayError('');
+    // setTimeErrors({ departureTime: '', arrivalTime: '', duration: '' });
+    setFormErrors({}); // Clear all errors
+    
     if (tab === 'create') {
       // Reset form state only when switching to the 'create' tab
       setRouteForm(initialRouteFormState);
@@ -646,7 +509,7 @@ const ManageBusRoutes = () => {
       <ul style={tabStyle}>
         <li style={getTabButtonStyle('list')} onClick={() => switchTab('list')}>Route Listing</li>
         <li style={getTabButtonStyle('create')} onClick={() => switchTab('create')}>Create Route</li>
-        <li style={getTabButtonStyle('edit')} onClick={() => switchTab('edit')}>Edit Route</li>
+        {/* <li style={getTabButtonStyle('edit')} onClick={() => switchTab('edit')}>Edit Route</li> */}
       </ul>
 
       <div style={contentStyle}>
@@ -657,10 +520,11 @@ const ManageBusRoutes = () => {
         )}
         {/* Include your forms and statistics content with appropriate styles */}
         {/* Create/Edit Route Form  */}
-        {currentTab === 'create' && (
+        {(currentTab === 'create' || currentTab === 'edit') && (
           <div style={contentStyle}>
-            <h2>Create Route</h2>
+            <h2>{currentTab === 'create' ? 'Create' : 'Edit'} Route</h2>
             <form onSubmit={handleSubmit} style={formStyle}>
+              {/* ... other input fields */}
               <label style={labelStyle}>Bus Name</label>
               <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
               <label style={labelStyle}>Bus Number</label>
@@ -670,98 +534,77 @@ const ManageBusRoutes = () => {
               <label style={labelStyle}>To</label>
               <input style={inputStyle} type="text" name="to" value={routeForm.to} onChange={handleChange} placeholder="End Point" />
               <label style={labelStyle}>Day</label>
-              <input style={inputStyle} Day="text" name="day" value={routeForm.day} onChange={handleChange} placeholder="Day" />
+              <input
+                style={inputStyle}
+                type="text"
+                name="day"
+                value={routeForm.day}
+                onChange={handleChange}
+                placeholder="Day (e.g., Monday)"
+              />
+              {formErrors.day && <div style={errorStyle}>{formErrors.day}</div>}
+
               <label style={labelStyle}>Departure Time</label>
-              <input style={inputStyle} type="text" name="departureTime" value={routeForm.departureTime} onChange={handleChange} placeholder="Departure Time" />
+              <input
+                style={inputStyle}
+                type="text"
+                name="departureTime"
+                value={routeForm.departureTime}
+                onChange={handleChange}
+                placeholder="Departure Time (e.g., 11:35 AM)"
+              />
+              {formErrors.departureTime && <div style={errorStyle}>{formErrors.departureTime}</div>}
+
               <label style={labelStyle}>Arrival Time</label>
-              <input style={inputStyle} type="text" name="arrivalTime" value={routeForm.arrivalTime} onChange={handleChange} placeholder="Arrival Time" />
+              <input
+                style={inputStyle}
+                type="text"
+                name="arrivalTime"
+                value={routeForm.arrivalTime}
+                onChange={handleChange}
+                placeholder="Arrival Time (e.g., 11:35 AM)"
+              />
+              {formErrors.arrivalTime && <div style={errorStyle}>{formErrors.arrivalTime}</div>}
               <label style={labelStyle}>Duration</label>
-              <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
+              <input
+                style={inputStyle}
+                type="text"
+                name="duration"
+                value={routeForm.duration}
+                onChange={handleChange}
+                placeholder="Duration (e.g., 1 hours 1 minutes)"
+              />
+              {formErrors.duration && <div style={errorStyle}>{formErrors.duration}</div>}
               <label style={labelStyle}>Economy Price</label>
-              <input style={inputStyle} type="text" name="economyPrice" value={routeForm.economyPrice} onChange={handleChange} placeholder="Economy Price" />
+              <input
+                style={inputStyle}
+                type="text"
+                name="economyPrice"
+                value={routeForm.economyPrice}
+                onChange={handleChange}
+                placeholder="Economy Price (e.g., 96.1)"
+              />
+              {formErrors.economyPrice && <div style={errorStyle}>{formErrors.economyPrice}</div>}
               <label style={labelStyle}>Premium Price</label>
-              <input style={inputStyle} type="text" name="premiumPrice" value={routeForm.premiumPrice} onChange={handleChange} placeholder="Premium Price" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="premiumPrice" 
+                value={routeForm.premiumPrice} 
+                onChange={handleChange} 
+                placeholder="Premium Price (e.g., 104.25)" 
+              />
+              {formErrors.premiumPrice && <div style={errorStyle}>{formErrors.premiumPrice}</div>}
               <label style={labelStyle}>Business Price</label>
-              <input style={inputStyle} type="text" name="businessPrice" value={routeForm.businessPrice} onChange={handleChange} placeholder="Business Price" />
-              <label style={labelStyle}>Active Status</label>
-              <input style={inputStyle} type="text" name="activeStatus" value={routeForm.activeStatus} onChange={handleChange} placeholder="Active Status" />
-              <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
-            </form>
-            {/**?ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd */}
-            {/* <form onSubmit={handleSubmit}>
-              <div style={formContainerStyle}>
-                {/* Repeat this structure for each form field 
-                <div style={cardStyle}>
-                  <label style={labelStyle}>Bus ID</label>
-                  <input style={inputStyle} type="text" name="busNumber" value={routeForm.busID} onChange={handleChange} placeholder="Enter Bus ID" />
-                  <label style={labelStyle}>Bus Name</label>
-                  <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
-                  <label style={labelStyle}>Start Point</label>
-                  <input style={inputStyle} type="text" name="startPoint" value={routeForm.startPoint} onChange={handleChange} placeholder="Start Point" />
-                  <label style={labelStyle}>End Point</label>
-                  <input style={inputStyle} type="text" name="endPoint" value={routeForm.endPoint} onChange={handleChange} placeholder="End Point" />
-                </div>
-
-                {/* Continue with other fields following the same pattern 
-                <div style={cardStyle}>
-                  <label style={labelStyle}>Total Seats</label>
-                  <input style={inputStyle} type="number" name="capacity" value={routeForm.capacity} onChange={handleChange} placeholder="Total Seats" />
-                  <label style={labelStyle}>Available Seats</label>
-                  <input style={inputStyle} type="number" name="openSeats" value={routeForm.openSeats} onChange={handleChange} placeholder="Available Seats" />
-                  <label style={labelStyle}>Booked Seats</label>
-                  <input style={inputStyle} type="number" name="filledSeats" value={routeForm.filledSeats} onChange={handleChange} placeholder="Booked Seats" />
-                  <label style={labelStyle}>Economy Price</label>
-                  <input style={inputStyle} type="text" name="economyPrice" value={routeForm.economyPrice} onChange={handleChange} placeholder="Economy Price" />
-                  <label style={labelStyle}>Premium Price</label>
-                  <input style={inputStyle} type="text" name="premiumPrice" value={routeForm.premiumPrice} onChange={handleChange} placeholder="Premium Price" />
-                  <label style={labelStyle}>Business Price</label>
-                  <input style={inputStyle} type="text" name="businessPrice" value={routeForm.businessPrice} onChange={handleChange} placeholder="Business Price" />
-                </div>
-
-                <div style={cardStyle}>
-                  <label style={labelStyle}>Depart Time</label>
-                  <input style={inputStyle} type="text" name="departTime" value={routeForm.departTime} onChange={handleChange} placeholder="Depart Time" />
-                  <label style={labelStyle}>Arrival Time</label>
-                  <input style={inputStyle} type="text" name="arrivalTime" value={routeForm.arrivalTime} onChange={handleChange} placeholder="Arrival Time" />
-                  <label style={labelStyle}>Duration</label>
-                  <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
-                </div>
-
-                
-                {/* For the submit button, consider placing it outside the flex container or inside its own card for alignment 
-                <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
-                  <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
-                </div>
-              </div>
-            </form> */}
-          </div>
-        )}
-        {currentTab === 'edit' && (
-         <div style={contentStyle}>
-          <h2>Edit Route</h2>
-            <form onSubmit={handleSubmit} style={formStyle}>
-              <label style={labelStyle}>Bus Name</label>
-              <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
-              <label style={labelStyle}>Bus Number</label>
-              <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" />
-              <label style={labelStyle}>From</label>
-              <input style={inputStyle} type="text" name="from" value={routeForm.from} onChange={handleChange} placeholder="Start Point" />
-              <label style={labelStyle}>To</label>
-              <input style={inputStyle} type="text" name="to" value={routeForm.to} onChange={handleChange} placeholder="End Point" />
-              <label style={labelStyle}>Day</label>
-              <input style={inputStyle} Day="text" name="day" value={routeForm.day} onChange={handleChange} placeholder="Day" />
-              <label style={labelStyle}>Departure Time</label>
-              <input style={inputStyle} type="text" name="departureTime" value={routeForm.departureTime} onChange={handleChange} placeholder="Departure Time" />
-              <label style={labelStyle}>Arrival Time</label>
-              <input style={inputStyle} type="text" name="arrivalTime" value={routeForm.arrivalTime} onChange={handleChange} placeholder="Arrival Time" />
-              <label style={labelStyle}>Duration</label>
-              <input style={inputStyle} type="text" name="duration" value={routeForm.duration} onChange={handleChange} placeholder="Duration" />
-              <label style={labelStyle}>Economy Price</label>
-              <input style={inputStyle} type="text" name="economyPrice" value={routeForm.economyPrice} onChange={handleChange} placeholder="Economy Price" />
-              <label style={labelStyle}>Premium Price</label>
-              <input style={inputStyle} type="text" name="premiumPrice" value={routeForm.premiumPrice} onChange={handleChange} placeholder="Premium Price" />
-              <label style={labelStyle}>Business Price</label>
-              <input style={inputStyle} type="text" name="businessPrice" value={routeForm.businessPrice} onChange={handleChange} placeholder="Business Price" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="businessPrice" 
+                value={routeForm.businessPrice} 
+                onChange={handleChange} 
+                placeholder="Business Price (e.g., 175.8)" 
+              />
+              {formErrors.businessPrice && <div style={errorStyle}>{formErrors.businessPrice}</div>}
               <label style={labelStyle}>Active Status</label>
               <input style={inputStyle} type="text" name="activeStatus" value={routeForm.activeStatus} onChange={handleChange} placeholder="Active Status" />
               <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
