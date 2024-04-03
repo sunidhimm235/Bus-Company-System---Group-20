@@ -67,7 +67,7 @@ const columns = [
     label: 'Status',
     minWidth: 100,
     align: 'center',
-    //format: (value) => value.toLocaleString('en-US'),
+    format: (value) => value.toLocaleString('en-US'),
   },
 ];
 
@@ -131,7 +131,7 @@ function StickyHeadTable(props) {
                   const value = row[column.id];
                   return (
                     <TableCell key={column.id} align={column.align}>
-                      {column.format && typeof value === 'number' ? column.format(value) : value}
+                      {column.format && (typeof value === 'number' || typeof value === 'boolean') ? column.format(value) : value}
                     </TableCell>
                   );
                 })}
@@ -240,7 +240,52 @@ const initialRouteFormState = {
   economyPrice: '',
   businessPrice: '',
   premiumPrice: '',
-  activeStatus: '',
+  economySeats: [
+      {number: "E1", isAvailable: true},
+      {number: "E2", isAvailable: true},
+      {number: "E3", isAvailable: true},
+      {number: "E4", isAvailable: true},
+      {number: "E5", isAvailable: true},
+      {number: "E6", isAvailable: true},
+      {number: "E7", isAvailable: true},
+      {number: "E8", isAvailable: true},
+      {number: "E9", isAvailable: true},
+      {number: "E10", isAvailable: true},
+      {number: "E11", isAvailable: true},
+      {number: "E12", isAvailable: true},
+      {number: "E13", isAvailable: true},
+      {number: "E14", isAvailable: true},
+      {number: "E15", isAvailable: true},
+      {number: "E16", isAvailable: true},
+      {number: "E17", isAvailable: true},
+      {number: "E18", isAvailable: true},
+      {number: "E19", isAvailable: true},
+      {number: "E20", isAvailable: true}
+    ],
+    premiumSeats: [
+      {number: "P1", isAvailable: true},
+      {number: "P2", isAvailable: true},
+      {number: "P3", isAvailable: true},
+      {number: "P4", isAvailable: true},
+      {number: "P5", isAvailable: true},
+      {number: "P6", isAvailable: true},
+      {number: "P7", isAvailable: true},
+      {number: "P8", isAvailable: true},
+      {number: "P9", isAvailable: true},
+      {number: "P10", isAvailable: true},
+      {number: "P11", isAvailable: true},
+      {number: "P12", isAvailable: true}
+    ],
+    businessSeats: [
+      {number: "B1", isAvailable: false},
+      {number: "B2", isAvailable: true},
+      {number: "B3", isAvailable: true},
+      {number: "B4", isAvailable: true},
+      {number: "B5", isAvailable: true},
+      {number: "B6", isAvailable: true},
+      {number: "B7", isAvailable: true},
+      {number: "B8", isAvailable: true}
+    ],
 };
 
 const formStyle = {
@@ -440,8 +485,10 @@ const ManageBusRoutes = () => {
     if (errors.day || !durationValid || !validateTime(routeForm.departureTime) || !validateTime(routeForm.arrivalTime)) {
       return; // Prevent form submission if there are any errors
     }
+    
 
     console.log('Form submission', routeForm);
+    axios.post(`http://localhost:4000/buses/`, routeForm);
     // Here you would handle the form submission to either create or update a route
     // After submission, reset form and switch tab or display success message
     setRouteForm(initialRouteFormState);
