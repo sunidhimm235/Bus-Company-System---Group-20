@@ -286,6 +286,7 @@ const initialRouteFormState = {
       {number: "B7", isAvailable: true},
       {number: "B8", isAvailable: true}
     ],
+    activeStatus: '',
 };
 
 const formStyle = {
