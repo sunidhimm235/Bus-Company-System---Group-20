@@ -11,10 +11,8 @@ const SeatSelection = () =>
     const { state } = useLocation();
     const navigate = useNavigate();
 
-    // Prints the state data for debugging
     console.log(state);
 
-    // Fetch bus data when the component mounts
     useEffect(() => {
     if (state?.bus) {
         setLoading(false);
@@ -26,23 +24,37 @@ const SeatSelection = () =>
         return <div>Loading seats...</div>;
     }
 
-    // Handles the book now button click event
     const handleBookNow = async () => {
         if (selectedSeat) {
-            // Update seat availability on the backend
             try {
                 console.log('Bus ID:', state.bus._id);
                 console.log('Seat ID:', selectedSeat._id);
 
                 const response = await axios.patch(`http://localhost:4000/buses/${state.bus._id}/book-seat`, {
-                    seatId: selectedSeat._id // Send the ID of the seat to be booked
+                    seatId: selectedSeat._id 
                 });
+
                 console.log(response.data.message);
+
+                console.log(state.bus._id)
+                console.log(selectedSeat._id)
+                console.log(state.bus.destination)
+                console.log(state.bus.date)
+                console.log(selectedSeat.price)
     
-                // Navigate to the user information page, passing the bus and seat details
-                // You need to set up routing and create this new page/component
-                navigate('/user-information', { state: { bus: state.bus, seat: selectedSeat } });
-            } catch (error) {
+                navigate('/transaction', {
+                    state: {
+                      ...state, 
+                      seatId: selectedSeat._id, 
+                      seatNumber: selectedSeat.number, 
+                      destination: state.bus.destination, 
+                      date: state.bus.date, 
+                      price: selectedSeat.price, 
+                    }
+                  });
+            } 
+            
+            catch (error) {
                 console.error('Error booking seat:', error);
             }
         }
@@ -52,7 +64,7 @@ const SeatSelection = () =>
         <div className="seat-map">
             <h2>Select a seat: </h2>
             <div className="seat-map-content">
-            {/* Business Seats */}
+            {}
             {state.bus.businessSeats.map((seat, index) => (
                 <div 
                     key={index} 
@@ -71,7 +83,7 @@ const SeatSelection = () =>
                     {seat.isAvailable ? seat.number : 'X'}
                 </div>
             ))}
-            {/* Premium Seats */}
+            {}
             {state.bus.premiumSeats.map((seat, index) => (
                 <div
                     key={index}
@@ -90,7 +102,7 @@ const SeatSelection = () =>
                     {seat.isAvailable ? seat.number : 'X'}
                 </div>
             ))}
-            {/* Economy Seats */}
+            {}
             {state.bus.economySeats.map((seat, index) => (
                 <div
                     key={index}

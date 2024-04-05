@@ -16,7 +16,9 @@ import FAQPage from './Components/FAQPage/FAQPage';
 import ContactPage from './Components/ContactPage/ContactPage';
 import SeatSelection from './Components/BusSchedule/SeatSelection';
 import UserInformation from './Components/UserInformation/UserInformation';
-import TravelHistory from './Components/TravelHistory/TravelHistory'; // Ensure this path is correct
+import TravelHistory from './Components/TravelHistory/TravelHistory';
+import TransactionPage from './Components/TransactionPage/TransactionPage';
+import ReservationSuccessPage from './Components/TransactionPage/ReservationSuccessPage';
 import './index.css';
 
 const App = () => {
@@ -45,7 +47,9 @@ const App = () => {
           <Route path="/faq" element={<FAQPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/travel-history" element={<TravelHistory />} />
-          {/* Add more routes as needed */}
+          <Route path="/transaction" element={<TransactionPage />} />
+          <Route path="/reservation-success" element={<ReservationSuccessPage />} />
+          {}
         </Routes>
       </div>
       {}
