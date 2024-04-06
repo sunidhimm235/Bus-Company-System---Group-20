@@ -51,10 +51,23 @@ const BusSchedule = () => {
     const next7Days = Array.from({ length: 7 }, (_, i) => new Date(date).setDate(date.getDate() + i));
 
     const showBusDetails = (bus) => {
+        console.log(bus); 
+        console.log(bus.destination); 
+        console.log(bus.travelDate); 
+        console.log(bus.price); 
+    
         if (isAuthenticated()) {
-            navigate('/seat-selection', { state: { bus } });
+            navigate('/seat-selection', {
+                state: {
+                    bus: {
+                        ...bus, 
+                        date: bus.travelDate ? new Date(bus.travelDate).toISOString() : new Date().toISOString(), 
+                    }
+                }
+            });
         } 
-		else {
+        
+        else {
             navigate('/sign-in', { state: { from: '/seat-selection', bus } });
         }
     };

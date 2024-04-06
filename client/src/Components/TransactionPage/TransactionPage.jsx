@@ -12,24 +12,41 @@ const TransactionPage = () => {
         date = '',
         seatNumber = '',
         price = 0,
+        busId = '',
+        seatId = ''
     } = location.state || {};
 
     const formattedDate = date ? new Date(date).toLocaleDateString() : 'N/A';
 
     const handleCompleteTransaction = async () => {
         setIsSubmitting(true);
-
+    
+        console.log("Received state in TransactionPage:", { destination, date, seatNumber, price });
+        console.log("Original Date:", date);
+        console.log("Formatted Date:", formattedDate);
+    
+        const token = localStorage.getItem('token');
+    
         try {
+            console.log("Sending reservation data:", { destination, date, seatNumber, price, status: 'completed' });
+            console.log('token:', token)
+            
             const response = await axios.post('http://localhost:4000/api/reservations', {
                 destination,
                 date,
                 seatNumber,
                 price,
                 status: 'completed',
-            });
-
+            }, { headers: { Authorization: `Bearer ${token}` } });
+    
             console.log('Reservation created successfully:', response.data);
+            
+            await axios.patch(`http://localhost:4000/buses/${busId}/book-seat`, {
+                seatId: seatId
+            }, { headers: { Authorization: `Bearer ${token}` } });
 
+            console.log(`Seat ${seatId} on bus ${busId} marked as booked.`);
+    
             navigate('/reservation-success', {
                 state: {
                     message: 'Your reservation has been successfully completed!',
@@ -101,7 +118,7 @@ const styles = {
         marginBottom: '20px',
         lineHeight: '1.6',
     },
-    
+
     button: {
         width: '100%',
         padding: '10px 0',

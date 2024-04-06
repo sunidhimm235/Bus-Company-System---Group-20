@@ -5,7 +5,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-const secretKey = process.env.SECRET_KEY || 'defaultSecretKey'; 
+const secretKey = process.env.SECRET_KEY || 'mysecretkey12345'; 
 
 const handleError = (res, error) => {
   console.error(error);
@@ -49,7 +49,9 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ success: false, message: 'Invalid credentials' });
     }
 
-    const token = jwt.sign({ id: user._id, role: user.role }, secretKey, { expiresIn: '1h' });
+    console.log(secretKey)
+
+    const token = jwt.sign({ userId: user._id, role: user.role }, secretKey, { expiresIn: '1h' });
 
     
     res.json({ success: true, message: 'Login successful', token, username: user.username });

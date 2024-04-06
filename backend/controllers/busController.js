@@ -71,23 +71,28 @@ exports.getRoute = async (req, res) => {
 // Helps to book a seat
 exports.bookSeat = async (req, res) => {
     try {
+        console.log('booking seat!!!!!!!!!!!!!!!!!!!!')
+        console.log(1)
         // Gets the seat ID from the request body
         const { seatId } = req.body;
 
         // Finds the bus by ID
         const bus = await Bus.findById(req.params.id);
         if (!bus) return res.status(404).json({ message: 'Bus not found' });
-
+        console.log(2)
         // Finds the seat and update its availability
         const seat = bus.economySeats.id(seatId) || bus.premiumSeats.id(seatId) || bus.businessSeats.id(seatId);
         if (seat) {
+            console.log(31)
             seat.isAvailable = false;
             await bus.save();
             res.status(200).json({ message: 'Seat booked successfully' });
         } else {
+            console.log(32)
             res.status(404).json({ message: 'Seat not found' });
         }
     } catch (error) {
+        console.log('this is wrong!!!!!!!!!!!!!!!!')
         res.status(400).json({ message: error.message });
     }
 };

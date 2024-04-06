@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const TravelHistory = require('../models/TravelHistory');
-const { isAuthenticated } = require('../middleware/authMiddleWare');
+const { isAuthenticated } = require('../middleware/authMiddleware');
 
 router.get('/', isAuthenticated, async (req, res) => {
   try {

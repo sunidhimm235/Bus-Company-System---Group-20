@@ -29,29 +29,21 @@ const SeatSelection = () =>
             try {
                 console.log('Bus ID:', state.bus._id);
                 console.log('Seat ID:', selectedSeat._id);
-
-                const response = await axios.patch(`http://localhost:4000/buses/${state.bus._id}/book-seat`, {
-                    seatId: selectedSeat._id 
-                });
-
-                console.log(response.data.message);
-
-                console.log(state.bus._id)
-                console.log(selectedSeat._id)
-                console.log(state.bus.destination)
-                console.log(state.bus.date)
-                console.log(selectedSeat.price)
+                console.log('Date: ', state.bus.date);
+                console.log('Bus dest: ', state.bus.to); 
+                console.log('Price: ', selectedSeat.price || state.bus.economyPrice);
     
                 navigate('/transaction', {
                     state: {
-                      ...state, 
-                      seatId: selectedSeat._id, 
-                      seatNumber: selectedSeat.number, 
-                      destination: state.bus.destination, 
-                      date: state.bus.date, 
-                      price: selectedSeat.price, 
+                        ...state, 
+                        busId: state.bus._id,
+                        seatId: selectedSeat._id,
+                        seatNumber: selectedSeat.number,
+                        destination: state.bus.to, 
+                        date: state.bus.date, 
+                        price: selectedSeat.price || state.bus.economyPrice, 
                     }
-                  });
+                });
             } 
             
             catch (error) {
