@@ -4,10 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import './ContactPage.css'
 import Navbar from './/../NavBar/Navbar.jsx'; 
 import Footer from './/../Footer/Footer.jsx'; 
-import CityMap from '../../assets/CityMap.png';
 
 const ContactPage = (props) => {
-  const [Name, setName] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
@@ -17,20 +16,22 @@ const ContactPage = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const mess =  {Name, email, phone, message}
-    console.log(mess)
-    setErrorMessage('Error not fully implemented yet');
-    /*
-    try {
-      await axios.post('http://localhost:4000/contactRoutes/createRoute', {fName, lName, email, phone, message});
-      navigate('/home');
-    } catch (error) {
-      setErrorMessage(error.response.data.message || 'Error contacting support');
+    const contactData = { name, email, phone, message };
+    console.log(contactData);
+    try
+     {
+      await axios.post('http://localhost:4000/contact', contactData);
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+      setErrorMessage('');
+    } 
+    catch (error) 
+    {
+      console.error('Error submitting contact form:', error);
+      setErrorMessage('Error submitting the form. Please try again later.');
     }
-            style={{ backgroundImage: `url(${CityMap})` }}
-
-    */
-    
   };
 
   return (
@@ -65,7 +66,7 @@ const ContactPage = (props) => {
                 type="text"
                 placeholder="Name"
                 required={true}
-                value={Name}
+                value={name}
                 onChange={(e) => setName(e.target.value)}
                 className="cp-name-in"
               />

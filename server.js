@@ -30,6 +30,7 @@ app.use(cookieParser());
 app.use('/users', require('./backend/routes/userRoutes'));
 app.use('/auth', require('./backend/routes/auth')); 
 app.use('/buses', require('./backend/routes/busRoutes'));
+app.use('/contact', require('./backend/routes/contactRoutes'))
 app.use('/api/travel-history', require('./backend/routes/travelHistoryRoutes'));
 app.use('/api/reservations', require('./backend/routes/reservationRoutes'));
 
