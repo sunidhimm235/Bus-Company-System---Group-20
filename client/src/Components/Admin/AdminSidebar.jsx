@@ -170,7 +170,8 @@ const AdminSidebar = ({ onSelect, isExpanded, setIsExpanded }) => {
         </div>
         <SidebarItem icon={<MdDashboard  size={30} />} label="Dashboard" isExpanded={isExpanded} onSelect={onSelect} />
         <SidebarItem icon={<MdMap size={30} />} label="Manage Bus Routes" isExpanded={isExpanded} onSelect={onSelect} />
-        <SidebarItem icon={<MdSchedule size={30} />} label="Manage Bus Schedules" isExpanded={isExpanded} onSelect={onSelect} />
+        <SidebarItem icon={<MdAccountCircle size={30} />} label="Manage Employee Account" isExpanded={isExpanded} onSelect={onSelect} />
+        <SidebarItem icon={<MdAccountCircle size={30} />} label="Manage Admin Account" isExpanded={isExpanded} onSelect={onSelect} />
         <SidebarItem icon={<MdAccountCircle size={30} />} label="Manage User Accounts" isExpanded={isExpanded} onSelect={onSelect} />
         {/* <SidebarItem icon={<MdBookOnline size={30} />} label="Bookings" isExpanded={isExpanded} onSelect={onSelect} /> */}
         <SidebarItem icon={<MdBarChart size={30} />} label="Reports" isExpanded={isExpanded} onSelect={onSelect} />
