@@ -27,12 +27,29 @@ const SeatSelection = () =>
     const handleBookNow = async () => {
         if (selectedSeat) {
             try {
-                console.log('Bus ID:', state.bus._id);
-                console.log('Seat ID:', selectedSeat._id);
-                console.log('Date: ', state.bus.date);
-                console.log('Bus dest: ', state.bus.to); 
-                console.log('Price: ', selectedSeat.price || state.bus.economyPrice);
+                // console.log('Bus ID:', state.bus._id);
+                // console.log('Seat ID:', selectedSeat._id);
+                // console.log('Date: ', state.bus.date);
+                // console.log('Bus dest: ', state.bus.to); 
+                // console.log('E Price: ', state.bus.economyPrice);
+                // console.log('B Price: ', state.bus.businessPrice);
+                // console.log('P Price: ', state.bus.premiumPrice);
+                // console.log('Seat num', selectedSeat.number)
     
+                let priceNum;
+                if (selectedSeat.number.startsWith('E')) { priceNum = state.bus.economyPrice; } 
+                
+                else if (selectedSeat.number.startsWith('P')) { priceNum = state.bus.premiumPrice; } 
+                
+                else if (selectedSeat.number.startsWith('B')) { priceNum = state.bus.businessPrice; } 
+                
+                else {
+                    console.error('Unexpected seat number prefix.');
+                    return;
+                }
+                
+                console.log('Price to be set:', priceNum)
+
                 navigate('/transaction', {
                     state: {
                         ...state, 
@@ -41,7 +58,7 @@ const SeatSelection = () =>
                         seatNumber: selectedSeat.number,
                         destination: state.bus.to, 
                         date: state.bus.date, 
-                        price: selectedSeat.price || state.bus.economyPrice, 
+                        price: priceNum, 
                     }
                 });
             } 

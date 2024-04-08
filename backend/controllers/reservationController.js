@@ -1,8 +1,7 @@
 const Reservation = require('../models/Reservation');
 
 exports.createReservation = async (req, res) => {
-  console.log(req.userId.id)
-  const userId = req.userId.id;
+  const userId = req.userId;
   const { destination, date, returnDate, price, seatNumber } = req.body;
 
   console.log("Creating reservation for user:", userId); 
