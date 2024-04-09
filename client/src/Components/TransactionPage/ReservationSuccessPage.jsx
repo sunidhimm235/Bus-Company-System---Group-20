@@ -37,7 +37,7 @@ const ReservationSuccessPage = () => {
             <h2 style={successMessageStyle}>Success!</h2>
             <p>Your reservation has been successfully completed.</p>
             {state?.message && <p>{state.message}</p>}
-            <Link to="/view-reservations" style={linkStyle}>View My Reservations</Link>
+            <Link to="/reservations" style={linkStyle}>View My Reservations</Link>
         </div>
     );
 };
