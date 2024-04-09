@@ -53,10 +53,9 @@ const App = () => {
             <Route path="/transaction" element={<TransactionPage />} />
             <Route path="/reservation-success" element={<ReservationSuccessPage />} />
             <Route path="/reservations" element={<ReservationsPage />} />
-            {}
           </Routes>
         </div>
-        {}
+        <Footer />
       </Router>
     </AuthProvider>
   );
