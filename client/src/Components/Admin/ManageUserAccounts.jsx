@@ -53,6 +53,13 @@ function StickyHeadTable(props) {
 
     const handleDelete = (routeId) => {
         // Handle delete logic here
+        /*console.log('Delete:', routeId);
+        const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+        if (isConfirmed) {
+          axios.delete(`http://localhost:4000/users/${routeId._id}`);
+          window.location.reload();
+        } */
         console.log('Delete:', routeId);
     };
 
@@ -107,7 +114,7 @@ function StickyHeadTable(props) {
                     <Button
                         variant="contained"
                         size="small"
-                        onClick={() => handleDelete(row.id)}
+                        onClick={() => handleDelete(row)}
                         sx={{
                         backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
                         color: 'white',
@@ -243,6 +250,13 @@ const ManageUserAccounts = () => {
     const handleSubmit = (e) => {
       e.preventDefault();
       console.log('Form submission', userForm);
+      /*console.log('Current Tab:', currentTab);
+      if (currentTab === 'create'){
+        axios.post(`http://localhost:4000/users/`, userForm);
+      } 
+      else{
+        axios.put(`http://localhost:4000/users/${userForm._id}`, userForm);
+      }*/
       // Here you would handle the form submission to either create or update a route
       // After submission, reset form and switch tab or display success message
       setUsersForm(initialUserFormState);
@@ -257,6 +271,7 @@ const ManageUserAccounts = () => {
         // password: userData.password,
         role: userData.role,
         // Continue for all needed fields
+        //_id: userData._id
       });
       setCurrentTab('edit'); // Switch to the edit tab
       // console.log('Edit:', userData);
@@ -312,6 +327,7 @@ const ManageUserAccounts = () => {
                 {/* <input style={inputStyle} type="text" name="password" value={userForm.password} onChange={handleChange} placeholder="Enter password" /> */}
                 <label style={labelStyle}>Role</label>
                 <input style={inputStyle} type="text" name="role" value={userForm.role} onChange={handleChange} placeholder="Enter role" />
+                {/*<input type="hidden" name="_id" value={userForm._id}/>*/}
                 <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
               </form>
             </div>
