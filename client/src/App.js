@@ -19,41 +19,45 @@ import UserInformation from './Components/UserInformation/UserInformation';
 import TravelHistory from './Components/TravelHistory/TravelHistory';
 import TransactionPage from './Components/TransactionPage/TransactionPage';
 import ReservationSuccessPage from './Components/TransactionPage/ReservationSuccessPage';
+import ReservationsPage from './Components/ReservationsPage/ReservationsPage';
+import { AuthProvider } from './context/AuthContext';
 import './index.css';
 
 const App = () => {
   return (
-    <Router>
-      <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={
-            <>
-              <Home />
-              <Search />
-              <Info />
-              <Subscribe />
-              <Footer />
-            </>
-          } />
-          <Route path="/sign-in" element={<SignInPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/bus-schedule" element={<BusSchedule />} />
-          <Route path="/seat-selection" element={<SeatSelection />} />
-          <Route path="/user-information" element={<UserInformation />} />
-          <Route path="/travel-information" element={<TravelInformation />} />
-          <Route path="/destination" element={<DestinationPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/travel-history" element={<TravelHistory />} />
-          <Route path="/transaction" element={<TransactionPage />} />
-          <Route path="/reservation-success" element={<ReservationSuccessPage />} />
-          {}
-        </Routes>
-      </div>
-      {}
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <div>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Home />
+                <Search />
+                <Info />
+                <Subscribe />
+                <Footer />
+              </>
+            } />
+            <Route path="/sign-in" element={<SignInPage />} />
+            <Route path="/sign-up" element={<SignUpPage />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/bus-schedule" element={<BusSchedule />} />
+            <Route path="/seat-selection" element={<SeatSelection />} />
+            <Route path="/user-information" element={<UserInformation />} />
+            <Route path="/travel-information" element={<TravelInformation />} />
+            <Route path="/destination" element={<DestinationPage />} />
+            <Route path="/faq" element={<FAQPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/travel-history" element={<TravelHistory />} />
+            <Route path="/transaction" element={<TransactionPage />} />
+            <Route path="/reservation-success" element={<ReservationSuccessPage />} />
+            <Route path="/reservations" element={<ReservationsPage />} />
+          </Routes>
+        </div>
+        <Footer />
+      </Router>
+    </AuthProvider>
   );
 };
 

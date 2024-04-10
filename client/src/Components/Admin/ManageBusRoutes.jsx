@@ -106,6 +106,12 @@ function StickyHeadTable(props) {
   const handleDelete = (routeId) => {
     // Handle delete logic here
     console.log('Delete:', routeId);
+    const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+    if (isConfirmed) {
+      axios.delete(`http://localhost:4000/buses/${routeId._id}`);
+      window.location.reload();
+    } 
   };
 
   return (
@@ -159,7 +165,7 @@ function StickyHeadTable(props) {
                   <Button
                     variant="contained"
                     size="small"
-                    onClick={() => handleDelete(row.id)}
+                    onClick={() => handleDelete(row)}
                     sx={{
                       backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
                       color: 'white',
@@ -405,7 +411,6 @@ const ManageBusRoutes = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRouteForm(prevState => ({ ...prevState, [name]: value }));
-
     // Clear error on change for the specific field being edited
     // if (name === 'day') {
     //   setDayError('');
@@ -426,7 +431,6 @@ const ManageBusRoutes = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // Object to collect all errors
     let errors = {
       ...formErrors, // Start with current errors
@@ -509,7 +513,14 @@ const ManageBusRoutes = () => {
     
 
     console.log('Form submission', routeForm);
-    axios.post(`http://localhost:4000/buses/`, routeForm);
+    console.log('Current Tab:', currentTab);
+    if (currentTab === 'create'){
+      axios.post(`http://localhost:4000/buses/`, routeForm);
+    } 
+    else{
+      axios.put(`http://localhost:4000/buses/${routeForm._id}`, routeForm);
+    }
+
     // Here you would handle the form submission to either create or update a route
     // After submission, reset form and switch tab or display success message
     setRouteForm(initialRouteFormState);
@@ -540,6 +551,7 @@ const ManageBusRoutes = () => {
       premiumPrice: routeData.premiumPrice,
       businessPrice: routeData.businessPrice,
       activeStatus: routeData.activeStatus,
+      _id: routeData._id
       // Continue for all needed fields
     });
     setCurrentTab('edit'); // Switch to the edit tab
@@ -716,6 +728,7 @@ const ManageBusRoutes = () => {
               {formErrors.businessPrice && <div style={errorStyle}>{formErrors.businessPrice}</div>}
               <label style={labelStyle}>Active Status</label>
               <input style={inputStyle} type="text" name="activeStatus" value={routeForm.activeStatus} onChange={handleChange} placeholder="Active Status" />
+              <input type="hidden" name="_id" value={routeForm._id}/>
               <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
             </form>
           </div>

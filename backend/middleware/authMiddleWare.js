@@ -3,19 +3,19 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'mysecretkey12345';
 
 const isAuthenticated = (req, res, next) => {
-    console.log('isAuthenticating!!!!')
     
 
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({ message: 'Authorization header is missing or invalid.' });
     }
-    console.log('isAuthenticating!!!!')
+    
     const token = authHeader.split(' ')[1];
-    console.log('verifying')
-    try {
+    
+    try {        
         const decoded = jwt.verify(token, JWT_SECRET);
-        req.userId = decoded;
+        req.userId = decoded.userId;
+        
         next();
     } 
     
