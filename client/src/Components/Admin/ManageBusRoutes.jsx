@@ -88,16 +88,29 @@ function StickyHeadTable(props) {
 	// 		console.error('Error fetching data:', error);
 	// 	}
 	// };
-
+  
   // useEffect(() => {fetchData();}, []);
   // console.log(busRoutes);
   const { busRoutes } = props; // Use busRoutes from props
   const {searchColumn} = props;
   const {searchQuery} = props;
   //////////////////////////////////////////////
-
+  
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
+  const filteredBusRoutes = busRoutes.filter((row) => {
+    const value = row[searchColumn]?.toString().toLowerCase();
+    return searchQuery ? value.includes(searchQuery.toLowerCase()) : true;
+  });
+  
+  useEffect(() => {
+    const totalFilteredItems = filteredBusRoutes.length;
+    const maxPages = Math.ceil(totalFilteredItems / rowsPerPage) - 1; // -1 because pages are zero-indexed
+    if (page > maxPages) {
+      setPage(maxPages >= 0 ? maxPages : 0); // Ensure page is not set to a negative value
+    }
+  }, [filteredBusRoutes.length, rowsPerPage, page]);  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -125,6 +138,7 @@ function StickyHeadTable(props) {
     } 
   };
 
+
   return (
     <Paper sx={{ display: 'grid', width: '100%', overflow: 'hidden' }}>
       <TableContainer sx={{  }}> {/* maxHeight: 440 */}
@@ -143,12 +157,9 @@ function StickyHeadTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {busRoutes
-            .filter((row) => {
-              const value = row[searchColumn].toString().toLowerCase();
-              return value.includes(searchQuery.toLowerCase());
-            })
-            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+            {filteredBusRoutes
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 {columns.map((column) => {
                   const value = row[column.id];
@@ -203,7 +214,8 @@ function StickyHeadTable(props) {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={busRoutes.length}
+        // count={busRoutes.length}
+        count={filteredBusRoutes.length} // Use the length of the filtered list
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -667,7 +679,7 @@ const ManageBusRoutes = () => {
       
       {currentTab === 'list' && (
         <div style={{ paddingTop: '20px', paddingLeft: '20px' }}>
-          <select
+          <select        
             value={searchColumn}
             onChange={(e) => setSearchColumn(e.target.value)}
             style={{
@@ -678,7 +690,7 @@ const ManageBusRoutes = () => {
               border: '1px solid #ccc', // Adds a light grey border
               borderRadius: '4px', // Rounds the corners slightly
               width: 'auto', // Adjust as needed, or use 'auto' for automatic width based on content
-            }}            
+            }}  
           >
             {columns.map((column) => (
               <option key={column.id} value={column.id}>
