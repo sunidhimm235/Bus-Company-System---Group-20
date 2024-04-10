@@ -12,6 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
+import {cities} from '../Search/Search.jsx';
 
 // Table
 const columns = [
@@ -64,7 +65,7 @@ const columns = [
   },
   {
     id: 'activeStatus',
-    label: 'Status',
+    label: 'Active Status',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toLocaleString('en-US'),
@@ -347,6 +348,10 @@ const ManageBusRoutes = () => {
 
   // Assuming you've renamed `timeErrors` to `formErrors` for generality
   const [formErrors, setFormErrors] = useState({
+    busName: '',
+    busNumber: '',
+    from: '',
+    to: '',
     day: '',
     departureTime: '',
     arrivalTime: '',
@@ -355,6 +360,25 @@ const ManageBusRoutes = () => {
     premiumPrice: '',
     businessPrice: '',
   });
+
+  const validateBusName = (name) => {
+    return name.trim().length > 0; // Checks if the name is not just empty spaces
+  };
+  
+  const validateBusNumber = (name, number) => {
+    const firstLetter = name.trim().charAt(0).toUpperCase();
+    return number.startsWith(firstLetter) && /\d+$/.test(number.slice(1));
+  };
+
+  const validateCity = (city) => {
+    return cities.includes(city);
+  };
+  
+  // Add a new function to validate the day
+  const validateDay = (day) => {
+    const validDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return validDays.includes(day);
+  };
 
   // Regular expression to validate time format (e.g., 11:35 AM)
   const timeFormatRegex = /^(1[0-2]|0?[1-9]):[0-5][0-9] [APap][mM]$/;
@@ -377,6 +401,7 @@ const ManageBusRoutes = () => {
     return priceFormatRegex.test(price);
   };
   
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRouteForm(prevState => ({ ...prevState, [name]: value }));
@@ -398,11 +423,6 @@ const ManageBusRoutes = () => {
     }));
   };
 
-  // Add a new function to validate the day
-  const validateDay = (day) => {
-    const validDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    return validDays.includes(day);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -410,6 +430,10 @@ const ManageBusRoutes = () => {
     // Object to collect all errors
     let errors = {
       ...formErrors, // Start with current errors
+      busName: '',
+      busNumber: '',
+      from: '',
+      to: '',
       day: '',
       departureTime: '',
       arrivalTime: '',
@@ -419,11 +443,23 @@ const ManageBusRoutes = () => {
       businessPrice: '',
     };
 
-    // Perform day validation on submission
-    // if (!validateDay(routeForm.day)) {
-    //   setDayError('*Invalid Input*');
-    //   return; // Prevent form submission if day is invalid
-    // }
+    // Validate Bus Name and Bus Number
+    if (!validateBusName(routeForm.busName)) {
+      errors.busName = '*Invalid input*'; // Add error message for bus name
+    }
+
+    if (!validateBusNumber(routeForm.busName, routeForm.busNumber)) {
+      errors.busNumber = '*Invalid input. Bus Number should start with the uppercase first letter of the Bus Name followed by numbers (e.g., for "MetroLine Bus", use "M273")'; // Add error message for bus number
+    }
+    
+    // Validate cities
+    if (!validateCity(routeForm.from)) {
+      errors.from = '*Invalid city*'; // Add error message for from
+    }
+    
+    if (!validateCity(routeForm.to)) {
+      errors.to = '*Invalid city*'; // Add error message for to
+    }
     
     // Validate day
     if (!validateDay(routeForm.day)) {
@@ -458,22 +494,6 @@ const ManageBusRoutes = () => {
     if (!validatePrice(routeForm.businessPrice)) {
       errors.businessPrice = '*Invalid input (e.g., 175.8)*';
     }
-    // if (!departureTimeValid || !arrivalTimeValid) {
-    //   // Set error messages for invalid times
-    //   setTimeErrors({
-    //     departureTime: departureTimeValid ? '' : '*invalid input (e.g., 11:35 AM)',
-    //     arrivalTime: arrivalTimeValid ? '' : '*invalid input (e.g., 11:35 AM)',
-    //   });
-    //   return; // Prevent form submission if any time is invalid
-    // }
-      
-    // Set the accumulated errors
-    // setTimeErrors({
-    //   departureTime: errors.departureTime,
-    //   arrivalTime: errors.arrivalTime,
-    //   duration: errors.duration
-    // });
-    // setDayError(errors.day);
 
     // Check if any errors were added and return to prevent submission
     const hasErrors = Object.values(errors).some(error => error !== '');
@@ -573,14 +593,55 @@ const ManageBusRoutes = () => {
             <h2>{currentTab === 'create' ? 'Create' : 'Edit'} Route</h2>
             <form onSubmit={handleSubmit} style={formStyle}>
               {/* ... other input fields */}
-              <label style={labelStyle}>Bus Name</label>
+              {/* <label style={labelStyle}>Bus Name</label>
               <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
               <label style={labelStyle}>Bus Number</label>
-              <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" />
+              <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" /> */}
+              <label style={labelStyle}>Bus Name</label>
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="busName" 
+                value={routeForm.busName} 
+                onChange={handleChange} 
+                placeholder="Bus Name (e.g., MetroLine Bus)" 
+              />
+              {formErrors.busName && <div style={errorStyle}>{formErrors.busName}</div>}
+
+              <label style={labelStyle}>Bus Number</label>
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="busNumber" 
+                value={routeForm.busNumber} 
+                onChange={handleChange} 
+                placeholder="Bus Number (e.g., M273)" 
+              />
+              {formErrors.busNumber && <div style={errorStyle}>{formErrors.busNumber}</div>}
+
               <label style={labelStyle}>From</label>
-              <input style={inputStyle} type="text" name="from" value={routeForm.from} onChange={handleChange} placeholder="Start Point" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="from" 
+                value={routeForm.from} 
+                onChange={handleChange} 
+                placeholder="Start Point" 
+              />
+              {formErrors.from && <div style={errorStyle}>{formErrors.from}</div>}
+
               <label style={labelStyle}>To</label>
-              <input style={inputStyle} type="text" name="to" value={routeForm.to} onChange={handleChange} placeholder="End Point" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="to" 
+                value={routeForm.to} 
+                onChange={handleChange} 
+                placeholder="End Point" 
+              />
+              {formErrors.to && <div style={errorStyle}>{formErrors.to}</div>}
+
+              
               <label style={labelStyle}>Day</label>
               <input
                 style={inputStyle}
