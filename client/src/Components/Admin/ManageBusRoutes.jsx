@@ -12,6 +12,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
+import {cities} from '../Search/Search.jsx';
 
 // Table
 const columns = [
@@ -64,7 +65,7 @@ const columns = [
   },
   {
     id: 'activeStatus',
-    label: 'Status',
+    label: 'Active Status',
     minWidth: 100,
     align: 'center',
     format: (value) => value.toLocaleString('en-US'),
@@ -72,26 +73,44 @@ const columns = [
 ];
 
 function StickyHeadTable(props) {
+
+
   // Get all bus routes
-  const [busRoutes, setBusRoutes] = useState([])
+  // const [busRoutes, setBusRoutes] = useState([]) 
 
-  const fetchData = async () => {
-		try {
-			const response = await axios.get(`http://localhost:4000/buses/`);
-			setBusRoutes(response.data);
-      console.log(response.data);
-		}
-		catch (error) {
-			console.error('Error fetching data:', error);
-		}
-	};
-
-  useEffect(() => {fetchData();}, []);
-  console.log(busRoutes);
+  // const fetchData = async () => {
+	// 	try {
+	// 		const response = await axios.get(`http://localhost:4000/buses/`);
+	// 		setBusRoutes(response.data);
+  //     console.log(response.data);
+	// 	}
+	// 	catch (error) {
+	// 		console.error('Error fetching data:', error);
+	// 	}
+	// };
+  
+  // useEffect(() => {fetchData();}, []);
+  // console.log(busRoutes);
+  const { busRoutes } = props; // Use busRoutes from props
+  const {searchColumn} = props;
+  const {searchQuery} = props;
   //////////////////////////////////////////////
-
+  
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  
+  const filteredBusRoutes = busRoutes.filter((row) => {
+    const value = row[searchColumn]?.toString().toLowerCase();
+    return searchQuery ? value.includes(searchQuery.toLowerCase()) : true;
+  });
+  
+  useEffect(() => {
+    const totalFilteredItems = filteredBusRoutes.length;
+    const maxPages = Math.ceil(totalFilteredItems / rowsPerPage) - 1; // -1 because pages are zero-indexed
+    if (page > maxPages) {
+      setPage(maxPages >= 0 ? maxPages : 0); // Ensure page is not set to a negative value
+    }
+  }, [filteredBusRoutes.length, rowsPerPage, page]);  
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -105,7 +124,20 @@ function StickyHeadTable(props) {
   const handleDelete = (routeId) => {
     // Handle delete logic here
     console.log('Delete:', routeId);
+    const isConfirmed = window.confirm("Are you sure you want to delete?");
+
+    if (isConfirmed) {
+      axios.delete(`http://localhost:4000/buses/${routeId._id}`)
+        .then(() => {
+          // Call the refresh function passed as a prop
+          props.refreshData();
+        })
+        .catch(error => {
+          console.error("Error deleting the item:", error);
+        });
+    } 
   };
+
 
   return (
     <Paper sx={{ display: 'grid', width: '100%', overflow: 'hidden' }}>
@@ -125,7 +157,9 @@ function StickyHeadTable(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {busRoutes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => (
+            {filteredBusRoutes
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((row, index) => (
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                 {columns.map((column) => {
                   const value = row[column.id];
@@ -158,7 +192,7 @@ function StickyHeadTable(props) {
                   <Button
                     variant="contained"
                     size="small"
-                    onClick={() => handleDelete(row.id)}
+                    onClick={() => handleDelete(row)}
                     sx={{
                       backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
                       color: 'white',
@@ -180,7 +214,8 @@ function StickyHeadTable(props) {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={busRoutes.length}
+        // count={busRoutes.length}
+        count={filteredBusRoutes.length} // Use the length of the filtered list
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -286,7 +321,7 @@ const initialRouteFormState = {
       {number: "B7", isAvailable: true},
       {number: "B8", isAvailable: true}
     ],
-    activeStatus: '',
+    activeStatus: 'true',
 };
 
 const formStyle = {
@@ -317,6 +352,17 @@ const inputStyle = {
   fontSize: '16px', // Larger font size for readability
 };
 
+const inputSearchStyle = {
+  width: 'auto', // Full width inputs
+  padding: '12px 15px', // Padding for better text visibility
+  marginBottom: '-10px',
+  marginRight: '10px',
+  borderRadius: '8px', // Rounded corners for modern look
+  border: '1px solid #ccc', // Light border
+  boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)', // Subtle inner shadow for depth
+  fontSize: '16px', // Larger font size for readability
+};
+
 const buttonStyle = {
   padding: '10px 20px',
   backgroundColor: '#007bff', // Bootstrap primary color
@@ -335,18 +381,37 @@ const buttonStyle = {
 };
 
 const ManageBusRoutes = () => {
+  const [searchColumn, setSearchColumn] = useState('busName'); // Default search column
+  const [searchQuery, setSearchQuery] = useState('');
+
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create'
-  // For create/Edit //////////////////
+
+  // Moved up from StickyHeadTable
+  const [busRoutes, setBusRoutes] = useState([])
+
+  // Fetch bus routes here, similar to your existing fetchData function in StickyHeadTable
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`http://localhost:4000/buses/`);
+      setBusRoutes(response.data);
+      console.log(response.data);
+    }
+    catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // For create/Edit
   const [routeForm, setRouteForm] = useState(initialRouteFormState);
 
-  // // New state to track validation errors for 'Day' input
-  // const [dayError, setDayError] = useState('');
-
-  // // New state to track validation errors for time inputs
-  // const [timeErrors, setTimeErrors] = useState({ departureTime: '', arrivalTime: '', duration: '' });
-
-  // Assuming you've renamed `timeErrors` to `formErrors` for generality
   const [formErrors, setFormErrors] = useState({
+    busName: '',
+    busNumber: '',
+    from: '',
+    to: '',
     day: '',
     departureTime: '',
     arrivalTime: '',
@@ -354,7 +419,27 @@ const ManageBusRoutes = () => {
     economyPrice: '',
     premiumPrice: '',
     businessPrice: '',
+    activeStatus: '',
   });
+
+  const validateBusName = (name) => {
+    return name.trim().length > 0; // Checks if the name is not just empty spaces
+  };
+  
+  const validateBusNumber = (name, number) => {
+    const firstLetter = name.trim().charAt(0).toUpperCase();
+    return number.startsWith(firstLetter) && /\d+$/.test(number.slice(1));
+  };
+
+  const validateCity = (city) => {
+    return cities.includes(city);
+  };
+  
+  // Add a new function to validate the day
+  const validateDay = (day) => {
+    const validDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return validDays.includes(day);
+  };
 
   // Regular expression to validate time format (e.g., 11:35 AM)
   const timeFormatRegex = /^(1[0-2]|0?[1-9]):[0-5][0-9] [APap][mM]$/;
@@ -377,20 +462,15 @@ const ManageBusRoutes = () => {
     return priceFormatRegex.test(price);
   };
   
+  const validateStatus = (activeStatus) => {
+    return ['true', 'false'].includes(activeStatus.toString());
+  };
+  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRouteForm(prevState => ({ ...prevState, [name]: value }));
 
-    // Clear error on change for the specific field being edited
-    // if (name === 'day') {
-    //   setDayError('');
-    // } else if (name === 'departureTime' || name === 'arrivalTime' || name === 'duration') {
-    //   // Update timeErrors state to clear only the error for the field being changed
-    //   setTimeErrors(prevErrors => ({
-    //     ...prevErrors,
-    //     [name]: '', // Only clear the error for the field being changed
-    //   }));
-    // }
     // Clear error on change for the specific field being edited
     setFormErrors(prevErrors => ({
       ...prevErrors,
@@ -398,18 +478,16 @@ const ManageBusRoutes = () => {
     }));
   };
 
-  // Add a new function to validate the day
-  const validateDay = (day) => {
-    const validDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    return validDays.includes(day);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // Object to collect all errors
     let errors = {
       ...formErrors, // Start with current errors
+      busName: '',
+      busNumber: '',
+      from: '',
+      to: '',
       day: '',
       departureTime: '',
       arrivalTime: '',
@@ -417,13 +495,26 @@ const ManageBusRoutes = () => {
       economyPrice: '',
       premiumPrice: '',
       businessPrice: '',
+      activeStatus: '',
     };
 
-    // Perform day validation on submission
-    // if (!validateDay(routeForm.day)) {
-    //   setDayError('*Invalid Input*');
-    //   return; // Prevent form submission if day is invalid
-    // }
+    // Validate Bus Name and Bus Number
+    if (!validateBusName(routeForm.busName)) {
+      errors.busName = '*Invalid input*'; // Add error message for bus name
+    }
+
+    if (!validateBusNumber(routeForm.busName, routeForm.busNumber)) {
+      errors.busNumber = '*Invalid input. Bus Number should start with the uppercase first letter of the Bus Name followed by numbers (e.g., for "MetroLine Bus", use "M273")'; // Add error message for bus number
+    }
+    
+    // Validate cities
+    if (!validateCity(routeForm.from)) {
+      errors.from = '*Invalid city*'; // Add error message for from
+    }
+    
+    if (!validateCity(routeForm.to)) {
+      errors.to = '*Invalid city*'; // Add error message for to
+    }
     
     // Validate day
     if (!validateDay(routeForm.day)) {
@@ -458,22 +549,34 @@ const ManageBusRoutes = () => {
     if (!validatePrice(routeForm.businessPrice)) {
       errors.businessPrice = '*Invalid input (e.g., 175.8)*';
     }
-    // if (!departureTimeValid || !arrivalTimeValid) {
-    //   // Set error messages for invalid times
-    //   setTimeErrors({
-    //     departureTime: departureTimeValid ? '' : '*invalid input (e.g., 11:35 AM)',
-    //     arrivalTime: arrivalTimeValid ? '' : '*invalid input (e.g., 11:35 AM)',
-    //   });
-    //   return; // Prevent form submission if any time is invalid
+
+    // Validate active status
+    if (!validateStatus(routeForm.activeStatus)) {
+      errors.activeStatus = '*Invalid input (e.g., true, false)*';
+    }
+
+    // New check for existing bus number
+    // const isBusNumberExist = busRoutes.some(route => route.busNumber === routeForm.busNumber);
+    // if (isBusNumberExist) {
+    //   errors.busNumber = '*This bus number already exists*';
+    //   setFormErrors(errors);
+    //   return; // Prevent form submission
     // }
-      
-    // Set the accumulated errors
-    // setTimeErrors({
-    //   departureTime: errors.departureTime,
-    //   arrivalTime: errors.arrivalTime,
-    //   duration: errors.duration
-    // });
-    // setDayError(errors.day);
+    // New check for existing bus number, but only if in 'create' mode
+    if (currentTab === 'create') {
+      const isBusNumberExist = busRoutes.some(route => route.busNumber === routeForm.busNumber);
+      if (isBusNumberExist) {
+        errors.busNumber = '*This bus number already exists*';
+      }
+    }
+  
+    // If editing, make sure we are not comparing the item to itself
+    if (currentTab === 'edit') {
+      const isBusNumberExist = busRoutes.some(route => route.busNumber === routeForm.busNumber && route._id !== routeForm._id);
+      if (isBusNumberExist) {
+        errors.busNumber = '*This bus number is used by another bus*';
+      }
+    }  
 
     // Check if any errors were added and return to prevent submission
     const hasErrors = Object.values(errors).some(error => error !== '');
@@ -489,12 +592,27 @@ const ManageBusRoutes = () => {
     
 
     console.log('Form submission', routeForm);
-    axios.post(`http://localhost:4000/buses/`, routeForm);
+    console.log('Current Tab:', currentTab);
+    if (currentTab === 'create'){
+      axios.post(`http://localhost:4000/buses/`, routeForm)
+        .then(response => {
+          // Fetch all routes again (simpler but less efficient)
+          fetchData();
+        })
+        .catch(error => console.error('There was an error!', error));
+    } 
+    else{
+      axios.put(`http://localhost:4000/buses/${routeForm._id}`, routeForm)
+        .then(response => {
+          // Fetch all routes again
+          fetchData();
+        })
+        .catch(error => console.error('There was an error!', error));
+    }
+
     // Here you would handle the form submission to either create or update a route
     // After submission, reset form and switch tab or display success message
     setRouteForm(initialRouteFormState);
-    // setTimeErrors({ departureTime: '', arrivalTime: '' }); // Clear any time errors
-    // setDayError('');
     setFormErrors({}); // Clear all errors
     setCurrentTab('list'); // Optional: redirect to list after submission
   };
@@ -520,12 +638,12 @@ const ManageBusRoutes = () => {
       premiumPrice: routeData.premiumPrice,
       businessPrice: routeData.businessPrice,
       activeStatus: routeData.activeStatus,
+      _id: routeData._id
       // Continue for all needed fields
     });
     setCurrentTab('edit'); // Switch to the edit tab
     // console.log('Edit:', routeData);
   };
-  ///////////////////////////////////
 
   const getTabButtonStyle = (tab) => ({
     ...tabButtonStyle,
@@ -546,7 +664,6 @@ const ManageBusRoutes = () => {
     setCurrentTab(tab);
   };
 
-  ////////////////////////////////////
   // For the responsive table design
   const tableContainerSx = {
     width: '100%',
@@ -559,11 +676,64 @@ const ManageBusRoutes = () => {
         <li style={getTabButtonStyle('create')} onClick={() => switchTab('create')}>Create Route</li>
         {/* <li style={getTabButtonStyle('edit')} onClick={() => switchTab('edit')}>Edit Route</li> */}
       </ul>
+      
+      {currentTab === 'list' && (
+        <div style={{ paddingTop: '20px', paddingLeft: '20px' }}>
+          <select        
+            value={searchColumn}
+            onChange={(e) => setSearchColumn(e.target.value)}
+            style={{
+              marginRight: '10px',
+              fontSize: '1rem',
+              height: '2rem',
+              padding: '0 0.5rem',
+              border: '1px solid #ccc', // Adds a light grey border
+              borderRadius: '4px', // Rounds the corners slightly
+              width: 'auto', // Adjust as needed, or use 'auto' for automatic width based on content
+            }}  
+          >
+            {columns.map((column) => (
+              <option key={column.id} value={column.id}>
+                {column.label}
+              </option>
+            ))}
+          </select>
+          <input
+            type="text"
+            placeholder="Search..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            style={inputSearchStyle}
+          />
+          <Button 
+            onClick={() => setSearchQuery('')}
+            variant="contained"
+            size="small"
+            sx={{
+              backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
+              color: 'white',
+              '&:hover': {
+                backgroundColor: '#d32f2f', // Darker shade when hovering
+                color: 'white',
+              },
+            }}
+          >
+          Clear
+          </Button>
+        </div>
+      )}
 
       <div style={contentStyle}>
         {currentTab === 'list' && (
           <TableContainer component={Paper} sx={tableContainerSx}>
-            <StickyHeadTable onEdit={handleEditRoute} />
+            {/* <StickyHeadTable onEdit={handleEditRoute} /> */}
+            <StickyHeadTable 
+              busRoutes={busRoutes} 
+              onEdit={handleEditRoute} 
+              refreshData={fetchData} 
+              searchColumn={searchColumn}
+              searchQuery={searchQuery} 
+            />
           </TableContainer>
         )}
         {/* Include your forms and statistics content with appropriate styles */}
@@ -572,15 +742,46 @@ const ManageBusRoutes = () => {
           <div style={contentStyle}>
             <h2>{currentTab === 'create' ? 'Create' : 'Edit'} Route</h2>
             <form onSubmit={handleSubmit} style={formStyle}>
-              {/* ... other input fields */}
               <label style={labelStyle}>Bus Name</label>
-              <input style={inputStyle} type="text" name="busName" value={routeForm.busName} onChange={handleChange} placeholder="Enter Bus Name" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="busName" 
+                value={routeForm.busName} 
+                onChange={handleChange} 
+                placeholder="Bus Name (e.g., MetroLine Bus)" 
+              />
+              {formErrors.busName && <div style={errorStyle}>{formErrors.busName}</div>}
               <label style={labelStyle}>Bus Number</label>
-              <input style={inputStyle} type="text" name="busNumber" value={routeForm.busNumber} onChange={handleChange} placeholder="Enter Bus Number" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="busNumber" 
+                value={routeForm.busNumber} 
+                onChange={handleChange} 
+                placeholder="Bus Number (e.g., M273)" 
+              />
+              {formErrors.busNumber && <div style={errorStyle}>{formErrors.busNumber}</div>}
               <label style={labelStyle}>From</label>
-              <input style={inputStyle} type="text" name="from" value={routeForm.from} onChange={handleChange} placeholder="Start Point" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="from" 
+                value={routeForm.from} 
+                onChange={handleChange} 
+                placeholder="Start Point" 
+              />
+              {formErrors.from && <div style={errorStyle}>{formErrors.from}</div>}
               <label style={labelStyle}>To</label>
-              <input style={inputStyle} type="text" name="to" value={routeForm.to} onChange={handleChange} placeholder="End Point" />
+              <input 
+                style={inputStyle} 
+                type="text" 
+                name="to" 
+                value={routeForm.to} 
+                onChange={handleChange} 
+                placeholder="End Point" 
+              />
+              {formErrors.to && <div style={errorStyle}>{formErrors.to}</div>}
               <label style={labelStyle}>Day</label>
               <input
                 style={inputStyle}
@@ -591,7 +792,6 @@ const ManageBusRoutes = () => {
                 placeholder="Day (e.g., Monday)"
               />
               {formErrors.day && <div style={errorStyle}>{formErrors.day}</div>}
-
               <label style={labelStyle}>Departure Time</label>
               <input
                 style={inputStyle}
@@ -602,7 +802,6 @@ const ManageBusRoutes = () => {
                 placeholder="Departure Time (e.g., 11:35 AM)"
               />
               {formErrors.departureTime && <div style={errorStyle}>{formErrors.departureTime}</div>}
-
               <label style={labelStyle}>Arrival Time</label>
               <input
                 style={inputStyle}
@@ -653,8 +852,31 @@ const ManageBusRoutes = () => {
                 placeholder="Business Price (e.g., 175.8)" 
               />
               {formErrors.businessPrice && <div style={errorStyle}>{formErrors.businessPrice}</div>}
-              <label style={labelStyle}>Active Status</label>
-              <input style={inputStyle} type="text" name="activeStatus" value={routeForm.activeStatus} onChange={handleChange} placeholder="Active Status" />
+              {/* <label style={labelStyle}>Active Status</label>
+              <input
+                style={inputStyle}
+                type="text"
+                name="activeStatus"
+                value={routeForm.activeStatus}
+                onChange={handleChange}
+                placeholder="true/false"
+              />
+              {formErrors.activeStatus && <div style={errorStyle}>{formErrors.activeStatus}</div>} */}
+              {currentTab === 'edit' && (
+                <>
+                  <label style={labelStyle}>Active Status</label>
+                  <input
+                    style={inputStyle}
+                    type="text"
+                    name="activeStatus"
+                    value={routeForm.activeStatus}
+                    onChange={handleChange}
+                    placeholder="true/false"
+                  />
+                  {formErrors.activeStatus && <div style={errorStyle}>{formErrors.activeStatus}</div>}
+                </>
+              )}
+              <input type="hidden" name="_id" value={routeForm._id}/>
               <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
             </form>
           </div>

@@ -22,6 +22,37 @@ import 'aos/dist/aos.css'
 // - Upon clicking on the search button, it should take you to the bus schedule page (done)
 // - ..continued^^ It should be able to pass the data inputted to the bus schedule page (done)
 
+// List of cities
+const cities = [
+    'New York',
+    'Orlando',
+    'Los Angeles',
+    'San Francisco',
+    'Las Vegas',
+    'Miami',
+    'Chicago',
+    'Seattle',
+    'Boston',
+    'Washington D.C.',
+    'New Orleans',
+    'Denver',
+    'San Diego',
+    'Houston',
+    'Nashville',
+    'Atlanta',
+    'Philadelphia',
+    'Portland',
+    'Austin',
+    'Dallas',
+    'Phoenix',
+    'San Antonio',
+    'Minneapolis',
+    'St. Louis',
+    'Kansas City',
+    'Cleveland',
+    'Cincinnati'
+];
+
 const Search = () => {
 
     // AOS init
@@ -44,36 +75,36 @@ const Search = () => {
     const datePopupRef = useRef();
     const navigate = useNavigate();
 
-    // List of cities
-    const cities = useMemo(() => [
-        'New York',
-        'Orlando',
-        'Los Angeles',
-        'San Francisco',
-        'Las Vegas',
-        'Miami',
-        'Chicago',
-        'Seattle',
-        'Boston',
-        'Washington D.C.',
-        'New Orleans',
-        'Denver',
-        'San Diego',
-        'Houston',
-        'Nashville',
-        'Atlanta',
-        'Philadelphia',
-        'Portland',
-        'Austin',
-        'Dallas',
-        'Phoenix',
-        'San Antonio',
-        'Minneapolis',
-        'St. Louis',
-        'Kansas City',
-        'Cleveland',
-        'Cincinnati'
-    ], []);
+    // // List of cities
+    // const cities = useMemo(() => [
+    //     'New York',
+    //     'Orlando',
+    //     'Los Angeles',
+    //     'San Francisco',
+    //     'Las Vegas',
+    //     'Miami',
+    //     'Chicago',
+    //     'Seattle',
+    //     'Boston',
+    //     'Washington D.C.',
+    //     'New Orleans',
+    //     'Denver',
+    //     'San Diego',
+    //     'Houston',
+    //     'Nashville',
+    //     'Atlanta',
+    //     'Philadelphia',
+    //     'Portland',
+    //     'Austin',
+    //     'Dallas',
+    //     'Phoenix',
+    //     'San Antonio',
+    //     'Minneapolis',
+    //     'St. Louis',
+    //     'Kansas City',
+    //     'Cleveland',
+    //     'Cincinnati'
+    // ], []);
 
     // Filters the cities based on the search input
     useEffect(() =>
@@ -242,3 +273,4 @@ const Search = () => {
 }
 
 export default Search
+export { cities };
