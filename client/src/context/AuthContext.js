@@ -8,11 +8,16 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('username');
-        if (storedUser) {
-            setUser({ username: storedUser });
-        }
+        logout();
+
+        window.addEventListener('beforeunload', handleTabClose);
+
+        return () => window.removeEventListener('beforeunload', handleTabClose);
     }, []);
+
+    const handleTabClose = (event) => {
+        logout();
+    };
 
     const login = (username) => {
         localStorage.setItem('username', username);

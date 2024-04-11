@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
 
     console.log(secretKey)
 
-    const token = jwt.sign({ userId: user._id, role: user.role }, secretKey, { expiresIn: '24h' });
+    const token = jwt.sign({ userId: user._id, role: user.role }, secretKey, { expiresIn: '48h' });
 
     
     res.json({ success: true, message: 'Login successful', token, username: user.username });
