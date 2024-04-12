@@ -174,7 +174,7 @@ const AdminSidebar = ({ onSelect, isExpanded, setIsExpanded }) => {
         <SidebarItem icon={<MdAccountCircle size={30} />} label="Manage Admin Account" isExpanded={isExpanded} onSelect={onSelect} />
         <SidebarItem icon={<MdAccountCircle size={30} />} label="Manage User Accounts" isExpanded={isExpanded} onSelect={onSelect} />
         {/* <SidebarItem icon={<MdBookOnline size={30} />} label="Bookings" isExpanded={isExpanded} onSelect={onSelect} /> */}
-        <SidebarItem icon={<MdBarChart size={30} />} label="Reports" isExpanded={isExpanded} onSelect={onSelect} />
+        <SidebarItem icon={<MdBarChart size={30} />} label="Feedbacks" isExpanded={isExpanded} onSelect={onSelect} />
       </div>
       {/* Bottom section for logout */}
       <div style={{ textAlign: 'center', marginBottom: '0px', marginTop: 'auto'  }}>
