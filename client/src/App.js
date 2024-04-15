@@ -27,11 +27,11 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
         <div>
           <Routes>
             <Route path="/" element={
               <>
+                <Navbar />
                 <Home />
                 <Search />
                 <Info />
@@ -42,20 +42,49 @@ const App = () => {
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/bus-schedule" element={<BusSchedule />} />
-            <Route path="/seat-selection" element={<SeatSelection />} />
+            <Route path="/bus-schedule" element={
+              <>
+                <Navbar />
+                <BusSchedule />
+              </>
+            } />
+            <Route path="/seat-selection" element={
+              <>
+                <Navbar />
+                <SeatSelection />
+              </>
+            } />
             <Route path="/user-information" element={<UserInformation />} />
-            <Route path="/travel-information" element={<TravelInformation />} />
-            <Route path="/destination" element={<DestinationPage />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/travel-information" element={
+              <>
+                <Navbar />
+                <TravelInformation />
+              </>
+            } />
+            <Route path="/destination" element={
+              <>
+                <Navbar />
+                <DestinationPage />
+              </>
+            } />
+            <Route path="/faq" element={
+              <>
+                <Navbar />
+                <FAQPage />
+              </>
+            } />
+            <Route path="/contact" element={
+              <>
+                <Navbar />
+                <ContactPage />
+              </>
+            } />
             <Route path="/travel-history" element={<TravelHistory />} />
             <Route path="/transaction" element={<TransactionPage />} />
             <Route path="/reservation-success" element={<ReservationSuccessPage />} />
             <Route path="/reservations" element={<ReservationsPage />} />
           </Routes>
         </div>
-        <Footer />
       </Router>
     </AuthProvider>
   );
