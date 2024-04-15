@@ -10,7 +10,6 @@ import SignInPage from './Components/SignInPage/SignInPage';
 import SignUpPage from './Components/SignUpPage/SignUpPage';
 import Admin from './Components/Admin/Admin';
 import BusSchedule from './Components/BusSchedule/BusSchedule';
-import TravelInformation from './Components/TravelInformation/TravelInformation';
 import DestinationPage from './Components/DestinationsPage/DestinationPage';
 import FAQPage from './Components/FAQPage/FAQPage';
 import ContactPage from './Components/ContactPage/ContactPage';
@@ -20,6 +19,10 @@ import TravelHistory from './Components/TravelHistory/TravelHistory';
 import TransactionPage from './Components/TransactionPage/TransactionPage';
 import ReservationSuccessPage from './Components/TransactionPage/ReservationSuccessPage';
 import ReservationsPage from './Components/ReservationsPage/ReservationsPage';
+import RightsAndRules from './Components/RandR/RightsAndRules';
+import BaggageRules from './Components/BaggageRules/BaggageRules';
+import Features from './Components/BusFeatures/BusFeatures';
+import HowToPage from './Components/HowTo/HowTo';
 import { AuthProvider } from './context/AuthContext';
 import './index.css';
 
@@ -45,9 +48,12 @@ const App = () => {
             <Route path="/bus-schedule" element={<BusSchedule />} />
             <Route path="/seat-selection" element={<SeatSelection />} />
             <Route path="/user-information" element={<UserInformation />} />
-            <Route path="/travel-information" element={<TravelInformation />} />
+            <Route path="/howto" element={ <HowToPage />} />
             <Route path="/destination" element={<DestinationPage />} />
             <Route path="/faq" element={<FAQPage />} />
+            <Route path="/baggage" element={<BaggageRules />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/rights&rules" element={<RightsAndRules /> } />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/travel-history" element={<TravelHistory />} />
             <Route path="/transaction" element={<TransactionPage />} />

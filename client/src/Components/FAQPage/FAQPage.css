@@ -7,7 +7,7 @@
   padding-top: 15%;
   flex-direction: column;
   justify-content: center;
-  padding-bottom: 5%;
+  padding-bottom: 15%;
 }
 
 .faq-page-text {
@@ -17,11 +17,11 @@
   background-color: white;
   margin-bottom: 3vb;
   border-radius: 1vb;
-  padding: .3%;
+  padding: 0.3%;
 }
 
 .background-container {
-  background-image: url("../../assets/CityMap.png"); 
+  background-image: url("../../assets/CityMap.png");
   width: 100%;
   height: fit-content;
   background-position: center;
@@ -53,12 +53,19 @@
   background-color: #eee;
   padding: 10px;
   cursor: pointer;
+  text-align: center;
 }
 
 .accordion-content {
   padding: 10px;
   background-color: #fff;
+  text-align: center;
 }
+
+.accordion-item.open .accordion-content {
+  display: block;
+}
+
 @media (max-width: 991px) {
   .background-container {
     background-size: 80% 80%;

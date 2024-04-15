@@ -90,7 +90,6 @@ function DestinationPage() {
   );
 
   return (
-    <div>
     <div className="destination-page">
       {!selectedDestination && (
         <div className="search-bar">
@@ -133,7 +132,6 @@ function DestinationPage() {
           </div>
         )
       }
-    </div>
     </div>
   );
 }
