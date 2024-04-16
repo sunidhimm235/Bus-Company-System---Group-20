@@ -72,25 +72,37 @@ const updateUser = asyncHandler(async (req, res) => {
 
 // Delete a user
 const deleteUser = asyncHandler(async (req, res) => {
-    const { id } = req.body;
+    const { id } = req.params;
 
     if (!id) {
         return res.status(400).json({ message: 'User ID required' });
     }
 
-    const user = await User.findById(id);
+    await User.findByIdAndDelete(id);
+    res.json({ message: `User ${user.username} deleted` });
+});
+
+// Get a user by ID
+const getUserById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ message: 'User ID required' });
+    }
+
+    const user = await User.findById(id).select('-password').lean();
 
     if (!user) {
         return res.status(404).json({ message: 'User not found' });
     }
 
-    await user.remove();
-    res.json({ message: `User ${user.username} deleted` });
+    res.json(user);
 });
 
 module.exports = {
     getAllUsers,
     createNewUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserById
 };
