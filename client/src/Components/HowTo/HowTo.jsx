@@ -24,7 +24,7 @@ function HowToPage() {
       content: (
         <div>
           <img src={signIn} alt={''} className="accordion-image" />
-          <p>To sign in, first, navigate to the login page. Then enter the email address associated with your account into the designated field. Then, input your password into the password field. Ensure your password is entered accurately, paying attention to uppercase and lowercase letters as passwords are often case-sensitive. Once both fields are completed, review the information for accuracy, then click the "Sign In" button to access your account.</p>
+          <p>To sign in, first, navigate to the login page. Then enter the email address associated with your account into the designated field. Then, input your password into the password field. Ensure your password is entered accurately, paying attention to uppercase and lowercase letters as passwords are case-sensitive. Once both fields are completed, review the information for accuracy, then click the "Sign In" button to access your account.</p>
         </div>
       )
     },
