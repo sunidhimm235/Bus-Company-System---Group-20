@@ -100,16 +100,16 @@ const DashboardCards = () => {
 
   return (
     <div className="cardContainer">
-      <Card number={totalBuses} title="Total Buses Operational" Icon={FaBus} bgColor="#E3F2FD" borderColor="#2196F3" />
-      <Card number={totalFeedback} title="Total Feedback Received" Icon={FaCommentDots} bgColor="#E0F7FA" borderColor="#00BCD4" />
-      <Card number={totalUsers} title="Total Users" Icon={FaUserPlus} bgColor="#E8F5E9" borderColor="#4CAF50" />
-      <Card number={totalAdmins} title="Total Admins" Icon={FaTools} bgColor="#FFF3E0" borderColor="#FFC107" />
-      <Card number={totalEmployees} title="Total Employees" Icon={FaTools} bgColor="#FFEBEE" borderColor="#FFCDD2" />
-      <Card number={reservations} title="Total Tickets Sold" Icon={FaTicketAlt} bgColor="#F3E5F5" borderColor="#9C27B0" />
-      <Card number={totalProfit} title="Total Profit Overall" Icon={FaChartLine} bgColor="#E0F7FA" borderColor="#00BCD4" />
-      <Card number={economyTickets} title="Total Economy Tickets Sold" Icon={FaTicketAlt} bgColor="#FFEBEE" borderColor="#FFCDD2" />
-      <Card number={premiumTickets} title="Total Premium Tickets Sold" Icon={FaTicketAlt} bgColor="#F1F8E9" borderColor="#DCEDC8" />
-      <Card number={businessTickets} title="Total Business Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#BBDEFB" />
+      <Card number={totalBuses} title="Total Buses Operational" Icon={FaBus} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={totalFeedback} title="Total Feedback Received" Icon={FaCommentDots} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={totalUsers} title="Total Users" Icon={FaUserPlus} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={totalAdmins} title="Total Admins" Icon={FaTools} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={totalEmployees} title="Total Employees" Icon={FaTools} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={reservations} title="Total Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={totalProfit} title="Total Profit Overall" Icon={FaChartLine} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={economyTickets} title="Total Economy Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={premiumTickets} title="Total Premium Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
+      <Card number={businessTickets} title="Total Business Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
       {/* Include other Card instances as before */}
     </div>
   );
