@@ -88,20 +88,20 @@ const Navbar = () => {
                             onClick={() => setShowTravelInfoDropdown(!showTravelInfoDropdown)} // Toggle the dropdown on click
                             style={{ position: 'relative' }} // Add relative position to the list item
                         >
-                            Travel Info <FaChevronDown className="icon" />
+                            Travel Info <FaChevronDown className="icon" size={14} />
                             {showTravelInfoDropdown && (
                                 <div style={dropdownStyles}>
                                     <Link to="/howto">
-                                        <div style={dropdownItemStyles}>How To</div>
+                                        <div style={{ ...dropdownItemStyles, color: 'grey' }}>How To</div>
                                     </Link>
                                     <Link to="/baggage">
-                                        <div style={dropdownItemStyles}>Baggage Info</div>
+                                        <div style={{ ...dropdownItemStyles, color: 'grey' }}>Baggage Info</div>
                                     </Link>
                                     <Link to="/features">
-                                        <div style={dropdownItemStyles}>Bus Features</div>
+                                        <div style={{ ...dropdownItemStyles, color: 'grey' }}>Bus Features</div>
                                     </Link>
                                     <Link to="/rights&rules">
-                                        <div style={dropdownItemStyles}>Rights and Rules</div>
+                                        <div style={{ ...dropdownItemStyles, color: 'grey' }}>Rights and Rules</div>
                                     </Link>
                                 </div>
                             )}
