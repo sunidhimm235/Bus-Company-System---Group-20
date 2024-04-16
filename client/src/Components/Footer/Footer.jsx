@@ -49,10 +49,7 @@ const Footer = () =>
 						<a href="#">Travel Information</a>
 					</li>
 					<li>
-						<a href="#">Bus Status</a>
-					</li>
-					<li>
-						<a href="#">Manage your booking</a>
+						<a href="#">Reservations</a>
 					</li>
 				</div>
 

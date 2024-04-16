@@ -88,7 +88,7 @@ const Navbar = () => {
                             onClick={() => setShowTravelInfoDropdown(!showTravelInfoDropdown)} // Toggle the dropdown on click
                             style={{ position: 'relative' }} // Add relative position to the list item
                         >
-                            Travel Info <FaChevronDown className="icon" />
+                            Travel Info
                             {showTravelInfoDropdown && (
                                 <div style={dropdownStyles}>
                                     <Link to="/howto">
