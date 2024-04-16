@@ -56,3 +56,13 @@ exports.getReservations = async (req, res) => {
     res.status(400).json({ message: 'Failed to fetch reservations', error: error.message });
   }
 };
+
+exports.getAllReservations = async (req, res) => {
+  try {
+    const reservations = await Reservation.find().populate('userId', 'username').exec();
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error("Failed to fetch all reservations:", error);
+    res.status(500).json({ message: 'Failed to fetch all reservations', error: error.message });
+  }
+};
