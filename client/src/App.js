@@ -109,10 +109,17 @@ const App = () => {
                 <Footer />
               </>
             } />
+            <Route path="/reservations" element={
+              <>
+                <Navbar />
+                <ReservationsPage  />
+                <Footer />
+              </>
+            } />
             <Route path="/travel-history" element={<TravelHistory />} />
             <Route path="/transaction" element={<TransactionPage />} />
             <Route path="/reservation-success" element={<ReservationSuccessPage />} />
-            <Route path="/reservations" element={<ReservationsPage />} />
+            {/* <Route path="/reservations" element={<ReservationsPage />} /> */}
           </Routes>
         </div>
       </Router>
