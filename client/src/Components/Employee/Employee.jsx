@@ -9,14 +9,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
-import { format } from 'date-fns';
-// import AdminSidebar from './AdminSidebar'; // Adjust the import path as needed
-// import DashboardCards from './DashboardCards';
-// import ManageBusRoutes from './ManageBusRoutes';
-// import ManageUserAccounts from './ManageUserAccounts';
-// import ManageAdminAccounts from './ManageAdminAccounts';
-// import ManageEmployeeAccounts from './ManageEmployeeAccounts';
-// import Feedbacks from './Feedbacks';
+import EmployeeNavbar from './EmployeeNavbar';
 
 // Table
 const columns = [
@@ -177,31 +170,6 @@ const containerStyle = {
     overflow: 'hidden',
 };
 
-const tabStyle = {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    listStyle: 'none',
-    padding: '10px',
-    backgroundColor: '#E5E1DA',
-    margin: 0,
-};
-
-const tabButtonStyle = {
-    flex: 1,
-    padding: '10px',
-    cursor: 'pointer',
-    textAlign: 'center',
-    backgroundColor: '#f2f2f2',
-    border: 'none',
-    outline: 'none',
-    transition: 'background-color 0.3s',
-};
-
-const activeTabStyle = {
-    backgroundColor: '#92C7CF',
-    color: 'white'
-};
-
 const contentStyle = {
     padding: '20px',
 };
@@ -244,60 +212,69 @@ const Employee = () => {
   };
 
   return (
-    <div 
-      style={{ 
-        flexGrow: 1, 
-        padding: '20px',
-      }}>
-      <div>
-        <h1>Manage Reservations</h1>
-        <div style={{padding: '10px'}}></div>
-        <div style={containerStyle}>
-          <div style={{ paddingTop: '20px', paddingLeft: '20px' }}>
-            <select        
-              value={searchColumn}
-              onChange={(e) => setSearchColumn(e.target.value)}
-              style={inputSearchStyle}  
-            >
-              {columns.map((column) => (
-                <option key={column.id} value={column.id}>
-                  {column.label}
-                </option>
-              ))}
-            </select>
-            <input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              style={inputSearchStyle}
-            />
-            <Button 
-              onClick={() => setSearchQuery('')}
-              variant="contained"
-              size="small"
-              sx={{
-                backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: '#d32f2f', // Darker shade when hovering
-                  color: 'white',
-                },
-              }}
-            >
-            Clear
-            </Button>
-          </div>
+    <div>
+      <EmployeeNavbar />
+      <div style={{ flexGrow: 1, padding: '20px' }}>
+        <div>
+          <div style={containerStyle}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              paddingLeft: '20px',
+              paddingTop: '10px',
+              gap: '10px' // Adds space between elements vertically
+            }}>
+              <div style={{
+                display: 'flex',
+                flexWrap: 'wrap', // Allows items to wrap in a new line on small screens
+                gap: '10px', // Adds space between items horizontally
+              }}>
+                <select
+                  value={searchColumn}
+                  onChange={(e) => setSearchColumn(e.target.value)}
+                  style={{ ...inputSearchStyle, width: '200px' }} // Fixed width for select
+                >
+                  {columns.map((column) => (
+                    <option key={column.id} value={column.id}>
+                      {column.label}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{ ...inputSearchStyle, width: '300px' }} // Fixed width for input
+                />
+                <Button 
+                  onClick={() => setSearchQuery('')}
+                  variant="contained"
+                  size="small"
+                  sx={{
+                    backgroundColor: '#92C7CF', // Custom background color
+                    color: 'white',
+                    '&:hover': {
+                      backgroundColor: '#d32f2f', // Darker shade when hovering
+                      color: 'white',
+                    },
+                  }}
+                >
+                Clear
+                </Button>
+              </div>
+            </div>
 
-          <div style={contentStyle}>
-            <TableContainer component={Paper} sx={tableContainerSx}>
-              <StickyHeadTable 
-                users={users} 
-                refreshData={fetchData} 
-                searchColumn={searchColumn}
-                searchQuery={searchQuery} 
-              />
-            </TableContainer>
+            <div style={contentStyle}>
+              <TableContainer component={Paper} sx={tableContainerSx}>
+                <StickyHeadTable 
+                  users={users} 
+                  refreshData={fetchData} 
+                  searchColumn={searchColumn}
+                  searchQuery={searchQuery} 
+                />
+              </TableContainer>
+            </div>
           </div>
         </div>
       </div>

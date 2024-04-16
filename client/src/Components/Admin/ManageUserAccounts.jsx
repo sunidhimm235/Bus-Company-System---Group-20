@@ -166,34 +166,6 @@ const contentStyle = {
     padding: '20px',
 };
 
-const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '15px', // Add space between form elements
-    padding: '20px',
-    maxWidth: '500px', // Limit the form width for better aesthetics on larger screens
-    margin: '0 auto', // Center the form horizontally
-};
-
-const labelStyle = {
-    alignSelf: 'flex-start', // Align labels to the start of the form
-    fontSize: '14px', // Modern, smaller font-size
-    fontWeight: '600', // Slightly bolder for better readability
-    color: '#333', // Dark grey for labels for higher contrast
-};
-
-const inputStyle = {
-    width: '100%', // Full width inputs
-    padding: '12px 15px', // Padding for better text visibility
-    marginBottom: '10px',
-    borderRadius: '8px', // Rounded corners for modern look
-    border: '1px solid #ccc', // Light border
-    boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)', // Subtle inner shadow for depth
-    fontSize: '16px', // Larger font size for readability
-};
-
 const inputSearchStyle = {
   width: 'auto', // Full width inputs
   padding: '12px 15px', // Padding for better text visibility
@@ -203,23 +175,6 @@ const inputSearchStyle = {
   border: '1px solid #ccc', // Light border
   boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)', // Subtle inner shadow for depth
   fontSize: '16px', // Larger font size for readability
-};
-
-const buttonStyle = {
-    padding: '10px 20px',
-    backgroundColor: '#007bff', // Bootstrap primary color
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontSize: '16px', // Larger font size for readability
-    fontWeight: '600', // Slightly bolder text
-    letterSpacing: '1px', // Spaced out text
-    transition: 'background-color 0.3s ease', // Smooth background color transition
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '10px', // Space between icon and text
 };
 
 const ManageUserAccounts = () => {
