@@ -76,8 +76,8 @@ function StickyHeadTable(props) {
     }
   }, [filteredUsers.length, rowsPerPage, page]);  
 
-  const handleChangePage = (newPage) => {
-      setPage(newPage);
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
@@ -159,7 +159,7 @@ function StickyHeadTable(props) {
       <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={users.length}
+          count={filteredUsers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
@@ -237,81 +237,71 @@ const Employee = () => {
     fetchData();
   }, []);
 
-  const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create'
-
-  const getTabButtonStyle = (tab) => ({
-    ...tabButtonStyle,
-    ...(currentTab === tab ? activeTabStyle : {}),
-  });
-
-  // Function to switch tabs
-  const switchTab = (tab) => {
-    setCurrentTab(tab);
-  };
-
   // For the responsive table design
   const tableContainerSx = {
     width: '100%',
     overflowX: 'auto'
   };
+
   return (
-    <div style={containerStyle}>
-      <ul style={tabStyle}>
-        <li style={getTabButtonStyle('list')} onClick={() => switchTab('list')}>Account Listing</li>
-      </ul>
-
-      {currentTab === 'list' && (
-        <div style={{ paddingTop: '20px', paddingLeft: '20px' }}>
-          <select        
-            value={searchColumn}
-            onChange={(e) => setSearchColumn(e.target.value)}
-            style={inputSearchStyle}  
-          >
-            {columns.map((column) => (
-              <option key={column.id} value={column.id}>
-                {column.label}
-              </option>
-            ))}
-          </select>
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            style={inputSearchStyle}
-          />
-          <Button 
-            onClick={() => setSearchQuery('')}
-            variant="contained"
-            size="small"
-            sx={{
-              backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
-              color: 'white',
-              '&:hover': {
-                backgroundColor: '#d32f2f', // Darker shade when hovering
-                color: 'white',
-              },
-            }}
-          >
-          Clear
-          </Button>
-        </div>
-      )}
-
-      <div style={contentStyle}>
-        {currentTab === 'list' && (
-          <TableContainer component={Paper} sx={tableContainerSx}>
-            <StickyHeadTable 
-              users={users} 
-              refreshData={fetchData} 
-              searchColumn={searchColumn}
-              searchQuery={searchQuery} 
+    <div 
+      style={{ 
+        flexGrow: 1, 
+        padding: '20px',
+      }}>
+      <div>
+        <h1>Manage Reservations</h1>
+        <div style={{padding: '10px'}}></div>
+        <div style={containerStyle}>
+          <div style={{ paddingTop: '20px', paddingLeft: '20px' }}>
+            <select        
+              value={searchColumn}
+              onChange={(e) => setSearchColumn(e.target.value)}
+              style={inputSearchStyle}  
+            >
+              {columns.map((column) => (
+                <option key={column.id} value={column.id}>
+                  {column.label}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              style={inputSearchStyle}
             />
-          </TableContainer>
-        )}
+            <Button 
+              onClick={() => setSearchQuery('')}
+              variant="contained"
+              size="small"
+              sx={{
+                backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: '#d32f2f', // Darker shade when hovering
+                  color: 'white',
+                },
+              }}
+            >
+            Clear
+            </Button>
+          </div>
+
+          <div style={contentStyle}>
+            <TableContainer component={Paper} sx={tableContainerSx}>
+              <StickyHeadTable 
+                users={users} 
+                refreshData={fetchData} 
+                searchColumn={searchColumn}
+                searchQuery={searchQuery} 
+              />
+            </TableContainer>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
-  
 export default Employee;

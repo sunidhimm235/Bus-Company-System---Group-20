@@ -43,10 +43,7 @@ const Footer = () =>
 						<a href="#">Home</a>
 					</li>
 					<li>
-						<a href="#">Destinations</a>
-					</li>
-					<li>
-						<a href="#">Travel Information</a>
+						<a href="/destination">Destinations</a>
 					</li>
 					<li>
 						<a href="#">Reservations</a>
@@ -56,26 +53,26 @@ const Footer = () =>
 				<div data-aos="fade-up" data-aos-duration="2500" className="footerLinks">
 					<span className="linkTitle">Quick Guide</span>
 					<li>
-						<a href="#">How to</a>
+						<a href="/howto">How to</a>
 					</li>
 					<li>
-						<a href="#">Baggage</a>
+						<a href="/baggage">Baggage</a>
 					</li>
 					<li>
-						<a href="#">Bus Features</a>
+						<a href="/features">Bus Features</a>
 					</li>
 					<li>
-						<a href="#">Rights & Rules</a>
+						<a href="/rights&rules">Rights & Rules</a>
 					</li>
 				</div>
 
 				<div data-aos="fade-up" data-aos-duration="2500" className="footerLinks">
 					<span className="linkTitle">Queries</span>
 					<li>
-						<a href="#">FAQ</a>
+						<a href="/faq">FAQ</a>
 					</li>
 					<li>
-						<a href="#">Contact</a>
+						<a href="/contact">Contact</a>
 					</li>
 				</div>
 			</div>
