@@ -3,6 +3,8 @@ import AdminSidebar from './AdminSidebar'; // Adjust the import path as needed
 import DashboardCards from './DashboardCards';
 import ManageBusRoutes from './ManageBusRoutes';
 import ManageUserAccounts from './ManageUserAccounts';
+import ManageAdminAccounts from './ManageAdminAccounts';
+import ManageEmployeeAccounts from './ManageEmployeeAccounts';
 
 const Admin = () => {
   const [selectedItem, setSelectedItem] = useState('Dashboard'); // Default to showing Dashboard
@@ -38,9 +40,19 @@ const Admin = () => {
           </div>
         )}
         {/* Repeat for other sections based on your sidebar items */}
-        {selectedItem === 'Manage Bus Schedules' && (
+        {selectedItem === 'Manage Employee Accounts' && (
           <div>
-            <h1>Manage Bus Schedules</h1>
+            <h1>Manage Employee Accounts</h1>
+            <div style={{padding: '10px'}}></div>
+            <ManageEmployeeAccounts />
+            {/* Content for managing bus routes */}
+          </div>
+        )}
+        {selectedItem === 'Manage Admin Accounts' && (
+          <div>
+            <h1>Manage Admin Accounts</h1>
+            <div style={{padding: '10px'}}></div>
+            <ManageAdminAccounts />
             {/* Content for managing bus routes */}
           </div>
         )}
@@ -52,15 +64,9 @@ const Admin = () => {
             {/* Content for managing bus routes */}
           </div>
         )}
-        {/* {selectedItem === 'Bookings' && (
+        {selectedItem === 'Feedbacks' && (
           <div>
-            <h1>Bookings</h1>
-            
-          </div>
-        )} */}
-        {selectedItem === 'Reports' && (
-          <div>
-            <h1>Reports</h1>
+            <h1>Feedbacks</h1>
             {/* Content for managing bus routes */}
           </div>
         )}
