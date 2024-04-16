@@ -20,6 +20,7 @@ import TravelHistory from './Components/TravelHistory/TravelHistory';
 import TransactionPage from './Components/TransactionPage/TransactionPage';
 import ReservationSuccessPage from './Components/TransactionPage/ReservationSuccessPage';
 import ReservationsPage from './Components/ReservationsPage/ReservationsPage';
+import Employee from './Components/Employee/Employee';
 import { AuthProvider } from './context/AuthContext';
 import './index.css';
 
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/admin" element={<Admin />} />
+            <Route path="/employee" element={<Employee />} />
             <Route path="/bus-schedule" element={
               <>
                 <Navbar />
