@@ -5,7 +5,6 @@ import Footer from './Components/Footer/Footer';
 import Home from './Components/Home/Home';
 import Info from './Components/Info/Info';
 import Search from './Components/Search/Search';
-import Subscribe from './Components/Subscribe/Subcribe';
 import SignInPage from './Components/SignInPage/SignInPage';
 import SignUpPage from './Components/SignUpPage/SignUpPage';
 import Admin from './Components/Admin/Admin';
@@ -39,7 +38,6 @@ const App = () => {
                 <Home />
                 <Search />
                 <Info />
-                <Subscribe />
                 <Footer />
               </>
             } />

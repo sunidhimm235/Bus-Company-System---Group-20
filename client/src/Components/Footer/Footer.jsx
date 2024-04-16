@@ -46,6 +46,9 @@ const Footer = () =>
 						<a href="/destination">Destinations</a>
 					</li>
 					<li>
+						<a href="#">Book Ticket</a>
+					</li>
+					<li>
 						<a href="#">Reservations</a>
 					</li>
 				</div>

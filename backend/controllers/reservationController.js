@@ -66,3 +66,21 @@ exports.getAllReservations = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch all reservations', error: error.message });
   }
 };
+
+// Create a function to delete a reservation
+exports.deleteReservation = async (req, res) => {
+  const reservationId = req.params.id;
+
+  // THIS WOULD WORK BUT IT'S NOT THE BEST WAY TO DELETE A RESERVATION
+  // BECAUSE IT WOULD NEED TO UPDATE BUS SEAT AVAILABILITY TO TRUE TO MAKE THE SEAT AVAILABLE AGAIN
+  // TALK TO ADAM ABOUT THIS PROBLEM
+
+  try {
+    const reservation = await Reservation.findByIdAndDelete(reservationId);
+    console.log("Reservation deleted:", reservation);
+    res.status(200).json({ message: 'Reservation deleted successfully' });
+  } catch (error) {
+    console.error("Failed to delete reservation:", error);
+    res.status(500).json({ message: 'Failed to delete reservation', error: error.message });
+  }
+};

@@ -94,7 +94,7 @@ const DashboardCards = () => {
         setPremiumTickets(premiumReservations.length);
         setBusinessTickets(businessReservations.length);
         const totalProfit = data.reduce((total, reservation) => total + reservation.price, 0);
-        setTotalProfit(totalProfit);
+        setTotalProfit(Number(totalProfit.toFixed(2)));
       });
   }, []);
 
@@ -110,7 +110,6 @@ const DashboardCards = () => {
       <Card number={economyTickets} title="Total Economy Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
       <Card number={premiumTickets} title="Total Premium Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
       <Card number={businessTickets} title="Total Business Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
-      {/* Include other Card instances as before */}
     </div>
   );
 };
