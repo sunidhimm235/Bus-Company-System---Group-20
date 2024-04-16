@@ -12,13 +12,21 @@ import Button from '@mui/material/Button';
 
 // Table
 const columns = [
-  { id: 'userId', label: 'UserId', minWidth: 100, align: 'center', },
-  { id: 'username', label: 'Username', minWidth: 100, align: 'center', },
-  { id: 'email', label: 'Email', minWidth: 100, align: 'center', },
+    { id: 'name', label: 'Name', minWidth: 100, align: 'center' },
+    { id: 'email', label: 'Email', minWidth: 100, align: 'center' },
+    { id: 'phone', label: 'Phone', minWidth: 100, align: 'center' },
+    { id: 'message', label: 'Message', minWidth: 100, align: 'center' },
+    { 
+        id: 'createdAt', 
+        label: 'Posted', 
+        minWidth: 100, 
+        align: 'center',
+        format: (value) => value.split("T")[0] // Split the timestamp at 'T' and return the first part (the date)
+    },
 ];
 
 function StickyHeadTable(props) {
-  const {users} = props; // Use busRoutes from props
+  const {users} = props;
   const {searchColumn} = props;
   const {searchQuery} = props;
 
@@ -38,7 +46,7 @@ function StickyHeadTable(props) {
     }
   }, [filteredUsers.length, rowsPerPage, page]);  
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (newPage) => {
       setPage(newPage);
   };
 
@@ -52,7 +60,7 @@ function StickyHeadTable(props) {
     const isConfirmed = window.confirm("Are you sure you want to delete?");
 
     if (isConfirmed) {
-      axios.delete(`http://localhost:4000/users/${routeId._id}`)
+      axios.delete(`http://localhost:4000/Contact/${routeId._id}`)
         .then(() => {
           // Call the refresh function passed as a prop
           props.refreshData();
@@ -69,15 +77,15 @@ function StickyHeadTable(props) {
           <Table stickyHeader aria-label="sticky table">
           <TableHead>
               <TableRow>
-				{columns.map((column) => (
-					<TableCell
-					key={column.id}
-					align={column.align}
-					style={{ minWidth: column.minWidth }}
-					>
-					{column.label}
-					</TableCell>
-				))}
+              {columns.map((column) => (
+                  <TableCell
+                  key={column.id}
+                  align={column.align}
+                  style={{ minWidth: column.minWidth }}
+                  >
+                  {column.label}
+                  </TableCell>
+              ))}
               </TableRow>
           </TableHead>
           <TableBody>
@@ -89,30 +97,31 @@ function StickyHeadTable(props) {
                   const value = row[column.id];
                   return (
                       <TableCell key={column.id} align={column.align}>
-                      {column.format && typeof value === 'number' ? column.format(value) : value}
+                      {column.format ? column.format(value) : value}
                       </TableCell>
                   );
                   })}
                   {/* Add Edit and Delete buttons in the last TableCell */}
                   <TableCell align="center">
-                    <Button
-                        variant="contained"
-                        size="small"
-                        onClick={() => handleDelete(row)}
-                        sx={{
-                        backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
-                        color: 'white',
-                        '&:hover': {
-                            backgroundColor: '#d32f2f', // Darker shade when hovering
-                            color: 'white',
-                        },
-                        }}
-                    >
-                        Delete
-                    </Button>
+                  <Button
+                      variant="contained"
+                      size="small"
+                      onClick={() => handleDelete(row)}
+                      sx={{
+                      backgroundColor: '#92C7CF', //'#E5E1DA', // Custom background color
+                      color: 'white',
+                      '&:hover': {
+                          backgroundColor: '#d32f2f', // Darker shade when hovering
+                          color: 'white',
+                      },
+                      }}
+                  >
+                      Resolved
+                  </Button>
                   </TableCell>
+
               </TableRow>
-            ))}
+              ))}
           </TableBody>
           </Table>
       </TableContainer>
@@ -166,34 +175,6 @@ const contentStyle = {
     padding: '20px',
 };
 
-const formStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '15px', // Add space between form elements
-    padding: '20px',
-    maxWidth: '500px', // Limit the form width for better aesthetics on larger screens
-    margin: '0 auto', // Center the form horizontally
-};
-
-const labelStyle = {
-    alignSelf: 'flex-start', // Align labels to the start of the form
-    fontSize: '14px', // Modern, smaller font-size
-    fontWeight: '600', // Slightly bolder for better readability
-    color: '#333', // Dark grey for labels for higher contrast
-};
-
-const inputStyle = {
-    width: '100%', // Full width inputs
-    padding: '12px 15px', // Padding for better text visibility
-    marginBottom: '10px',
-    borderRadius: '8px', // Rounded corners for modern look
-    border: '1px solid #ccc', // Light border
-    boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)', // Subtle inner shadow for depth
-    fontSize: '16px', // Larger font size for readability
-};
-
 const inputSearchStyle = {
   width: 'auto', // Full width inputs
   padding: '12px 15px', // Padding for better text visibility
@@ -205,33 +186,15 @@ const inputSearchStyle = {
   fontSize: '16px', // Larger font size for readability
 };
 
-const buttonStyle = {
-    padding: '10px 20px',
-    backgroundColor: '#007bff', // Bootstrap primary color
-    color: 'white',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontSize: '16px', // Larger font size for readability
-    fontWeight: '600', // Slightly bolder text
-    letterSpacing: '1px', // Spaced out text
-    transition: 'background-color 0.3s ease', // Smooth background color transition
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '10px', // Space between icon and text
-};
-
-const ManageUserAccounts = () => {
+const Feedbacks = () => {
   const [searchColumn, setSearchColumn] = useState('username'); // Default search column
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([])
   
   const fetchData = async () => {
     try {
-        const response = await axios.get(`http://localhost:4000/users/`);
-        const filteredUsers = response.data.filter(user => user.role === 'user');
-        setUsers(filteredUsers);
+        const response = await axios.get(`http://localhost:4000/Contact/`);
+        setUsers(response.data);
         console.log(response.data);
     }
     catch (error) {
@@ -239,10 +202,11 @@ const ManageUserAccounts = () => {
     }
   };
   useEffect(() => {
-    fetchData();
+        console.log(users); // Log the data to see what the createdAt values look like
+        fetchData();
   }, []);
 
-  const [currentTab, setCurrentTab] = useState('list');
+  const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create'
 
   const getTabButtonStyle = (tab) => ({
     ...tabButtonStyle,
@@ -254,7 +218,6 @@ const ManageUserAccounts = () => {
     setCurrentTab(tab);
   };
 
-  ////////////////////////////////////
   // For the responsive table design
   const tableContainerSx = {
     width: '100%',
@@ -263,8 +226,7 @@ const ManageUserAccounts = () => {
   return (
     <div style={containerStyle}>
       <ul style={tabStyle}>
-        <li style={getTabButtonStyle('list')} onClick={() => switchTab('list')}>Account Listing</li>
-        {/* <li style={getTabButtonStyle('create')} onClick={() => switchTab('create')}>Create Account</li> */}
+        <li style={getTabButtonStyle('list')} onClick={() => switchTab('list')}>Feedback Listing</li>
       </ul>
 
       {currentTab === 'list' && (
@@ -272,9 +234,7 @@ const ManageUserAccounts = () => {
           <select        
             value={searchColumn}
             onChange={(e) => setSearchColumn(e.target.value)}
-            style={
-              inputSearchStyle
-            }  
+            style={inputSearchStyle}  
           >
             {columns.map((column) => (
               <option key={column.id} value={column.id}>
@@ -310,10 +270,8 @@ const ManageUserAccounts = () => {
       <div style={contentStyle}>
         {currentTab === 'list' && (
           <TableContainer component={Paper} sx={tableContainerSx}>
-            {/* <StickyHeadTable onEdit={handleEditAccount} /> */}
             <StickyHeadTable 
               users={users} 
-              // onEdit={handleEditAccount}
               refreshData={fetchData} 
               searchColumn={searchColumn}
               searchQuery={searchQuery} 
@@ -325,4 +283,4 @@ const ManageUserAccounts = () => {
   );
 };
   
-export default ManageUserAccounts;
+export default Feedbacks;

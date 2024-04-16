@@ -30,11 +30,11 @@ const App = () => {
   return (
     <AuthProvider>
       <Router>
-        <Navbar />
         <div>
           <Routes>
             <Route path="/" element={
               <>
+                <Navbar />
                 <Home />
                 <Search />
                 <Info />
@@ -45,23 +45,74 @@ const App = () => {
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
             <Route path="/admin" element={<Admin />} />
-            <Route path="/bus-schedule" element={<BusSchedule />} />
-            <Route path="/seat-selection" element={<SeatSelection />} />
+            <Route path="/bus-schedule" element={
+              <>
+                <Navbar />
+                <BusSchedule />
+              </>
+            } />
+            <Route path="/seat-selection" element={
+              <>
+                <Navbar />
+                <SeatSelection />
+              </>
+            } />
             <Route path="/user-information" element={<UserInformation />} />
-            <Route path="/howto" element={ <HowToPage />} />
-            <Route path="/destination" element={<DestinationPage />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/baggage" element={<BaggageRules />} />
-            <Route path="/features" element={<Features />} />
-            <Route path="/rights&rules" element={<RightsAndRules /> } />
-            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/howto" element={
+              <>
+                <Navbar />
+                <HowToPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/destination" element={
+              <>
+                <Navbar />
+                <DestinationPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/faq" element={
+              <>
+                <Navbar />
+                <FAQPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/contact" element={
+              <>
+                <Navbar />
+                <ContactPage />
+                <Footer />
+              </>
+            } />
+            <Route path="/baggage" element={
+              <>
+                <Navbar />
+                <BaggageRules />
+                <Footer />
+              </>
+            } />
+            <Route path="/features" element={
+              <>
+                <Navbar />
+                <Features />
+                <Footer />
+              </>
+            } />
+            <Route path="/rights&rules" element={
+              <>
+                <Navbar />
+                <RightsAndRules />
+                <Footer />
+              </>
+            } />
             <Route path="/travel-history" element={<TravelHistory />} />
             <Route path="/transaction" element={<TransactionPage />} />
             <Route path="/reservation-success" element={<ReservationSuccessPage />} />
             <Route path="/reservations" element={<ReservationsPage />} />
           </Routes>
         </div>
-        <Footer />
       </Router>
     </AuthProvider>
   );
