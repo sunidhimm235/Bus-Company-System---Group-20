@@ -63,13 +63,13 @@ const columns = [
     align: 'center',
     format: (value) => value.toLocaleString('en-US'),
   },
-  {
-    id: 'activeStatus',
-    label: 'Active Status',
-    minWidth: 100,
-    align: 'center',
-    format: (value) => value.toLocaleString('en-US'),
-  },
+  // {
+  //   id: 'activeStatus',
+  //   label: 'Active Status',
+  //   minWidth: 100,
+  //   align: 'center',
+  //   format: (value) => value.toLocaleString('en-US'),
+  // },
 ];
 
 function StickyHeadTable(props) {
@@ -321,7 +321,7 @@ const initialRouteFormState = {
       {number: "B7", isAvailable: true},
       {number: "B8", isAvailable: true}
     ],
-    activeStatus: 'true',
+    // activeStatus: 'true',
 };
 
 const formStyle = {
@@ -419,7 +419,7 @@ const ManageBusRoutes = () => {
     economyPrice: '',
     premiumPrice: '',
     businessPrice: '',
-    activeStatus: '',
+    // activeStatus: '',
   });
 
   const validateBusName = (name) => {
@@ -462,9 +462,9 @@ const ManageBusRoutes = () => {
     return priceFormatRegex.test(price);
   };
   
-  const validateStatus = (activeStatus) => {
-    return ['true', 'false'].includes(activeStatus.toString());
-  };
+  // const validateStatus = (activeStatus) => {
+  //   return ['true', 'false'].includes(activeStatus.toString());
+  // };
   
 
   const handleChange = (e) => {
@@ -495,7 +495,7 @@ const ManageBusRoutes = () => {
       economyPrice: '',
       premiumPrice: '',
       businessPrice: '',
-      activeStatus: '',
+      // activeStatus: '',
     };
 
     // Validate Bus Name and Bus Number
@@ -551,9 +551,9 @@ const ManageBusRoutes = () => {
     }
 
     // Validate active status
-    if (!validateStatus(routeForm.activeStatus)) {
-      errors.activeStatus = '*Invalid input (e.g., true, false)*';
-    }
+    // if (!validateStatus(routeForm.activeStatus)) {
+    //   errors.activeStatus = '*Invalid input (e.g., true, false)*';
+    // }
 
     // New check for existing bus number
     // const isBusNumberExist = busRoutes.some(route => route.busNumber === routeForm.busNumber);
@@ -637,7 +637,7 @@ const ManageBusRoutes = () => {
       economyPrice: routeData.economyPrice,
       premiumPrice: routeData.premiumPrice,
       businessPrice: routeData.businessPrice,
-      activeStatus: routeData.activeStatus,
+      // activeStatus: routeData.activeStatus,
       _id: routeData._id
       // Continue for all needed fields
     });
@@ -682,15 +682,17 @@ const ManageBusRoutes = () => {
           <select        
             value={searchColumn}
             onChange={(e) => setSearchColumn(e.target.value)}
-            style={{
-              marginRight: '10px',
-              fontSize: '1rem',
-              height: '2rem',
-              padding: '0 0.5rem',
-              border: '1px solid #ccc', // Adds a light grey border
-              borderRadius: '4px', // Rounds the corners slightly
-              width: 'auto', // Adjust as needed, or use 'auto' for automatic width based on content
-            }}  
+            style={ inputSearchStyle
+            // {
+            //   marginRight: '10px',
+            //   fontSize: '1rem',
+            //   height: '2rem',
+            //   padding: '0 0.5rem',
+            //   border: '1px solid #ccc', // Adds a light grey border
+            //   borderRadius: '4px', // Rounds the corners slightly
+            //   width: 'auto', // Adjust as needed, or use 'auto' for automatic width based on content
+            // }
+            }  
           >
             {columns.map((column) => (
               <option key={column.id} value={column.id}>
@@ -862,7 +864,7 @@ const ManageBusRoutes = () => {
                 placeholder="true/false"
               />
               {formErrors.activeStatus && <div style={errorStyle}>{formErrors.activeStatus}</div>} */}
-              {currentTab === 'edit' && (
+              {/* {currentTab === 'edit' && (
                 <>
                   <label style={labelStyle}>Active Status</label>
                   <input
@@ -875,7 +877,7 @@ const ManageBusRoutes = () => {
                   />
                   {formErrors.activeStatus && <div style={errorStyle}>{formErrors.activeStatus}</div>}
                 </>
-              )}
+              )} */}
               <input type="hidden" name="_id" value={routeForm._id}/>
               <button type="submit" style={buttonStyle}><FaSave /> Save Route</button>
             </form>
