@@ -53,7 +53,7 @@ function StickyHeadTable(props) {
     const isConfirmed = window.confirm("Are you sure you want to delete?");
 
     if (isConfirmed) {
-      axios.delete(`http://localhost:4000/buses/${routeId._id}`)
+      axios.delete(`http://localhost:4000/users/${routeId._id}`)
         .then(() => {
           // Call the refresh function passed as a prop
           props.refreshData();
@@ -61,7 +61,7 @@ function StickyHeadTable(props) {
         .catch(error => {
           console.error("Error deleting the item:", error);
         });
-    } 
+    }
   };
 
   return (
@@ -187,7 +187,8 @@ const ManageAdminAccounts = () => {
   const fetchData = async () => {
     try {
         const response = await axios.get(`http://localhost:4000/users/`);
-        setUsers(response.data);
+        const filteredUsers = response.data.filter(user => user.role === 'admin');
+        setUsers(filteredUsers);
         console.log(response.data);
     }
     catch (error) {
