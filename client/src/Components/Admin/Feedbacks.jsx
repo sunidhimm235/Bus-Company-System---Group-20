@@ -204,7 +204,7 @@ const Feedbacks = () => {
   useEffect(() => {
         console.log(users); // Log the data to see what the createdAt values look like
         fetchData();
-  }, [fetchData]);
+  }, []);
 
   const [currentTab, setCurrentTab] = useState('list'); // 'list', 'create'
 
