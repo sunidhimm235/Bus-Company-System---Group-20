@@ -26,7 +26,7 @@ const Admin = () => {
         {/* Conditionally render content based on selectedItem */}
         {selectedItem === 'Dashboard' && (
           <div>
-            <h1>Dashboard</h1>
+            <h1>Administrator Dashboard</h1>
             <div style={{padding: '10px'}}></div>
             <DashboardCards />
             {/* Dashboard content */}
