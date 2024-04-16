@@ -1,8 +1,5 @@
 import React, {useState} from 'react'
 import './FAQPage.css'
-import Navbar from './/../NavBar/Navbar.jsx'; 
-import Footer from './/../Footer/Footer.jsx'; 
-
 
 const FAQPage = (props) => 
 {
@@ -48,36 +45,34 @@ const FAQPage = (props) =>
   ];
 
   const toggleAccordion = (index) => {
-    setOpenAccordions((prevOpenAccordions) =>
-      prevOpenAccordions.includes(index)
-        ? prevOpenAccordions.filter((i) => i !== index)
-        : [...prevOpenAccordions, index]
-    );
+    setOpenAccordions((prevOpenAccordions) => {
+      if (prevOpenAccordions.includes(index)) {
+        return prevOpenAccordions.filter((i) => i !== index);
+      } else {
+        return [...prevOpenAccordions, index];
+      }
+    });
   };
 
   return (
-    
     <div className="background-container">
-      <div> 
-      <Navbar />
       <div className="faq-page-container">
         <h1 className="faq-page-text">Frequently Asked Questions</h1>
         <div className="accordion-container">
           {faqData.map((item, index) => (
-            <div className="accordion-item" key={index}>
-              <div className="accordion-header" onClick={() => toggleAccordion(index)}>
-                <h3>{item.question}</h3>
-              </div>
-              {openAccordions.includes(index) && (
-                <div className="accordion-content">{item.answer}</div>
-              )}
+          <div
+            key={index}
+            className={`accordion-item ${openAccordions.includes(index) ? 'open' : ''}`}
+          >
+            <div className="accordion-header" onClick={() => toggleAccordion(index)}>
+              <h3>{item.question}</h3>
             </div>
+            <div className="accordion-content">{item.answer}</div>
+          </div>
           ))}
         </div>
       </div>
-      <Footer />  
     </div>
-  </div>
   )
 }
 
