@@ -5,6 +5,7 @@ import ManageBusRoutes from './ManageBusRoutes';
 import ManageUserAccounts from './ManageUserAccounts';
 import ManageAdminAccounts from './ManageAdminAccounts';
 import ManageEmployeeAccounts from './ManageEmployeeAccounts';
+import Feedbacks from './Feedbacks';
 
 const Admin = () => {
   const [selectedItem, setSelectedItem] = useState('Dashboard'); // Default to showing Dashboard
@@ -67,7 +68,8 @@ const Admin = () => {
         {selectedItem === 'Feedbacks' && (
           <div>
             <h1>Feedbacks</h1>
-            {/* Content for managing bus routes */}
+            <div style={{padding: '10px'}}></div>
+            <Feedbacks />
           </div>
         )}
       </div>
