@@ -19,9 +19,10 @@ export const AuthProvider = ({ children }) => {
         logout();
     };
 
-    const login = (username) => {
+    const login = (username, role) => {
         localStorage.setItem('username', username);
-        setUser({ username });
+        localStorage.setItem('role', role);
+        setUser({ username, role }); 
     };
 
     const logout = () => {

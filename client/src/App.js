@@ -24,6 +24,7 @@ import BaggageRules from './Components/BaggageRules/BaggageRules';
 import Features from './Components/BusFeatures/BusFeatures';
 import HowToPage from './Components/HowTo/HowTo';
 import { AuthProvider } from './context/AuthContext';
+import AdminRoute from './utils/AdminRoute';
 import './index.css';
 
 const App = () => {
@@ -43,8 +44,8 @@ const App = () => {
             } />
             <Route path="/sign-in" element={<SignInPage />} />
             <Route path="/sign-up" element={<SignUpPage />} />
-            <Route path="/admin" element={<Admin />} />
-            <Route path="/employee" element={<Employee />} />
+            <Route path="/admin" element={<AdminRoute allowedRoles={['admin']}><Admin /></AdminRoute>} />
+            <Route path="/employee" element={<AdminRoute allowedRoles={['employee']}><Admin /></AdminRoute>} />
             <Route path="/bus-schedule" element={
               <>
                 <Navbar />
