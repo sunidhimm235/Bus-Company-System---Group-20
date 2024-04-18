@@ -52,16 +52,13 @@ const BusSchedule = () => {
 
     const showBusDetails = (bus) => {
         console.log(bus); 
-        console.log(bus.destination); 
-        console.log(bus.travelDate); 
-        console.log(bus.price); 
-    
+
         if (isAuthenticated()) {
             navigate('/seat-selection', {
                 state: {
                     bus: {
-                        ...bus, 
-                        date: bus.travelDate ? new Date(bus.travelDate).toISOString() : new Date().toISOString(), 
+                        ...bus,
+                        date: selectedDay,
                     }
                 }
             });

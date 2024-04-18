@@ -7,7 +7,12 @@ const reservationSchema = new mongoose.Schema({
     required: true,
   },
 
-  destination: {
+  bookingId: {
+    type: Number,
+    required: true,
+  },
+
+  busId: {
     type: String,
     required: true,
   },
@@ -17,30 +22,40 @@ const reservationSchema = new mongoose.Schema({
     required: true,
   },
 
-  returnDate: Date,
+  seatNumber: { 
+    type: String,
+    required: true,
+  },
+
+  from: {
+    type: String,
+    required: true,
+  },
+
+  to: {
+    type: String,
+    required: true,
+  },
+
+  DepartureTime: {
+    type: String,
+    required: true,
+  },
+
+  ArrivalTime: {
+    type: String,
+    required: true,
+  },
 
   price: {
     type: Number,
     required: true,
   },
 
-  status: {
-    type: String,
-    enum: ['new', 'active', 'completed', 'cancelled'],
-    default: 'new',
-  },
-
-  seatNumber: { 
-    type: String,
-    required: true,
-  },
-
   createdAt: {
     type: Date,
     default: Date.now,
-  },
-
-  completedAt: Date,
+  }
 });
 
 module.exports = mongoose.model('Reservation', reservationSchema);
