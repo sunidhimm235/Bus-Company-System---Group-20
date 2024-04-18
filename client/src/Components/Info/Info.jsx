@@ -43,8 +43,8 @@ const Info = () =>
 						<div className="iconDiv flex colorOne">
 							<BsShieldCheck className='icon'/>
 						</div>
-						<span className="cardTitle">Smart Checklist</span>
-						<p>You can have the checklist available from your phone, online. </p>
+						<span className="cardTitle">Smart System</span>
+						<p>You can see all your reservations at one place, and also cancel them with one click!</p>
 					</div>
 					<div data-aos="fade-up" data-aos-duration="4500" className="singleCard grid">
 						<div className="iconDiv flex colorTwo">
