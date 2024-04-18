@@ -8,12 +8,16 @@ const TransactionPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const {
-        destination = '',
-        date = '',
-        seatNumber = '',
-        price = 0,
-        busId = '',
-        seatId = ''
+        busId,
+        date,
+        seatId = '',
+        seatNumber,
+        from,
+        to,
+        DepartureTime,
+        ArrivalTime,
+        price,
+        bus
     } = location.state || {};
 
     const formattedDate = date ? new Date(date).toLocaleDateString() : 'N/A';
@@ -21,28 +25,36 @@ const TransactionPage = () => {
     const handleCompleteTransaction = async () => {
         setIsSubmitting(true);
     
-        console.log("Received state in TransactionPage:", { destination, date, seatNumber, price });
+        console.log("Received state in TransactionPage:", location.state);
         console.log("Original Date:", date);
         console.log("Formatted Date:", formattedDate);
     
         const token = localStorage.getItem('token');
     
         try {
-            console.log("Sending reservation data:", { destination, date, seatNumber, price, status: 'completed' });
             console.log('token:', token)
+            console.log('Seat ID:', seatId)
+
+            const reservations = await axios.get(`http://localhost:4000/api/reservations/all/`);
+            const bookingId = reservations.data.length + 1;
             
             const response = await axios.post('http://localhost:4000/api/reservations', {
-                destination,
+                bookingId,
+                busId,
                 date,
                 seatNumber,
+                from,
+                to,
+                DepartureTime,
+                ArrivalTime,
                 price,
-                status: 'completed',
             }, { headers: { Authorization: `Bearer ${token}` } });
     
             console.log('Reservation created successfully:', response.data);
             
-            await axios.patch(`http://localhost:4000/buses/${busId}/book-seat`, {
-                seatId: seatId
+            await axios.patch(`http://localhost:4000/buses/${bus._id}/book-seat`, {
+                busId: bus._id,
+                seatNumber: seatNumber
             }, { headers: { Authorization: `Bearer ${token}` } });
 
             console.log(`Seat ${seatId} on bus ${busId} marked as booked.`);
@@ -50,7 +62,8 @@ const TransactionPage = () => {
             navigate('/reservation-success', {
                 state: {
                     message: 'Your reservation has been successfully completed!',
-                    destination,
+                    from,
+                    to,
                     date: formattedDate,
                     seatNumber,
                     price,
@@ -73,7 +86,8 @@ const TransactionPage = () => {
             <div style={styles.page}>
                 <h2 style={styles.header}>Confirm Your Reservation</h2>
                 <div style={styles.details}>
-                    <p>Destination: <strong>{destination}</strong></p>
+                    <p>From: <strong>{from}</strong></p>
+                    <p>To: <strong>{to}</strong></p>
                     <p>Date: <strong>{formattedDate}</strong></p>
                     <p>Seat Number: <strong>{seatNumber}</strong></p>
                     <p>Price: <strong>${price.toFixed(2)}</strong></p>
@@ -122,7 +136,7 @@ const styles = {
     button: {
         width: '100%',
         padding: '10px 0',
-        backgroundColor: '#007bff',
+        backgroundColor: '#92C7CF',
         color: 'white',
         border: 'none',
         borderRadius: '4px',

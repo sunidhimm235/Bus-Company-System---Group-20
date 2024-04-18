@@ -71,28 +71,89 @@ exports.getRoute = async (req, res) => {
 // Helps to book a seat
 exports.bookSeat = async (req, res) => {
     try {
-        console.log('booking seat!!!!!!!!!!!!!!!!!!!!')
-        console.log(1)
-        // Gets the seat ID from the request body
-        const { seatId } = req.body;
+        const { busId, seatNumber } = req.body;
 
-        // Finds the bus by ID
-        const bus = await Bus.findById(req.params.id);
+        console.log('Bus ID:', busId);
+        console.log('Seat Number:', seatNumber);
+
+        const bus = await Bus.findById(busId);
         if (!bus) return res.status(404).json({ message: 'Bus not found' });
-        console.log(2)
-        // Finds the seat and update its availability
-        const seat = bus.economySeats.id(seatId) || bus.premiumSeats.id(seatId) || bus.businessSeats.id(seatId);
-        if (seat) {
-            console.log(31)
-            seat.isAvailable = false;
-            await bus.save();
-            res.status(200).json({ message: 'Seat booked successfully' });
-        } else {
-            console.log(32)
-            res.status(404).json({ message: 'Seat not found' });
-        }
+
+        console.log('Bus:', bus);
+
+        const seat = bus.economySeats.find(seat => seat.number === seatNumber) || 
+                    bus.premiumSeats.find(seat => seat.number === seatNumber) || 
+                    bus.businessSeats.find(seat => seat.number === seatNumber);
+
+        console.log('Seat:', seat);
+        
+        if (!seat) return res.status(404).json({ message: 'Seat not found' });
+
+        seat.isAvailable = false;
+        await bus.save();
+
+        res.json({ message: 'Seat booked successfully' });
     } catch (error) {
-        console.log('this is wrong!!!!!!!!!!!!!!!!')
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Helps to cancel a seat
+exports.cancelSeat = async (req, res) => {
+    try {
+        const { busId, seatNumber } = req.body;
+
+        console.log('Bus ID:', busId);
+        console.log('Seat Number:', seatNumber);
+
+        // find bus by busNumber in the database
+        const bus = await Bus.findOne({ busNumber: busId });
+
+        console.log('Bus:', bus);
+
+        if (!bus) return res.status(404).json({ message: 'Bus not found' });
+
+        const seat = bus.economySeats.find(seat => seat.number === seatNumber) || 
+                    bus.premiumSeats.find(seat => seat.number === seatNumber) || 
+                    bus.businessSeats.find(seat => seat.number === seatNumber);
+
+        console.log('Seat:', seat);
+
+        if (!seat) return res.status(404).json({ message: 'Seat not found' });
+
+        seat.isAvailable = true;
+        await bus.save();
+
+        res.json({ message: 'Seat canceled successfully' });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
+// Find all bus that has a seat number available as false and delete them
+exports.deleteAllBookedSeats = async (req, res) => {
+    try {
+        const buses = await Bus.find();
+        buses.forEach(bus => {
+            bus.economySeats.forEach(seat => {
+                if (!seat.isAvailable) {
+                    seat.isAvailable = true;
+                }
+            });
+            bus.premiumSeats.forEach(seat => {
+                if (!seat.isAvailable) {
+                    seat.isAvailable = true;
+                }
+            });
+            bus.businessSeats.forEach(seat => {
+                if (!seat.isAvailable) {
+                    seat.isAvailable = true;
+                }
+            });
+            bus.save();
+        });
+        res.json({ message: 'All booked seats deleted successfully' });
+    } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };

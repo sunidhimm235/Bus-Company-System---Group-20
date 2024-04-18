@@ -20,32 +20,16 @@ const columns = [
     align: 'center',
     format: (value) => value?.userId?.username || 'No username', // Accessing nested username
   },
-  { 
-    id: 'destination', 
-    label: 'Destination', 
-    minWidth: 100, 
-    align: 'center'
-  },
-  { 
-    id: 'date', 
-    label: 'Date', 
-    minWidth: 100, 
-    align: 'center',
-    format: (value) => new Date(value.date).toLocaleDateString() // Formatting the date
-  },
-  { 
-    id: 'price', 
-    label: 'Price', 
-    minWidth: 100, 
-    align: 'center',
-    format: (value) => `$${value.price}` // Formatting the price
-  },
-  { 
-    id: 'seatNumber', 
-    label: 'Seat Number', 
-    minWidth: 100, 
-    align: 'center'
-  }
+  { id: 'bookingId', label: 'Booking ID', align: 'center', minWidth: 100 },
+  { id: 'busId', label: 'Bus ID', align: 'center', minWidth: 100 },
+  { id: 'date', label: 'Date', align: 'center', minWidth: 100, format: (value) => new Date(value).toLocaleDateString() },
+  { id: 'seatNumber', label: 'Seat Number', align: 'center', minWidth: 100 },
+  { id: 'from', label: 'From', align: 'center', minWidth: 100 },
+  { id: 'to', label: 'To', align: 'center', minWidth: 100 },
+  { id: 'DepartureTime', label: 'Departure Time', align: 'center', minWidth: 100 },
+  { id: 'ArrivalTime', label: 'Arrival Time', align: 'center', minWidth: 100 },
+  { id: 'price', label: 'Price', align: 'center', minWidth: 100 },
+  { id: 'createdAt', label: 'Created At', align: 'center', minWidth: 100, format: (value) => new Date(value).toLocaleString() }
 ];
 
 function StickyHeadTable(props) {
@@ -79,19 +63,36 @@ function StickyHeadTable(props) {
   };
 
   const handleDelete = (routeId) => {
-    console.log('Delete:', routeId);
     const isConfirmed = window.confirm("Are you sure you want to delete?");
 
     if (isConfirmed) {
-      axios.delete(`http://localhost:4000/api/reservations/all/${routeId._id}`)
-        .then(() => {
-          // Call the refresh function passed as a prop
-          props.refreshData();
-        })
-        .catch(error => {
-          console.error("Error deleting the item:", error);
-        });
-    } 
+      console.log('Deleting:', routeId);
+      console.log('Route ID:', routeId._id);
+
+      axios.delete(`http://localhost:4000/api/reservations/${routeId._id}/delete-wo-security`)
+      .then((response) => {
+        console.log('Deleted:', response.data);
+        props.refreshData();
+      })
+      .catch((error) => {
+        console.error('Error deleting:', error);
+      });
+
+      console.log('id:', routeId._id);
+      console.log('busId:', routeId.busId);
+      console.log('seatNumber:', routeId.seatNumber);
+
+      axios.patch(`http://localhost:4000/buses/${routeId.busId}/cancel-seat-wo-security`, {
+        seatNumber: routeId.seatNumber,
+        busId: routeId.busId
+      })
+      .then(() => {
+        console.log('Seat canceled successfully');
+      })
+      .catch((error) => {
+        console.error('Error canceling seat:', error);
+      });
+    }
   };
 
   return (
@@ -118,7 +119,7 @@ function StickyHeadTable(props) {
               <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                   {columns.map((column) => {
                   const value = row[column.id];
-                  console.log("ROW: " ,row);
+                  // console.log("ROW: " ,row);
                   return (
                       <TableCell key={column.id} align={column.align}>
                         {column.format ? column.format(row) : value}

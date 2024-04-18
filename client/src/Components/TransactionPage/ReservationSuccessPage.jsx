@@ -24,7 +24,7 @@ const ReservationSuccessPage = () => {
 
     const linkStyle = {
         display: 'inline-block',
-        backgroundColor: '#007bff', 
+        backgroundColor: '#92C7CF', 
         color: '#fff', 
         padding: '10px 15px',
         borderRadius: '5px',
@@ -35,7 +35,6 @@ const ReservationSuccessPage = () => {
     return (
         <div style={pageStyle}>
             <h2 style={successMessageStyle}>Success!</h2>
-            <p>Your reservation has been successfully completed.</p>
             {state?.message && <p>{state.message}</p>}
             <Link to="/reservations" style={linkStyle}>View My Reservations</Link>
         </div>

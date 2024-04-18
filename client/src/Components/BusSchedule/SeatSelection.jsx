@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './SeatSelection.css';
 
@@ -27,15 +26,6 @@ const SeatSelection = () =>
     const handleBookNow = async () => {
         if (selectedSeat) {
             try {
-                // console.log('Bus ID:', state.bus._id);
-                // console.log('Seat ID:', selectedSeat._id);
-                // console.log('Date: ', state.bus.date);
-                // console.log('Bus dest: ', state.bus.to); 
-                // console.log('E Price: ', state.bus.economyPrice);
-                // console.log('B Price: ', state.bus.businessPrice);
-                // console.log('P Price: ', state.bus.premiumPrice);
-                // console.log('Seat num', selectedSeat.number)
-    
                 let priceNum;
                 if (selectedSeat.number.startsWith('E')) { priceNum = state.bus.economyPrice; } 
                 
@@ -49,15 +39,20 @@ const SeatSelection = () =>
                 }
                 
                 console.log('Price to be set:', priceNum)
+                console.log('Selected seat:', selectedSeat);
 
                 navigate('/transaction', {
                     state: {
                         ...state, 
-                        busId: state.bus._id,
+                        bus: state.bus,
+                        busId: state.bus.busNumber,
+                        date: state.bus.date, 
                         seatId: selectedSeat._id,
                         seatNumber: selectedSeat.number,
-                        destination: state.bus.to, 
-                        date: state.bus.date, 
+                        from: state.bus.from,
+                        to: state.bus.to,
+                        DepartureTime: state.bus.departureTime,
+                        ArrivalTime: state.bus.arrivalTime,
                         price: priceNum, 
                     }
                 });
