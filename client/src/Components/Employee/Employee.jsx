@@ -22,14 +22,14 @@ const columns = [
   },
   { id: 'bookingId', label: 'Booking ID', align: 'center', minWidth: 100 },
   { id: 'busId', label: 'Bus ID', align: 'center', minWidth: 100 },
-  { id: 'date', label: 'Date', align: 'center', minWidth: 100, format: (value) => new Date(value).toLocaleDateString() },
+  { id: 'date', label: 'Date', align: 'center', minWidth: 100, format: (value) => new Date(value.date).toLocaleDateString() },
   { id: 'seatNumber', label: 'Seat Number', align: 'center', minWidth: 100 },
   { id: 'from', label: 'From', align: 'center', minWidth: 100 },
   { id: 'to', label: 'To', align: 'center', minWidth: 100 },
   { id: 'DepartureTime', label: 'Departure Time', align: 'center', minWidth: 100 },
   { id: 'ArrivalTime', label: 'Arrival Time', align: 'center', minWidth: 100 },
   { id: 'price', label: 'Price', align: 'center', minWidth: 100 },
-  { id: 'createdAt', label: 'Created At', align: 'center', minWidth: 100, format: (value) => new Date(value).toLocaleString() }
+  { id: 'createdAt', label: 'Created At', align: 'center', minWidth: 100, format: (value) => new Date(value.date).toLocaleString() }
 ];
 
 function StickyHeadTable(props) {
