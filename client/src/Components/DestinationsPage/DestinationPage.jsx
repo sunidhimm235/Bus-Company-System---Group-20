@@ -3,7 +3,7 @@ import './DestinationPage.css'
 
 //All the Images
 import imJax from './images/Jacksonville.png';
-import imMiami from './images/miami.png';
+import imMiami from './images/Miami.png';
 import imTampa from './images/Tampa.png';
 import imOr from './images/orlando.png';
 import imStP from './images/StPetersburg.png';

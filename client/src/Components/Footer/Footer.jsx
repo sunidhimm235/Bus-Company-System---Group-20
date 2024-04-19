@@ -53,7 +53,7 @@ const Footer = () =>
 						<Link to='/reservations'>Reservations</Link>
 					</li>
 					<li>
-						<Link href="/contact">Contact</Link>
+						<Link to="/contact">Contact</Link>
 					</li>
 				</div>
 
