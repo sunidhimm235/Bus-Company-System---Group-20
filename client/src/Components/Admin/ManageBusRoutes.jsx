@@ -428,7 +428,7 @@ const ManageBusRoutes = () => {
   
   const validateBusNumber = (name, number) => {
     const firstLetter = name.trim().charAt(0).toUpperCase();
-    return number.startsWith(firstLetter) && /\d+$/.test(number.slice(1));
+    return /\d+$/.test(number.slice(1));
   };
 
   const validateCity = (city) => {

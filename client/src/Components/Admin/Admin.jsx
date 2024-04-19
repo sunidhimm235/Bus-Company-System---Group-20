@@ -101,7 +101,7 @@ const Admin = () => {
           }}>
           {selectedItem === 'Dashboard' && (
             <div>
-              <h1>Admin Dashboard</h1>
+              <h1 style={{marginBottom: '10px', marginTop: '10px'}}>Admin Dashboard</h1>
               <div style={{padding: '10px'}}></div>
               <DashboardCards />
             </div>
