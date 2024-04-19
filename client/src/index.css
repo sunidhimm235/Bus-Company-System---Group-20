@@ -638,7 +638,7 @@ h2
 	width: 30px;
 	border-radius: 10rem;
 	border: 1px solid var(--borderColor);
-	/* box-shadow: var(--boxShadow); */
+	box-shadow: var(--boxShadow);
 	padding: 0.4rem;
 	color: var(--greyText);
 }
