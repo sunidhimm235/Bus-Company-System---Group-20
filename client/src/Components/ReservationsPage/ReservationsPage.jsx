@@ -132,9 +132,8 @@ function StickyHeadTable(props) {
 
 const ReservationsPage = () => {
   const [reservations, setReservations] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
-  const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(0);
   const token = localStorage.getItem('token');
 
   const fetchReservations = async () => {
@@ -143,7 +142,6 @@ const ReservationsPage = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setReservations(response.data.reservations);
-      setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error('Error fetching reservations:', error);
     }
