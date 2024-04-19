@@ -6,13 +6,13 @@ import imJax from './images/Jacksonville.png';
 import imMiami from './images/miami.png';
 import imTampa from './images/Tampa.png';
 import imOr from './images/orlando.png';
-import imStP from './images/St. Petersburg.png';
+import imStP from './images/StPetersburg.png';
 import imHialeah from './images/Hialeah.png';
-import imPortStLucie from './images/Port St. Lucie.png';
-import imCapeCoral from './images/Cape Coral.png';
+import imPortStLucie from './images/PortStLucie.png';
+import imCapeCoral from './images/CapeCoral.png';
 import imTallahassee from './images/Tallahassee.png';
-import imFtLauderdale from './images/Fort Lauderdale.png';
-import imPembrokePines from './images/Pembroke Pines.png';
+import imFtLauderdale from './images/FortLauderdale.png';
+import imPembrokePines from './images/PembrokePines.png';
 import imHollywood from './images/Hollywood.png';
 import imGainesville from './images/Gainesville.png';
 
