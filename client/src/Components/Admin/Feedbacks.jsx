@@ -187,7 +187,7 @@ const inputSearchStyle = {
 };
 
 const Feedbacks = () => {
-  const [searchColumn, setSearchColumn] = useState('username'); // Default search column
+  const [searchColumn, setSearchColumn] = useState('name'); // Default search column
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([])
   
