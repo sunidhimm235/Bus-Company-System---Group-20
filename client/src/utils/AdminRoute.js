@@ -6,6 +6,8 @@ const AdminRoute = ({ component: Component, allowedRoles, ...rest }) => {
   const { user } = useAuth();
   const location = useLocation(); 
 
+  console.log('AdminRoute user:', user);
+
   const userHasRequiredRole = user && allowedRoles.includes(user.role);
 
   return userHasRequiredRole ? (
