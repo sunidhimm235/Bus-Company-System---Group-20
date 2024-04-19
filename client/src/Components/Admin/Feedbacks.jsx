@@ -38,17 +38,24 @@ function StickyHeadTable(props) {
     return searchQuery ? value.includes(searchQuery.toLowerCase()) : true;
   });
   
+  // useEffect(() => {
+  //   const totalFilteredItems = filteredUsers.length;
+  //   const maxPages = Math.ceil(totalFilteredItems / rowsPerPage) - 1; // -1 because pages are zero-indexed
+  //   if (page > maxPages) {
+  //     setPage(maxPages >= 0 ? maxPages : 0); // Ensure page is not set to a negative value
+  //   }
+  // }, [filteredUsers.length, rowsPerPage, page]);  
   useEffect(() => {
     const totalFilteredItems = filteredUsers.length;
-    const maxPages = Math.ceil(totalFilteredItems / rowsPerPage) - 1; // -1 because pages are zero-indexed
+    const maxPages = Math.ceil(totalFilteredItems / rowsPerPage) - 1; // Zero-indexed pages
     if (page > maxPages) {
       setPage(maxPages >= 0 ? maxPages : 0); // Ensure page is not set to a negative value
     }
   }, [filteredUsers.length, rowsPerPage, page]);  
 
-  const handleChangePage = (newPage) => {
-      setPage(newPage);
-  };
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };  
 
   const handleChangeRowsPerPage = (event) => {
       setRowsPerPage(+event.target.value);
@@ -128,11 +135,14 @@ function StickyHeadTable(props) {
       <TablePagination
           rowsPerPageOptions={[10, 25, 100]}
           component="div"
-          count={users.length}
+          count={filteredUsers.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
+          labelDisplayedRows={({ from, to, count }) => {
+            return `${from}-${to} of ${count}`;
+        }}
       />
       </Paper>
   );
