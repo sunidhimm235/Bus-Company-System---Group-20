@@ -3,7 +3,7 @@ import './DestinationPage.css'
 
 //All the Images
 import imJax from './images/Jacksonville.png';
-import imMiami from './images/Miami.png';
+// import imMiami from './images/Miami.png';
 import imTampa from './images/Tampa.png';
 import imOr from './images/orlando.png';
 import imStP from './images/StPetersburg.png';
@@ -22,7 +22,7 @@ import imGainesville from './images/Gainesville.png';
 const destinations = 
 [
   { id: 1, title: 'Jacksonville', description: 'Situated in northeastern Florida, Jacksonville offers a mix of urban excitement and natural beauty. With its picturesque beaches, vibrant arts scene, and numerous outdoor activities, it\'s a city with something for everyone.', image: imJax },
-  { id: 2, title: 'Miami', description: 'Nestled on the southeastern coast of Florida, Miami is a dynamic city known for its tropical climate, stunning beaches, and diverse culture. From trendy nightlife to cultural attractions like Art Deco architecture and the Wynwood Walls, Miami never fails to impress.', image: imMiami },
+  // { id: 2, title: 'Miami', description: 'Nestled on the southeastern coast of Florida, Miami is a dynamic city known for its tropical climate, stunning beaches, and diverse culture. From trendy nightlife to cultural attractions like Art Deco architecture and the Wynwood Walls, Miami never fails to impress.', image: imMiami },
   { id: 3, title: 'Tampa', description: 'Located on the Gulf Coast of Florida, Tampa is a vibrant city with a rich history and a thriving arts scene. From its historic Ybor City district to its beautiful waterfront, Tampa offers visitors a unique blend of culture, entertainment, and natural beauty.', image: imTampa },
   { id: 4, title: 'Orlando', description: 'Famous for its world-renowned theme parks like Walt Disney World and Universal Studios, Orlando is a premier destination for family-friendly fun. But beyond the parks, Orlando also boasts a burgeoning culinary scene, vibrant nightlife, and lush green spaces.', image: imOr },
   { id: 5, title: 'St. Petersburg', description: 'Situated on Florida\'s Gulf Coast, St. Petersburg is known for its stunning beaches, vibrant arts community, and rich cultural heritage. With its charming downtown, waterfront parks, and lively festivals, St. Petersburg offers visitors a laid-back yet lively atmosphere.', image: imStP },
