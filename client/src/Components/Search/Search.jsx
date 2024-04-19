@@ -24,33 +24,19 @@ import 'aos/dist/aos.css'
 
 // List of cities
 const cities = [
-    'New York',
-    'Orlando',
-    'Los Angeles',
-    'San Francisco',
-    'Las Vegas',
+    'Jacksonville',
     'Miami',
-    'Chicago',
-    'Seattle',
-    'Boston',
-    'Washington D.C.',
-    'New Orleans',
-    'Denver',
-    'San Diego',
-    'Houston',
-    'Nashville',
-    'Atlanta',
-    'Philadelphia',
-    'Portland',
-    'Austin',
-    'Dallas',
-    'Phoenix',
-    'San Antonio',
-    'Minneapolis',
-    'St. Louis',
-    'Kansas City',
-    'Cleveland',
-    'Cincinnati'
+    'Tampa',
+    'Orlando',
+    'St. Petersburg',
+    'Hialeah',
+    'Port St. Lucie',
+    'Cape Coral',
+    'Tallahassee',
+    'Fort Lauderdale',
+    'Pembroke Pines',
+    'Hollywood',
+    'Gainesville'
 ];
 
 const Search = () => {
@@ -74,37 +60,6 @@ const Search = () => {
     const popupRef = useRef();
     const datePopupRef = useRef();
     const navigate = useNavigate();
-
-    // // List of cities
-    // const cities = useMemo(() => [
-    //     'New York',
-    //     'Orlando',
-    //     'Los Angeles',
-    //     'San Francisco',
-    //     'Las Vegas',
-    //     'Miami',
-    //     'Chicago',
-    //     'Seattle',
-    //     'Boston',
-    //     'Washington D.C.',
-    //     'New Orleans',
-    //     'Denver',
-    //     'San Diego',
-    //     'Houston',
-    //     'Nashville',
-    //     'Atlanta',
-    //     'Philadelphia',
-    //     'Portland',
-    //     'Austin',
-    //     'Dallas',
-    //     'Phoenix',
-    //     'San Antonio',
-    //     'Minneapolis',
-    //     'St. Louis',
-    //     'Kansas City',
-    //     'Cleveland',
-    //     'Cincinnati'
-    // ], []);
 
     // Filters the cities based on the search input
     useEffect(() =>

@@ -25,10 +25,6 @@ const Info = () =>
 					<button className='btn'>
 						View All
 					</button>
-					{/* <h2 data-aos="fade-right" data-aos-duration="2500">Make memories all around the United States</h2>
-					<button data-aos="fade-left" data-aos-duration="2500" className='btn'>
-						View All
-					</button> */}
 				</div>
 
 				<div className="cardsDiv grid">
