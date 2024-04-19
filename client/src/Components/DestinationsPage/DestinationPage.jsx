@@ -5,7 +5,7 @@ import './DestinationPage.css'
 import imJax from './images/Jacksonville.png';
 // import imMiami from './images/Miami.png';
 import imTampa from './images/Tampa.png';
-import imOr from './images/orlando.png';
+// import imOr from './images/orlando.png';
 import imStP from './images/StPetersburg.png';
 import imHialeah from './images/Hialeah.png';
 import imPortStLucie from './images/PortStLucie.png';
@@ -24,7 +24,7 @@ const destinations =
   { id: 1, title: 'Jacksonville', description: 'Situated in northeastern Florida, Jacksonville offers a mix of urban excitement and natural beauty. With its picturesque beaches, vibrant arts scene, and numerous outdoor activities, it\'s a city with something for everyone.', image: imJax },
   // { id: 2, title: 'Miami', description: 'Nestled on the southeastern coast of Florida, Miami is a dynamic city known for its tropical climate, stunning beaches, and diverse culture. From trendy nightlife to cultural attractions like Art Deco architecture and the Wynwood Walls, Miami never fails to impress.', image: imMiami },
   { id: 3, title: 'Tampa', description: 'Located on the Gulf Coast of Florida, Tampa is a vibrant city with a rich history and a thriving arts scene. From its historic Ybor City district to its beautiful waterfront, Tampa offers visitors a unique blend of culture, entertainment, and natural beauty.', image: imTampa },
-  { id: 4, title: 'Orlando', description: 'Famous for its world-renowned theme parks like Walt Disney World and Universal Studios, Orlando is a premier destination for family-friendly fun. But beyond the parks, Orlando also boasts a burgeoning culinary scene, vibrant nightlife, and lush green spaces.', image: imOr },
+  // { id: 4, title: 'Orlando', description: 'Famous for its world-renowned theme parks like Walt Disney World and Universal Studios, Orlando is a premier destination for family-friendly fun. But beyond the parks, Orlando also boasts a burgeoning culinary scene, vibrant nightlife, and lush green spaces.', image: imOr },
   { id: 5, title: 'St. Petersburg', description: 'Situated on Florida\'s Gulf Coast, St. Petersburg is known for its stunning beaches, vibrant arts community, and rich cultural heritage. With its charming downtown, waterfront parks, and lively festivals, St. Petersburg offers visitors a laid-back yet lively atmosphere.', image: imStP },
   { id: 6, title: 'Hialeah', description: 'As one of the largest cities in Florida, Hialeah is a melting pot of cultures and traditions. From its colorful street art to its bustling markets and authentic Cuban cuisine, Hialeah offers visitors a taste of the vibrant diversity that defines Miami-Dade County.', image: imHialeah },
   { id: 7, title: 'Port St. Lucie', description: 'Nestled along Florida\'s Treasure Coast, Port St. Lucie is a charming city known for its pristine beaches, scenic parks, and world-class golf courses. With its laid-back atmosphere and abundant outdoor activities, Port St. Lucie is the perfect destination for relaxation and recreation.', image: imPortStLucie },
