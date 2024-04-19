@@ -3,9 +3,9 @@ import './DestinationPage.css'
 
 //All the Images
 import imJax from './images/Jacksonville.png';
-import imMiami from './images/Miami.png';
+import imMiami from './images/MiamiFix.png';
 import imTampa from './images/Tampa.png';
-import imOr from './images/orlando.png';
+import imOr from './images/OrlandoFix.png';
 import imStP from './images/StPetersburg.png';
 import imHialeah from './images/Hialeah.png';
 import imPortStLucie from './images/PortStLucie.png';
