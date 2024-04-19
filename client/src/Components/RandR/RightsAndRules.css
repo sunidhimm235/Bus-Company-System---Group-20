@@ -14,22 +14,29 @@
 
 .rights-and-rules-container h1,
 .rights-and-rules-container h2 {
-  margin-bottom: 0rem;
+  margin-top: 1.5rem;
   color: #333;
   text-align: center;
 }
 
-.rights-and-rules-container p,
-.rights-and-rules-container ul {
+.rights-and-rules-container p {
   margin-bottom: 0rem;
+  margin-left: 10%;
   padding: 5px;
   color: #333;
-  text-align: center;
+  text-align: left;
   font-size: 1.05rem;
-  line-height: 1.5;
+  line-height: 1.6;
   text-wrap: balance;
-
-  /*background-color: #e5e1da;*/
+}
+.rights-and-rules-container li{
+  margin-bottom: 0rem;
+  margin-left: 10%;
+  color: #333;
+  text-align: left;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  text-wrap: balance;
 }
 
 .rights-and-rules-container ul {
@@ -38,7 +45,7 @@
   text-align: center;
   margin: 5px;
   font-size: 1rem;
-  line-height: 1.5;
+  line-height: 1.6;
   text-wrap: balance;
 }
 

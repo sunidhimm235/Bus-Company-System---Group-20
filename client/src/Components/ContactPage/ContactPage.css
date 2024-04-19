@@ -7,7 +7,7 @@
   flex-direction: column;
   justify-content: center;
   background-image: url("../../assets/CityMap.png"); 
-  background-size: 80% 65%;
+  background-size: 85% 75%;
   background-repeat: no-repeat;
   background-position: center;
 
@@ -45,15 +45,15 @@
   font-style: normal;
   text-align: center;
   font-weight: 600;
-  line-height: 1.5; /* Increased line-height */
-  letter-spacing: 1px; /* Increased letter-spacing */
+  line-height: 1.5;
+  letter-spacing: 1px;
 }
 .contact-info {
   font-size: 18px;
   align-self: center;
   text-align: center;
-  line-height: 1.8; /* Increased line-height */
-  letter-spacing: 0.5px; /* Increased letter-spacing */
+  line-height: 1.8;
+  letter-spacing: 0.5px;
 }
 .cp-form-container {
   background-color: white;

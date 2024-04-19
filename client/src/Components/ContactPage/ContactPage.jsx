@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './ContactPage.css'
-import Navbar from './/../NavBar/Navbar.jsx'; 
-import Footer from './/../Footer/Footer.jsx'; 
 
 const ContactPage = (props) => {
   const [name, setName] = useState('');
@@ -36,7 +34,6 @@ const ContactPage = (props) => {
 
   return (
     <div>
-      <Navbar />
       <div className='background'>
       </div>
       <div className="contact-page-container">
@@ -103,7 +100,6 @@ const ContactPage = (props) => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   )
 }

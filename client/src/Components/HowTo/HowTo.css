@@ -34,6 +34,7 @@
     padding: 1rem;
     display: none;
     text-align: center;
+    color: rgb(0, 0, 0);
   }
   
   .accordion.active .accordion-content {
@@ -42,6 +43,6 @@
   
   .accordion-image {
     max-width: 500px;
-    max-height: 500px;
+    max-height: 700px;
     margin-bottom: 1rem;
   }

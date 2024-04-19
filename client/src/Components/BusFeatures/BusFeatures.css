@@ -20,7 +20,7 @@
 
 .feature-item {
   margin-bottom: 2.5rem;
-  padding-bottom: 1.5rem;
+  padding-bottom: 5rem;
   border-bottom: 1px solid #ddd;
   text-align: center;
 }
@@ -31,15 +31,12 @@
 }
 
 .feature-item ul {
+  margin-left: 10%;
   list-style-type: disc;
   color: #333;
-  text-align: center;
+  text-align: left;
   text-wrap: balance;
   margin-top: 10px;
   font-size: 1.05rem;
-  line-height: 1.5;
-}
-
-.bus-features-container a {
-  text-decoration: none;
+  line-height: 1.6;
 }
