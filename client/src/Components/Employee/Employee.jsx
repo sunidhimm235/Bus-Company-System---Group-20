@@ -40,10 +40,19 @@ function StickyHeadTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
+  // const filteredUsers = users.filter((row) => {
+  //   const value = row[searchColumn]?.toString().toLowerCase();
+  //   return searchQuery ? value.includes(searchQuery.toLowerCase()) : true;
+  // });
   const filteredUsers = users.filter((row) => {
-    const value = row[searchColumn]?.toString().toLowerCase();
-    return searchQuery ? value.includes(searchQuery.toLowerCase()) : true;
-  });
+    let value = ''; // Default empty string if not found
+    if (searchColumn === 'username') {
+      value = row.userId ? row.userId.username : ''; // Safely access nested username
+    } else {
+      value = row[searchColumn]?.toString().toLowerCase() || '';
+    }
+    return searchQuery ? value.toLowerCase().includes(searchQuery.toLowerCase()) : true;
+  });  
   
   useEffect(() => {
     const totalFilteredItems = filteredUsers.length;
