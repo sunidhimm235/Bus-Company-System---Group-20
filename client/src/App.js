@@ -24,7 +24,6 @@ import BaggageRules from './Components/BaggageRules/BaggageRules';
 import Features from './Components/BusFeatures/BusFeatures';
 import HowToPage from './Components/HowTo/HowTo';
 import { AuthProvider } from './context/AuthContext';
-// import AdminRoute from './utils/AdminRoute';
 import './index.css';
 
 const App = () => {
@@ -118,7 +117,6 @@ const App = () => {
             <Route path="/travel-history" element={<TravelHistory />} />
             <Route path="/transaction" element={<TransactionPage />} />
             <Route path="/reservation-success" element={<ReservationSuccessPage />} />
-            {/* <Route path="/reservations" element={<ReservationsPage />} /> */}
           </Routes>
         </div>
       </Router>

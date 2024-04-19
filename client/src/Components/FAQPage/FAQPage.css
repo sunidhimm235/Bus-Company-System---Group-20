@@ -4,7 +4,7 @@
   display: flex;
   overflow: auto;
   align-items: center;
-  padding-top: 15%;
+  padding-top: 12%;
   flex-direction: column;
   justify-content: center;
   padding-bottom: 15%;
@@ -15,13 +15,14 @@
   text-align: center;
   color: black;
   background-color: white;
-  margin-bottom: 3vb;
+  margin-bottom: 4vb;
   border-radius: 1vb;
   padding: 0.3%;
 }
 
 .background-container {
-  background-image: url("../../assets/CityMap.png");
+  /* background-image: url("../../assets/CityMap.png"); */
+  /* background-color: black; */
   width: 100%;
   height: fit-content;
   background-position: center;
@@ -59,7 +60,7 @@
 .accordion-content {
   padding: 10px;
   background-color: #fff;
-  text-align: center;
+  text-align: left;
 }
 
 .accordion-item.open .accordion-content {

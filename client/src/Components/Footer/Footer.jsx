@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {Link} from 'react-router-dom'
 import Aos from 'aos'
 import 'aos/dist/aos.css'
 
@@ -40,48 +41,55 @@ const Footer = () =>
 				<div data-aos="fade-up" data-aos-duration="2500" className="footerLinks">
 					<span className="linkTitle">Information</span>
 					<li>
-						<a href="#">Home</a>
+						<Link to="/">Home</Link>
 					</li>
 					<li>
-						<a href="/destination">Destinations</a>
+						<Link to='/destination'>Destinations</Link>
 					</li>
 					<li>
 						<a href="#">Book Ticket</a>
 					</li>
 					<li>
-						<a href="#">Reservations</a>
+						<Link to='/reservations'>Reservations</Link>
+					</li>
+					<li>
+						<Link href="/contact">Contact</Link>
 					</li>
 				</div>
 
 				<div data-aos="fade-up" data-aos-duration="2500" className="footerLinks">
 					<span className="linkTitle">Quick Guide</span>
 					<li>
-						<a href="/howto">How to</a>
+						<Link to="/howto">How to</Link>
 					</li>
 					<li>
-						<a href="/baggage">Baggage</a>
+						<Link to="/baggage">Baggage</Link>
 					</li>
 					<li>
-						<a href="/features">Bus Features</a>
+						<Link to="/features">Bus Features</Link>
 					</li>
 					<li>
-						<a href="/rights&rules">Rights & Rules</a>
+						<Link to="/rights&rules">Rights & Rules</Link>
+					</li>
+					<li>
+						<Link href="/faq">FAQ</Link>
 					</li>
 				</div>
 
 				<div data-aos="fade-up" data-aos-duration="2500" className="footerLinks">
-					<span className="linkTitle">Queries</span>
+					<span className='linkTitle'>Company</span>
 					<li>
-						<a href="/faq">FAQ</a>
+						{/* Open link in new tab */}
+						<a href="/admin" target="_blank" rel="noreferrer">Administrator</a>
 					</li>
 					<li>
-						<a href="/contact">Contact</a>
+						<a href="/employee" target="_blank" rel="noreferrer">Employee</a>
 					</li>
 				</div>
 			</div>
 
 			<div className="copyrightDiv flex">
-				<p><a>Developed by Group 20 - Sunidhi Mistry, Adam Elias, Lucas Assuncao Carvalho, Pakin Ngamkam, and Nicholas Heikes</a></p>
+				<p>Developed by Group 20 - Sunidhi Mistry, Lucas Assuncao Carvalho, Pakin Ngamkam, Nicholas Heikes and Adam Elias</p>
 			</div>
 		
 		</div>

@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {Link} from 'react-router-dom'
 
 // Impoorted Icons
 import {RxCalendar} from 'react-icons/rx'
@@ -22,9 +23,7 @@ const Info = () =>
 			<div className="infoContainer container">
 				<div className="titleDiv flex">
 					<h2>Make memories all around the United States</h2>
-					<button className='btn'>
-						View All
-					</button>
+					<Link to='/destination' className='btn'>Explore Destinations</Link>
 				</div>
 
 				<div className="cardsDiv grid">

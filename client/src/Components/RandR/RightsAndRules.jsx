@@ -5,7 +5,7 @@ import './RightsAndRules.css';
 const RightsAndRules = () => {
   return (
     <div className="rights-and-rules-container">
-      <h1>Your Boarding Rights & Regulations</h1>
+      <h1 style={{textAlign: 'center', fontSize: '2rem'}}>Your Boarding Rights & Regulations</h1>
       <p>Welcome aboard TicketRide! Our aim is to ensure your journey from point A to point B is both secure and enjoyable. To achieve this, we have a set of guidelines that we must acquaint you with.</p>
       <h2>Non-Discrimination Policy</h2>
       <p>Just as our plush leather seats harbor no bias, neither do we. Your race, color, beliefs, or origin are of no concern to us; our primary focus is to transport you safely to your destination.</p>

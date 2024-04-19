@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import './ContactPage.css'
 
 const ContactPage = (props) => {
@@ -10,7 +10,7 @@ const ContactPage = (props) => {
   const [message, setMessage] = useState('');
 
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -34,8 +34,7 @@ const ContactPage = (props) => {
 
   return (
     <div>
-      <div className='background'>
-      </div>
+      <div className='background'></div>
       <div className="contact-page-container">
         <div className="contact-page-holder">
           <div className="contact-page-cp-message">
