@@ -128,8 +128,6 @@ const SidebarItem = ({ icon, label, isExpanded, onSelect }) => {
 };
 
 const AdminSidebar = ({ onSelect, isExpanded, setIsExpanded }) => {
-  // const [isExpanded, setIsExpanded] = useState(true);
-
   useEffect(() => {
     const handleResize = () => {
       setIsExpanded(window.innerWidth > 768);
@@ -175,10 +173,6 @@ const AdminSidebar = ({ onSelect, isExpanded, setIsExpanded }) => {
         <SidebarItem icon={<MdAccountCircle size={30} />} label="Manage User Accounts" isExpanded={isExpanded} onSelect={onSelect} />
         {/* <SidebarItem icon={<MdBookOnline size={30} />} label="Bookings" isExpanded={isExpanded} onSelect={onSelect} /> */}
         <SidebarItem icon={<MdBarChart size={30} />} label="Feedbacks" isExpanded={isExpanded} onSelect={onSelect} />
-      </div>
-      {/* Bottom section for logout */}
-      <div style={{ textAlign: 'center', marginBottom: '0px', marginTop: 'auto'  }}>
-        <SidebarItem icon={<MdExitToApp size={30} />} label="Logout" isExpanded={isExpanded} onSelect={onSelect}/>
       </div>
     </div>
   );

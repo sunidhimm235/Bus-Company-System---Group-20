@@ -155,8 +155,8 @@ const ReservationsPage = () => {
 
   return (
     <div style={{ flexGrow: 1, padding: '20px', paddingTop: '150px' }}>
-      <h1>Your Reservations</h1>
-      <div>
+      <h1 style={{paddingBottom: '30px', textDecoration: 'underline'}}>Your Reservations</h1>
+      <div style={{marginBottom: '90px'}}>
         <TableContainer component={Paper}>
           <StickyHeadTable 
             reservations={reservations} 

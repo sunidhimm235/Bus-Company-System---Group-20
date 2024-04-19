@@ -5,8 +5,6 @@ import { BsPhoneVibrate } from 'react-icons/bs';
 import { CgMenuGridO } from 'react-icons/cg';
 import Logo from '../../assets/logo.png';
 import { useAuth } from '../../context/AuthContext';
-import { FaChevronDown } from 'react-icons/fa';
-
 
 const Navbar = () => {
     const [active, setActive] = useState('navBarMenu');
@@ -61,7 +59,6 @@ const Navbar = () => {
                             </span>
                             {showDropdown && (
                                 <div style={dropdownStyles}>
-                                    <Link to="/travel-history"><div style={dropdownItemStyles}>Travel History</div></Link>
                                     <Link to="/reservations"><div style={dropdownItemStyles}>Reservations</div></Link>
                                     <div onClick={handleLogout} style={dropdownItemStyles}>Log Out</div>
                                 </div>

@@ -22,14 +22,14 @@ const columns = [
   },
   { id: 'bookingId', label: 'Booking ID', align: 'center', minWidth: 100 },
   { id: 'busId', label: 'Bus ID', align: 'center', minWidth: 100 },
-  { id: 'date', label: 'Date', align: 'center', minWidth: 100, format: (value) => new Date(value.date).toLocaleDateString() },
+  { id: 'date', label: 'Date', align: 'center', minWidth: 100, format: (value) => new Date(value).toLocaleDateString() },
   { id: 'seatNumber', label: 'Seat Number', align: 'center', minWidth: 100 },
   { id: 'from', label: 'From', align: 'center', minWidth: 100 },
   { id: 'to', label: 'To', align: 'center', minWidth: 100 },
   { id: 'DepartureTime', label: 'Departure Time', align: 'center', minWidth: 100 },
   { id: 'ArrivalTime', label: 'Arrival Time', align: 'center', minWidth: 100 },
   { id: 'price', label: 'Price', align: 'center', minWidth: 100 },
-  { id: 'createdAt', label: 'Created At', align: 'center', minWidth: 100, format: (value) => new Date(value.date).toLocaleString() }
+  { id: 'createdAt', label: 'Created At', align: 'center', minWidth: 100, format: (value) => new Date(value).toLocaleString() }
 ];
 
 function StickyHeadTable(props) {
@@ -187,6 +187,19 @@ const inputSearchStyle = {
 };
 
 const Employee = () => {
+  const correctPasscode = 'employeeAccess123'; // Your hardcoded passcode
+  const [passcode, setPasscode] = useState('');
+  const [hasAccess, setHasAccess] = useState(false);
+
+  const checkPasscode = () => {
+    if (passcode === correctPasscode) {
+      setHasAccess(true);
+    } else {
+      alert('Incorrect passcode!');
+      setPasscode('');
+    }
+  };
+
   const [searchColumn, setSearchColumn] = useState('username'); // Default search column
   const [searchQuery, setSearchQuery] = useState('');
   const [users, setUsers] = useState([])
@@ -213,72 +226,139 @@ const Employee = () => {
   };
 
   return (
-    <div>
-      <EmployeeNavbar />
-      <div style={{ flexGrow: 1, padding: '20px' }}>
-        <div>
-          <div style={containerStyle}>
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              paddingLeft: '20px',
-              paddingTop: '10px',
-              gap: '10px' // Adds space between elements vertically
-            }}>
-              <div style={{
-                display: 'flex',
-                flexWrap: 'wrap', // Allows items to wrap in a new line on small screens
-                gap: '10px', // Adds space between items horizontally
-              }}>
-                <select
-                  value={searchColumn}
-                  onChange={(e) => setSearchColumn(e.target.value)}
-                  style={{ ...inputSearchStyle, width: '200px' }} // Fixed width for select
-                >
-                  {columns.map((column) => (
-                    <option key={column.id} value={column.id}>
-                      {column.label}
-                    </option>
-                  ))}
-                </select>
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  style={{ ...inputSearchStyle, width: '300px' }} // Fixed width for input
-                />
-                <Button 
-                  onClick={() => setSearchQuery('')}
-                  variant="contained"
-                  size="small"
-                  sx={{
-                    backgroundColor: '#92C7CF', // Custom background color
-                    color: 'white',
-                    '&:hover': {
-                      backgroundColor: '#d32f2f', // Darker shade when hovering
-                      color: 'white',
-                    },
-                  }}
-                >
-                Clear
-                </Button>
-              </div>
-            </div>
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      {!hasAccess && (
+        <div style={{
+          padding: '20px',
+          width: '100%',
+          height: '100vh', // Set the height to fill the viewport vertically
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column', // Stack the elements vertically
+          background: '#ecf0f3' // A light gray background
+        }}>
+          <div style={{
+            background: 'white',
+            padding: '40px',
+            borderRadius: '10px',
+            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}>
+            <h2 style={{
+              color: '#333',
+              marginBottom: '20px'
+            }}>Enter Passcode to Access the Employee Dashboard</h2>
+            <input
+              type="password"
+              value={passcode}
+              onChange={(e) => setPasscode(e.target.value)}
+              placeholder="Enter passcode"
+              style={{
+                width: '100%',
+                padding: '15px 20px',
+                marginRight: '10px',
+                marginBottom: '20px',
+                border: 'none',
+                outline: 'none',
+                borderRadius: '5px',
+                boxShadow: 'inset 0 2px 5px rgba(0, 0, 0, 0.1)'
+              }}
+            />
+            <button
+              onClick={checkPasscode}
+              style={{
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '20px', // more rounded corners
+                background: '#ADD8E6', // this is a placeholder for light blue color, replace with the exact color from your button
+                color: 'white',
+                cursor: 'pointer',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // softer shadow
+                transition: 'background 0.3s'
+              }}
+              onMouseOver={(e) => e.target.style.background = '#9acfea'} // a slightly darker shade for hover, replace with the correct color
+              onMouseOut={(e) => e.target.style.background = '#ADD8E6'} // original color, replace with the correct color
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      )}
 
-            <div style={contentStyle}>
-              <TableContainer component={Paper} sx={tableContainerSx}>
-                <StickyHeadTable 
-                  users={users} 
-                  refreshData={fetchData} 
-                  searchColumn={searchColumn}
-                  searchQuery={searchQuery} 
-                />
-              </TableContainer>
+      {hasAccess && (
+        <div>
+          <EmployeeNavbar />
+          <div style={{ flexGrow: 1, padding: '20px' }}>
+            <div>
+              <div style={containerStyle}>
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  paddingLeft: '20px',
+                  paddingTop: '10px',
+                  gap: '10px' // Adds space between elements vertically
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap', // Allows items to wrap in a new line on small screens
+                    gap: '10px', // Adds space between items horizontally
+                  }}>
+                    <select
+                      value={searchColumn}
+                      onChange={(e) => setSearchColumn(e.target.value)}
+                      style={{ ...inputSearchStyle, width: '200px' }} // Fixed width for select
+                    >
+                      {columns.map((column) => (
+                        <option key={column.id} value={column.id}>
+                          {column.label}
+                        </option>
+                      ))}
+                    </select>
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      style={{ ...inputSearchStyle, width: '300px' }} // Fixed width for input
+                    />
+                    <Button 
+                      onClick={() => setSearchQuery('')}
+                      variant="contained"
+                      size="small"
+                      sx={{
+                        backgroundColor: '#92C7CF', // Custom background color
+                        color: 'white',
+                        '&:hover': {
+                          backgroundColor: '#d32f2f', // Darker shade when hovering
+                          color: 'white',
+                        },
+                      }}
+                    >
+                    Clear
+                    </Button>
+                  </div>
+                </div>
+
+                <div style={contentStyle}>
+                  <TableContainer component={Paper} sx={tableContainerSx}>
+                    <StickyHeadTable 
+                      users={users} 
+                      refreshData={fetchData} 
+                      searchColumn={searchColumn}
+                      searchQuery={searchQuery} 
+                    />
+                  </TableContainer>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

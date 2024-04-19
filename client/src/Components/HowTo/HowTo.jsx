@@ -77,7 +77,7 @@ function HowToPage() {
 
   return (
       <div className="how-to-page">
-        <h1>How To Use This Website</h1>
+        <h1 style={{textAlign: 'center', marginTop: '50px'}}>How to Use Our Application  &#8594;  TicketRide</h1>
         <div className="accordions">
           {accordions.map((accordion, index) => (
             <div

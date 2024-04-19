@@ -23,10 +23,6 @@ const FAQPage = (props) =>
       answer: 'A. Each passenger is allowed one carry-on bag and one checked bag free of charge. Additional baggage may incur extra fees.',
     },
     {
-      question: 'Q. What payment methods do you accept?',
-      answer: 'A. We accept all major credit cards (Visa, Mastercard, American Express, Discover), as well as PayPal and Apple Pay.',
-    },
-    {
       question: 'Q. Are pets allowed on board?',
       answer: 'A. We are happy to inform you that pets are allowed on board.',
     },
