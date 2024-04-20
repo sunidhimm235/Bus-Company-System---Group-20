@@ -5,8 +5,7 @@ import { useState, useEffect } from 'react';
 import { FaUserPlus,
   FaChartLine,
   FaBus, 
-  FaTicketAlt, 
-  FaTools, 
+  FaTicketAlt,
   FaCommentDots } from 'react-icons/fa';
 
 const Card = ({ number, title, Icon, bgColor, borderColor }) => {
@@ -71,9 +70,9 @@ const DashboardCards = () => {
 
   //Calculate Total Buses
   const totalBuses = busRoutes.length;
-  const totalAdmins = users.filter(user => user.role === 'admin').length;
+  // const totalAdmins = users.filter(user => user.role === 'admin').length;
   const totalUsers = users.filter(user => user.role === 'user').length;
-  const totalEmployees = users.filter(user => user.role === 'employee').length;
+  // const totalEmployees = users.filter(user => user.role === 'employee').length;
   const totalFeedback = feedback.length;
 
   const [reservations, setReservations] = useState(0);
@@ -103,8 +102,8 @@ const DashboardCards = () => {
       <Card number={totalBuses} title="Total Buses Operational" Icon={FaBus} bgColor="#E3F2FD" borderColor="#000000" />
       <Card number={totalFeedback} title="Total Feedback Received" Icon={FaCommentDots} bgColor="#E3F2FD" borderColor="#000000" />
       <Card number={totalUsers} title="Total Users" Icon={FaUserPlus} bgColor="#E3F2FD" borderColor="#000000" />
-      <Card number={totalAdmins} title="Total Admins" Icon={FaTools} bgColor="#E3F2FD" borderColor="#000000" />
-      <Card number={totalEmployees} title="Total Employees" Icon={FaTools} bgColor="#E3F2FD" borderColor="#000000" />
+      {/* <Card number={totalAdmins} title="Total Admins" Icon={FaTools} bgColor="#E3F2FD" borderColor="#000000" /> */}
+      {/* <Card number={totalEmployees} title="Total Employees" Icon={FaTools} bgColor="#E3F2FD" borderColor="#000000" /> */}
       <Card number={reservations} title="Total Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
       <Card number={totalProfit} title="Total Profit Overall" Icon={FaChartLine} bgColor="#E3F2FD" borderColor="#000000" />
       <Card number={economyTickets} title="Total Economy Tickets Sold" Icon={FaTicketAlt} bgColor="#E3F2FD" borderColor="#000000" />
